@@ -15,6 +15,8 @@
         csrf: "{{ csrf_token() }}"
     };
 </script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

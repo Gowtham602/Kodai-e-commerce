@@ -1,0 +1,70 @@
+/* CART ITEM */
+.cart-item {
+    border-radius: 14px;
+}
+
+.cart-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+/* QTY */
+.qty-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 30px;
+    padding: 4px 10px;
+}
+
+.qty-btn {
+    border: none;
+    background: none;
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.qty-btn:hover {
+    background: #e9ecef;
+}
+
+/* PRICE CARD */
+.price-card {
+    border-radius: 14px;
+    top: 90px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .cart-img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .qty-box {
+        gap: 6px;
+        padding: 3px 8px;
+    }
+}
+
+
+/* deleted icon */
+.delete-item i {
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.delete-item:hover i {
+    color: #0f4ed6;
+    transform: scale(1.2);
+}
+.iew{
+    background-color: aquamarine;
+    color: brown;
+}

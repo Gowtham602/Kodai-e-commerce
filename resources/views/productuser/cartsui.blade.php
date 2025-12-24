@@ -1,38 +1,45 @@
+<div class="col-6 col-md-6 col-lg-6 col-xl-4">
+    <div class="card product-card h-100 border-0">
 
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-    <div class="card product-card h-100 shadow-sm border-0">
+        <!-- Image Wrapper -->
+        <div class="product-img-wrapper">
+            <img
+                src="{{ asset('storage/'.$product->image) }}"
+                alt="{{ $product->name }}"
+            >
+            <span class="badge bg-success product-badge">Fresh</span>
+        </div>
 
-        <img
-            src="{{ asset('storage/'.$product->image) }}"
-            class="card-img-top"
-            alt="{{ $product->name }}"
-        >
+        <div class="card-body d-flex flex-column p-3">
 
-        <div class="card-body d-flex flex-column">
-            <small class="text-muted">
+            <small class="text-muted text-uppercase category">
                 {{ $product->category->name }}
             </small>
 
-            <h6 class="fw-bold mt-1">
+            <h6 class="product-title mt-1">
                 {{ $product->name }}
             </h6>
 
-            <p class="mb-1">{{ $product->weight }}</p>
+            <p class="product-weight mb-2">
+                {{ $product->weight }}
+            </p>
 
-            <h5 class="text-success mb-3">
-                ₹{{ $product->price }}
-            </h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="product-price mb-0">
+                    ₹{{ $product->price }}
+                </h5>
+                <!-- <span class="rating">⭐ 4.5</span> -->
+            </div>
 
             <button
-                class="btn btn-success mt-auto w-100 add-to-cart"
+                class="btn btn-success add-to-cart mt-auto w-100"
                 data-id="{{ $product->id }}"
                 data-name="{{ $product->name }}"
                 data-price="{{ $product->price }}"
                 data-image="{{ $product->image }}"
             >
-                Add to Cart
+                🛒 Add to Cart
             </button>
         </div>
     </div>
 </div>
-

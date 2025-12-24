@@ -4,6 +4,8 @@
 @import "tailwindcss/utilities";
 
 @import "./nav.css";
+@import  "./cartsui.css";
+@import "./addtocart.css";
 
 /* your custom css below */
 /*cart ui */
