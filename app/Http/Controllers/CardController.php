@@ -40,4 +40,42 @@ class CardController extends Controller
     {
         return response()->json(['count' => count(session('cart',[]))]);
     }
+
+
+    //cart add and - 
+    public function update(Request $request)
+    {
+        $cart = session()->get('cart', []);
+        $id = $request->id;
+
+        if (isset($cart[$id])) {
+            $cart[$id]['qty'] = max(1, $cart[$id]['qty'] + $request->change);
+            session()->put('cart', $cart);
+        }
+
+        return response()->json($this->cartSummary($cart));
+    }
+
+    public function delete(Request $request)
+    {
+        $cart = session()->get('cart', []);
+        unset($cart[$request->id]);
+        session()->put('cart', $cart);
+
+        return response()->json($this->cartSummary($cart));
+    }
+
+    private function cartSummary($cart)
+    {
+        $subtotal = collect($cart)->sum(fn($i) => $i['price'] * $i['qty']);
+        $discount = 50;
+        $total = $subtotal - $discount;
+
+        return [
+            'cart' => $cart,
+            'subtotal' => $subtotal,
+            'total' => $total,
+            'count' => count($cart)
+        ];
+    }
 }

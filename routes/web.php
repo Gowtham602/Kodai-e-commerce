@@ -37,6 +37,9 @@ Route::post('/cart/add', [CardController::class, 'add'])->name('cart.add');
 Route::get('/cart/count', [CardController::class, 'count'])->name('cart.count');
 
 
+//cart + add and - 
+Route::post('/cart/update', [CardController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete', [CardController::class, 'delete'])->name('cart.delete');
 
 
 //admin for later middleware add

@@ -10,7 +10,9 @@
     window.appConfig = {
         routes: {
             filterProducts: "{{ route('products.filter') }}",
-            addToCart: "{{ route('cart.add') }}"
+            addToCart: "{{ route('cart.add') }}",
+            updateCart: "{{ route('cart.update') }}",
+            deleteCart: "{{ route('cart.delete') }}"
         },
         csrf: "{{ csrf_token() }}"
     };

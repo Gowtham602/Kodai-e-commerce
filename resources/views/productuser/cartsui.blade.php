@@ -10,7 +10,7 @@
             <span class="badge bg-success product-badge">Fresh</span>
         </div>
 
-        <div class="card-body d-flex flex-column p-3">
+        <div class="md-mt-5 card-body d-flex flex-column mt-2 p-3">
 
             <small class="text-muted text-uppercase category">
                 {{ $product->category->name }}

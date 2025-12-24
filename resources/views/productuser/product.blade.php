@@ -5,7 +5,8 @@
 
         {{-- SIDEBAR --}}
         <div class="col-lg-3 col-md-4">
-            <div class="card shadow-sm sticky-top" style="top:90px">
+            <!-- <div class="card shadow-sm sticky-top" style="top:90px"> -->
+            <div class="card shadow-sm sticky">
                 <div class="card-body">
                     <h5 class="fw-bold mb-3">Filters</h5>
 
