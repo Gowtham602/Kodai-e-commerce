@@ -5,9 +5,9 @@
         <!-- CART ITEMS -->
         <div class="col-lg-8">
 
-            <h4 class="fw-bold mb-4">
+            {{-- <h4 class="fw-bold mb-4">
                 Shopping Cart (<span id="cart-count">{{ count(session('cart', [])) }}</span>)
-            </h4>
+            </h4> --}}
 
             @forelse(session('cart', []) as $id => $item)
                 <div class="card cart-item mb-3 border-0 shadow-sm" data-id="{{ $id }}">
@@ -46,14 +46,29 @@
                     </div>
                 </div>
             @empty
-                <p class="text-muted">Your cart is empty</p>
+                
+              {{-- <div class="empty-cart-wrapper">
+    <div class="empty-cart-card">
+        <div class="cart-icon">
+            🛒
+        </div>
+
+        <h3>Your cart is empty</h3>
+        <p>Add some delicious products from Kodaikanal!</p>
+
+        <a href="{{ route('products.index') }}" class="start-shopping-btn">
+            👜 Start Shopping
+        </a>
+    </div>
+</div> --}}
+
             @endforelse
 
         </div>
 
         <!-- PRICE SUMMARY -->
         <div class="col-lg-4">
-            <div class="card price-card border-0 shadow-sm sticky-top">
+            <div class="card price-card border-0 shadow-sm sticky">
                 <div class="card-body">
 
                     <h5 class="fw-bold mb-3">PRICE DETAILS</h5>

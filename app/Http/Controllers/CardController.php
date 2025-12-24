@@ -73,7 +73,7 @@ class CardController extends Controller
     private function cartSummary($cart)
     {
         $subtotal = collect($cart)->sum(fn($i) => $i['price'] * $i['qty']);
-        $discount = 50;
+        $discount = 0;
         $total = $subtotal - $discount;
 
         return [

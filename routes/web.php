@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/products', [ProductController::class, 'index'])
-    ->name('products.index');
+// Route::get('/products', [ProductController::class, 'index'])
+//     ->name('products.index');
 
 Route::get('/cart', [CardController::class, 'index'])
     ->name('cart.index');

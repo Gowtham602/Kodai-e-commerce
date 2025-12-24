@@ -46,19 +46,30 @@ $(document).on('click', '.delete-item', function () {
     $('#total').text('₹' + res.total);
 
     // 👉 VERY IMPORTANT PART
-    if (res.count === 0) {
+   if (res.count === 0) {
 
-        // show empty message
-        $('.col-lg-8').html(`
-            <h4 class="fw-bold mb-4">
-                Shopping Cart (0)
-            </h4>
-            <p class="text-muted">Your cart is empty</p>
-        `);
+    $('.col-lg-8').html(`
+        <h4 class="fw-bold mb-4">
+            Shopping Cart (0)
+        </h4>
 
-        // hide price summary box
-        $('.price-card').hide();
-    }
+        <div class="empty-cart-wrapper">
+            <div class="empty-cart-card">
+                <div class="cart-icon">🛒</div>
+
+                <h3>Your cart is empty</h3>
+                <p>Add some delicious products from Kodaikanal!</p>
+
+                <a href="${window.appConfig.routes.products}" class="start-shopping-btn">
+                    👜 Start Shopping
+                </a>
+            </div>
+        </div>
+    `);
+
+    $('.price-card').hide();
+}
+
 }
 
     });

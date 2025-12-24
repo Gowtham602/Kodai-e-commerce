@@ -17,7 +17,7 @@
                     </p>
                     <div class="hero-buttons space-x-4">
                         <a href="{{Route('products.index')}}" class="btn btn-hero btn-hero-primary px-6 py-3 rounded-lg bg-green-600 hover:bg-green-700 transition">Shop Now</a>
-                        <a href="#about" class="btn btn-hero btn-hero-outline px-6 py-3 rounded-lg border border-white hover:bg-white hover:text-green-600 transition">Learn More</a>
+                        <a href="{{Route('about')}}" class="btn btn-hero btn-hero-outline px-6 py-3 rounded-lg border border-white hover:bg-white hover:text-green-600 transition">Learn More</a>
                     </div>
                 </div>
             </div>

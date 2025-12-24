@@ -12,7 +12,8 @@
             filterProducts: "{{ route('products.filter') }}",
             addToCart: "{{ route('cart.add') }}",
             updateCart: "{{ route('cart.update') }}",
-            deleteCart: "{{ route('cart.delete') }}"
+            deleteCart: "{{ route('cart.delete') }}",
+            products: "{{ route('products.index') }}"
         },
         csrf: "{{ csrf_token() }}"
     };
@@ -38,6 +39,8 @@
 
     {{-- FOOTER --}}
     @include('partials.footer')
+    @include('auth.login-modal')
+@include('auth.register-modal')
   
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
     <div id="cartToast"
@@ -59,6 +62,36 @@
         </div>
     </div>
 </div>
+
+@if ($errors->has('email') || $errors->has('password'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modalEl = document.getElementById('loginModal');
+    if (modalEl) {
+        const modal = new bootstrap.Modal(modalEl, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        modal.show();
+    }
+});
+</script>
+@endif
+@if ($errors->has('name') || $errors->has('email') || $errors->has('password'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modalEl = document.getElementById('registerModal');
+    if (modalEl) {
+        const modal = new bootstrap.Modal(modalEl, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        modal.show();
+    }
+});
+</script>
+@endif
+
 
 
 </body>
