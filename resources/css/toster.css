@@ -1,0 +1,35 @@
+/* CART TOAST */
+.cart-toast {
+    background: linear-gradient(135deg, #198754, #20c997);
+    color: #fff;
+    border-radius: 14px;
+    min-width: 260px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.4s ease;
+}
+
+.cart-toast .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.cart-toast .toast-icon {
+    font-size: 22px;
+}
+
+.cart-toast .toast-body {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Animation */
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

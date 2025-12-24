@@ -62,7 +62,12 @@ class CardController extends Controller
         unset($cart[$request->id]);
         session()->put('cart', $cart);
 
-        return response()->json($this->cartSummary($cart));
+        // return response()->json($this->cartSummary($cart));
+        return response()->json([
+        'count' => count($cart),
+        'subtotal' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
+        'total' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
+    ]);
     }
 
     private function cartSummary($cart)

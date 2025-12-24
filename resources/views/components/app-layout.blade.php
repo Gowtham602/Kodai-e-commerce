@@ -39,6 +39,26 @@
     {{-- FOOTER --}}
     @include('partials.footer')
   
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+    <div id="cartToast"
+         class="toast cart-toast border-0"
+         role="alert"
+         aria-live="assertive"
+         aria-atomic="true">
+
+        <div class="d-flex align-items-center px-3 py-2">
+            <div class="toast-icon me-2">🛒</div>
+
+            <div class="toast-body p-0" id="toastText">
+                Added to cart successfully
+            </div>
+
+            <button type="button"
+                    class="btn-close ms-auto"
+                    data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
 
 
 </body>
