@@ -1,0 +1,55 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./nav.css";
+
+/* your custom css below */
+/*cart ui */
+.product-card img {
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.product-card {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+/* height must match navbar height */
+.navbar-offset {
+    height: 72px;
+}
+
+/* ensure header stays above content */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.nav-links {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #1f9d4c;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+}
