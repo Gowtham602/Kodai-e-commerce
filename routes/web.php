@@ -6,11 +6,8 @@ use App\Http\Controllers\CardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KodaiController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Route::get('/products', [ProductController::class, 'index'])
-//     ->name('products.index');
 
 Route::get('/cart', [CardController::class, 'index'])
     ->name('cart.index');
@@ -43,10 +40,41 @@ Route::post('/cart/delete', [CardController::class, 'delete'])->name('cart.delet
 
 
 //admin for later middleware add
-Route::get('/admin/products/create', [ProductController::class, 'create'])
-    ->name('products.create');
+// Route::get('/admin/products/create', [ProductController::class, 'create'])
+//     ->name('products.create');
 
-Route::post('/admin/products', [ProductController::class, 'store'])
-    ->name('products.store');
+// Route::post('/admin/products', [ProductController::class, 'store'])
+//     ->name('products.store');
+
+//     Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('admin.dashboard');
+//     });
+// });
+// Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+//     Route::get('/dashboard', function () {
+//         return view('admin.dashboard');
+//     });
+
+//     Route::get('/products/create', [ProductController::class, 'create'])
+//         ->name('products.create');
+
+//     Route::post('/products', [ProductController::class, 'store'])
+//         ->name('products.store');
+// });
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+
+        Route::resource('products', AdminProductController::class);
+});
+
+
 
 require __DIR__.'/auth.php';

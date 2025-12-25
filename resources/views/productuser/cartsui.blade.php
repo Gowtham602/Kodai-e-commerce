@@ -40,6 +40,9 @@
             >
                 🛒 Add to Cart
             </button>
+            <!-- TOAST CONTAINER -->
+
+
         </div>
     </div>
 </div>
