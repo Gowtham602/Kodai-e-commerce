@@ -7,6 +7,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KodaiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\TodayDealController;
+
+
+
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/cart', [CardController::class, 'index'])
@@ -77,6 +83,17 @@ Route::middleware(['auth', 'admin'])
         Route::resource('products', AdminProductController::class);
 });
 
+//today deal admin login
 
+
+Route::get(
+    '/admin/today-deals/create',
+    [TodayDealController::class, 'create']
+)->name('admin.today-deals.create');
+
+Route::post(
+    '/admin/today-deals/store',
+    [TodayDealController::class, 'store']
+)->name('admin.today-deals.store');
 
 require __DIR__.'/auth.php';

@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function todayDeal()
+{
+    return $this->hasOne(TodayDeal::class);
+}
+
 }
