@@ -33,7 +33,10 @@
     @include('partials.header')
 
     {{-- OFFSET FOR FIXED HEADER --}}
+    {{-- <div class="navbar-offset"></div> --}}
+    @if(!request()->routeIs('home'))
     <div class="navbar-offset"></div>
+@endif
 
     {{-- PAGE CONTENT --}}
     <main class="flex-fill">

@@ -29,6 +29,8 @@ Route::get('/about', [KodaiController::class, 'about'])->name('about');
 //product ,productfilter ,add cart
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/filter', [ProductController::class, 'filter'])->name('products.filter');
+//filter by sort
+// Route::get('/products/filter/sort',[ProductController::class,'sort'])->name('product.sort');
 
 Route::post('/cart/add', [CardController::class, 'add'])->name('cart.add');
 Route::get('/cart/count', [CardController::class, 'count'])->name('cart.count');

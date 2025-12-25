@@ -2,33 +2,42 @@
 // CATEGORY FILTER (MULTI)
 // ============================
 import { Toast } from 'bootstrap';
-$(document).on('change', '.category-filter', function () {
+$(document).on('change', '.category-filter, #sortBy', function () {
 
     let categories = [];
-
     $('.category-filter:checked').each(function () {
         categories.push($(this).val());
     });
 
+    let sort = $('#sortBy').val();
+
     $.ajax({
         url: window.appConfig.routes.filterProducts,
         method: "GET",
-        data: { categories },
+        data: { categories, sort },
         success: function (products) {
 
-            $('#product-list').html('');
+            let html = '';
 
             if (!products.length) {
-                $('#product-list').html('<p class="text-muted">No products found</p>');
-                return;
+                html = `<div class="col-12 text-center text-muted py-5">
+                            No products found
+                        </div>`;
+            } else {
+                products.forEach(product => {
+                    html += productCard(product);
+                });
             }
 
-            products.forEach(product => {
-                $('#product-list').append(productCard(product));
-            });
+            $('#product-list').html(html);
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+            alert('Filter failed');
         }
     });
 });
+
 
 // ============================
 // ADD TO CART

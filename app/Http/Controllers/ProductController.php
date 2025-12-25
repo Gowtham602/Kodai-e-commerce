@@ -18,17 +18,31 @@ class ProductController extends Controller
         return view('productuser.product', compact('categories','products'));
     }
 
- public function filter(Request $request)
+
+//filter and also the sort by price
+public function filter(Request $request)
 {
-    $products = Product::with('category')
+    $query = Product::with('category')
         ->where('is_active', 1);
 
-    if ($request->categories) {
-        $products->whereIn('category_id', $request->categories);
+    if ($request->filled('categories')) {
+        $query->whereIn('category_id', $request->categories);
     }
 
-    return response()->json($products->get());
+    if ($request->sort === 'latest') {
+        $query->orderBy('created_at', 'desc');
+    } elseif ($request->sort === 'price_low') {
+        $query->orderBy('price', 'asc');
+    } elseif ($request->sort === 'price_high') {
+        $query->orderBy('price', 'desc');
+    }
+
+    return response()->json($query->get());
 }
+
+
+
+
 
 
 
