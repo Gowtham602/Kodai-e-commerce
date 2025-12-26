@@ -3,6 +3,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "./toster.css";
+@import "./login.css";
+@import "./register.css";
 @import "./nav.css";
 @import  "./cartsui.css";
 @import "./addtocart.css";

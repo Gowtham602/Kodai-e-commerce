@@ -28,24 +28,32 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+   public function store(Request $request): RedirectResponse
+{
+    // $request->validate([
+    //     'name' => ['required', 'string', 'max:255'],
+    //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+    //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    // ]);
+    $request->validate([
+    'name' => ['required', 'string', 'max:255'],
+    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+], [], [], 'register');
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
 
-        event(new Registered($user));
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        Auth::login($user);
+    event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
-    }
+    Auth::login($user);
+
+    return redirect('/')
+        ->with('success', 'Registration successful. Welcome!');
+}
+
 }

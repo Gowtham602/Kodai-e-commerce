@@ -1,0 +1,14 @@
+.modal-content {
+    animation: fadeUp .35s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
