@@ -29,8 +29,12 @@
                         </div>
                     </div>
                 @endif
+                <div id="registerErrors" class="alert alert-danger d-none"></div>
 
-                <form method="POST" action="{{ route('register') }}">
+
+                {{-- <form method="POST" action="{{ route('register') }}"> --}}
+                    <form id="registerForm">
+
                     @csrf
 
                     <!-- Name -->
@@ -111,7 +115,7 @@
     </div>
 </div>
 
-@if ($errors->getBag('register')->any())
+{{-- @if ($errors->getBag('register')->any())
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     new bootstrap.Modal(
@@ -119,6 +123,46 @@ document.addEventListener('DOMContentLoaded', function () {
         { backdrop: 'static', keyboard: false }
     ).show();
 });
+</script> --}}
+{{-- @endif --}}
+<script>
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = this;
+    const errorBox = document.getElementById('registerErrors');
+    errorBox.classList.add('d-none');
+    errorBox.innerHTML = '';
+
+    const res = await fetch("{{ route('register') }}", {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Accept': 'application/json'
+        },
+        body: new FormData(form)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        Object.values(data.errors).forEach(err => {
+            errorBox.innerHTML += `<div>${err[0]}</div>`;
+        });
+        errorBox.classList.remove('d-none');
+        return;
+    }
+
+    // SUCCESS
+    bootstrap.Modal.getInstance(
+        document.getElementById('registerModal')
+    ).hide();
+    setTimeout(() => {
+    window.location.reload();
+}, 500);
+
+    alert(data.message); // replace with toast later
+});
 </script>
-@endif
+
 

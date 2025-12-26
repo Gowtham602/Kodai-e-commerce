@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\JsonResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -28,32 +30,36 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-   public function store(Request $request): RedirectResponse
+
+
+public function store(Request $request): JsonResponse
 {
-    // $request->validate([
-    //     'name' => ['required', 'string', 'max:255'],
-    //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-    //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    // ]);
-    $request->validate([
-    'name' => ['required', 'string', 'max:255'],
-    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-    'password' => ['required', 'confirmed', Rules\Password::defaults()],
-], [], [], 'register');
+    try {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
 
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-    ]);
+        Auth::login($user);
 
-    event(new Registered($user));
+        return response()->json([
+            'success' => true,
+            'message' => 'Registration successful. Welcome!',
+        ]);
 
-    Auth::login($user);
-
-    return redirect('/')
-        ->with('success', 'Registration successful. Welcome!');
+    } catch (ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'errors' => $e->errors(),
+        ], 422);
+    }
 }
 
 }
