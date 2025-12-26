@@ -2,7 +2,7 @@
 <style>
     /* HERO */
 .hero-section {
-    background: linear-gradient(135deg, #198754, #ddf1cf);
+    background: linear-gradient(135deg, #0c3422, #ddf1cf);
     position: relative;
 }
 

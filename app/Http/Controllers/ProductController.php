@@ -30,10 +30,12 @@ public function filter(Request $request)
     $query = Product::with('category')
         ->where('is_active', 1);
 
-    if ($request->filled('categories')) {
+    // ✅ FIXED CATEGORY FILTER
+    if ($request->has('categories') && is_array($request->categories) && count($request->categories) > 0) {
         $query->whereIn('category_id', $request->categories);
     }
 
+    // SORT
     if ($request->sort === 'latest') {
         $query->latest();
     } elseif ($request->sort === 'price_low') {
@@ -49,6 +51,7 @@ public function filter(Request $request)
         'pagination' => (string) $products->links('pagination::bootstrap-5'),
     ]);
 }
+
 
 
 

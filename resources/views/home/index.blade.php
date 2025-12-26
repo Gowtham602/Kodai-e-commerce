@@ -105,6 +105,85 @@
         height: 180px;
     }
 }
+/* top deal scrolling  14 product */
+.home-marquee-section {
+    background: linear-gradient(180deg, #ffffff, #f9fafb);
+}
+
+/* Wrapper */
+.marquee-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Track */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-marquee 40s linear infinite;
+}
+
+/* Pause on hover */
+.marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+/* Item */
+.marquee-item {
+    width: 160px;
+    min-width: 160px;
+    margin: 0 14px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.marquee-item:hover {
+    transform: translateY(-6px);
+}
+
+/* Image */
+.marquee-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+/* Text */
+.marquee-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #198754;
+}
+
+/* Animation */
+@keyframes scroll-marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .marquee-item {
+        width: 130px;
+        min-width: 130px;
+    }
+
+    .marquee-item img {
+        height: 80px;
+    }
+}
+
+
 </style>
 
 <!-- ================= HERO SECTION ================= -->
@@ -159,6 +238,107 @@
 </div>
 
 </div>
+
+{{-- 14 product scrollinf design  --}}
+<section class="home-marquee-section py-5">
+    <div class="container-fluid">
+
+        <!-- TITLE -->
+        <div class="text-center mb-4">
+            <h3 class="fw-bold">Kodai Specials Collection</h3>
+            <p class="text-muted mb-0">
+                Handpicked products from Kodaikanal
+            </p>
+        </div>
+
+        <!-- MARQUEE -->
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+
+                <!-- ITEM -->
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52" alt="">
+                    <span>Fluffy</span>
+                </div>
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55" alt="">
+                    <span>Truffle Chocolates</span>
+                </div>
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924" alt="">
+                    <span>Honey</span>
+                </div>
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60" alt="">
+                    <span>Stone & Gems Chocolate</span>
+                </div>
+
+                {{-- <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1590080877777-0f7c2d71a8a5" alt="">
+                    <span>Fruit Bars</span>
+                </div> --}}
+
+                {{-- <div class="marquee-item"> --}}
+    <div class="marquee-item">
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80" alt="Fruit Filling Chocolates">
+    <span>Fruit Filling Chocolates</span>
+</div>
+
+
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="">
+                    <span>Tea</span>
+                </div>
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1615484477778-ca3b77940c25" alt="">
+                    <span>Essential Oils</span>
+                </div>
+
+                {{-- <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1590080877777-0f7c2d71a8a5?w=400&q=80" alt="Fruit Bars">
+                    <span>Fruit Bars</span>
+                </div> --}}
+
+                {{-- <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1601049315503-5cf1b1b6b0a6?w=400&q=80" alt="Massage Oils">
+                    <span>Massage Oils</span> --}}
+                {{-- </div> --}}
+
+                {{-- <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1624996379697-f01d168b1c6f?w=400&q=80" alt="Rose Water">
+                    <span>Rose Water</span>
+                </div> --}}
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" alt="Cosmetics">
+                    <span>Cosmetics</span>
+                </div>
+
+                {{-- <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1587049352848-01c3b6b64a96?w=400&q=80" alt="Premium Chocolates">
+                    <span>Premium Chocolates</span>
+                </div> --}}
+
+                <div class="marquee-item">
+                    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&q=80" alt="Health Products">
+                    <span>Health Products</span>
+                </div>
+
+
+                <!-- DUPLICATE FOR INFINITE LOOP -->
+                <!-- copy same items again (important) -->
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
 
 <!-- ================= TODAY DEAL SECTION ================= -->
 <section class="container my-5 shadow-lg rounded-4 overflow-hidden">

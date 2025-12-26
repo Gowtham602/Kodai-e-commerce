@@ -9,15 +9,23 @@ $(document).on('change', '.category-filter, #sortBy', function () {
 
     let sort = $('#sortBy').val();
 
-    $.get(window.appConfig.routes.filterProducts, { categories, sort }, function (products) {
+    $.get(window.appConfig.routes.filterProducts, { categories, sort }, function (response) {
+
+        let products = response.products;
 
         let html = products.length
             ? products.map(productCard).join('')
             : `<div class="col-12 text-center text-muted py-5">No products found</div>`;
 
         $('#product-list').html(html);
+
+        // pagination (if you are using it)
+        if ($('#pagination-wrapper').length) {
+            $('#pagination-wrapper').html(response.pagination);
+        }
     });
 });
+
 
 // ADD TO CART
 $(document).on('click', '.add-to-cart', function () {
