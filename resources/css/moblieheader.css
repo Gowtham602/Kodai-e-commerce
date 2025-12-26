@@ -1,0 +1,97 @@
+/* ========== MOBILE TOP BAR ========== */
+.mobile-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: linear-gradient(135deg, #198754, #2ecc71);
+    z-index: 9999;
+}
+
+.mobile-top-bar .container {
+    height: 100%;
+}
+
+.mobile-logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+.mobile-logo span {
+    color: #eafff2;
+}
+
+.mobile-top-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    position: relative;
+}
+
+/* ========== BOTTOM NAV ========== */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+    z-index: 9999;
+}
+
+.mobile-bottom-nav a {
+    text-align: center;
+    font-size: 12px;
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.mobile-bottom-nav i {
+    font-size: 20px;
+    display: block;
+}
+
+.mobile-bottom-nav a.active {
+    color: #198754;
+    font-weight: 600;
+}
+
+/* CART BADGE */
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background: #dc3545;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* BODY FIX */
+/* @media (max-width: 768px) {
+    body {
+        padding-top: 56px;
+        padding-bottom: 7px;
+    }
+} */
+/* Hide desktop navbar on mobile */
+@media (max-width: 768px) {
+    .smn {
+        display: none !important;
+    }
+}

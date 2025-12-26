@@ -1,5 +1,5 @@
 <!-- Navbar HTML -->
-<nav class="navbar">
+<nav class="smn navbar">
     <div class="container">
 
         <!-- Logo -->
@@ -59,4 +59,5 @@
 
         </div>
     </div>
+    {{-- //mobile --}}
 </nav>

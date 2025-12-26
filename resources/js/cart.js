@@ -43,6 +43,7 @@ $(document).on('click', '.add-to-cart', function () {
         $('#toastText').text(`${btn.data('name')} added to cart`);
         new Toast(document.getElementById('cartToast'), { delay: 2000 }).show();
         $('#cart-count').text(res.count);
+        $('#cart-count-mobile').text(res.count);
     }).always(() => {
         setTimeout(() => btn.prop('disabled', false), 1500);
     });

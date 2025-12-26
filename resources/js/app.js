@@ -1,6 +1,7 @@
 import './bootstrap';
 import 'bootstrap';
 import './loginheader';
+import './homepage';
 import './nav';
 import './cart';
 import './addcart';

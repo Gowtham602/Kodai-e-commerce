@@ -41,6 +41,8 @@ $(document).on('click', '.delete-item', function () {
     });
 
     // update numbers
+    $('#cart-count-mobile').text(res.count);
+
     $('#cart-count').text(res.count);
     $('#subtotal').text('₹' + res.subtotal);
     $('#total').text('₹' + res.total);
@@ -91,5 +93,8 @@ function updateUI(card, id, res) {
 function updateSummary(res) {
     $('#subtotal').text('₹' + res.subtotal);
     $('#total').text('₹' + res.total);
+    // for destop count 
     $('#cart-count').text(res.count);
+    // for mobile count 
+    $('#cart-count-mobile').text(res.count);
 }

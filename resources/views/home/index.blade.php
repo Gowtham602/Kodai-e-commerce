@@ -328,7 +328,13 @@
                     <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&q=80" alt="Health Products">
                     <span>Health Products</span>
                 </div>
-
+                <!-- DUPLICATE ITEMS (for smooth infinite scroll) -->
+<div class="marquee-item">
+    <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52" alt="">
+    <span>Fluffy</span>
+</div>
+<!-- repeat same list again -->
+    
 
                 <!-- DUPLICATE FOR INFINITE LOOP -->
                 <!-- copy same items again (important) -->
@@ -396,6 +402,31 @@
 
 <script>
 /* Hero */
+
+new Swiper('.todayDealSwiper', {
+    slidesPerView: 1.2,
+    spaceBetween: 16,
+
+    /* ✅ MOBILE TOUCH SETTINGS */
+    touchRatio: 1,
+    touchAngle: 45,
+    grabCursor: true,
+    simulateTouch: true,
+    allowTouchMove: true,
+
+    /* Pagination */
+    pagination: {
+        el: '.today-pagination',
+        clickable: true,
+    },
+
+    breakpoints: {
+        576: { slidesPerView: 2.2 },
+        768: { slidesPerView: 3 },
+        1200: { slidesPerView: 4 }
+    }
+});
+
 new Swiper('.hero-swiper', {
     loop: true,
     autoplay: { delay: 4500 },

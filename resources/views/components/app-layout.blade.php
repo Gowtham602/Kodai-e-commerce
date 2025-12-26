@@ -31,6 +31,8 @@
 
     {{-- HEADER --}}
     @include('partials.header')
+    {{-- moblie --}}
+    @include('partials.mobileheader')
 
     {{-- OFFSET FOR FIXED HEADER --}}
     {{-- <div class="navbar-offset"></div> --}}
@@ -133,6 +135,60 @@
 
 
 
+<!-- MOBILE BOTTOM NAV -->
+<!-- MOBILE OFFCANVAS MENU -->
+<div class="offcanvas offcanvas-start d-md-none" id="mobileMenu">
+    <div class="offcanvas-header">
+        <h5 class="fw-bold">Kodai Specials</h5>
+        <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body">
+
+        {{-- <a href="{{ route('home') }}" class="d-block mb-3">Home</a> --}}
+        <a href="{{ route('products.index') }}" class="d-block mb-3">Products</a>
+        <a href="{{ route('about') }}" class="d-block mb-3">About</a>
+        <a href="#" class="d-block mb-3">Contact</a>
+
+        <hr>
+
+        @auth
+            <div class="mb-3 fw-semibold">
+                👋 Hi, {{ Auth::user()->name }}
+            </div>
+
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.dashboard') }}" class="d-block mb-3">
+                    Admin Panel
+                </a>
+            @endif
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="btn btn-danger w-100">
+                    Logout
+                </button>
+            </form>
+        @else
+            <button class="btn btn-success w-100 mb-2"
+                    data-bs-dismiss="offcanvas"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal">
+                Login
+            </button>
+
+            <button class="btn btn-outline-success w-100"
+                    data-bs-dismiss="offcanvas"
+                    data-bs-toggle="modal"
+                    data-bs-target="#registerModal">
+                Register
+            </button>
+        @endauth
+
+    </div>
+</div>
+
+    @include('partials.mheaderfiveicon')
 
 
 </body>
