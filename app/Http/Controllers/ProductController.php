@@ -10,13 +10,18 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     //for uses page interface
-    public function index()
-    {
-        $categories = Category::where('is_active',1)->get();
-        $products = Product::where('is_active',1)->with('category')->get();
+   
+public function index()
+{
+    $categories = Category::where('is_active', 1)->get();
 
-        return view('productuser.product', compact('categories','products'));
-    }
+    $products = Product::where('is_active', 1)
+        ->with('category')
+        ->latest()
+        ->paginate(8); // ✅ paginator
+
+    return view('productuser.product', compact('categories', 'products'));
+}
 
 
 //filter and also the sort by price
@@ -30,15 +35,21 @@ public function filter(Request $request)
     }
 
     if ($request->sort === 'latest') {
-        $query->orderBy('created_at', 'desc');
+        $query->latest();
     } elseif ($request->sort === 'price_low') {
         $query->orderBy('price', 'asc');
     } elseif ($request->sort === 'price_high') {
         $query->orderBy('price', 'desc');
     }
 
-    return response()->json($query->get());
+    $products = $query->paginate(8);
+
+    return response()->json([
+        'products' => $products->items(),
+        'pagination' => (string) $products->links('pagination::bootstrap-5'),
+    ]);
 }
+
 
 
 

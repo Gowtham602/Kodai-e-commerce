@@ -200,28 +200,31 @@
 
 
 
-            {{-- Products Grid --}}
-            <div class="row g-4" id="product-list">
-                {{-- @foreach($products as $product)
-                    @include('productuser.cartsui', ['product' => $product])
-                @endforeach --}}
-                @if($products->count())
-                    @foreach($products as $product)
-                        @include('productuser.cartsui', ['product' => $product])
-                    @endforeach
-                @else
-                    <div class="col-12 text-center text-muted py-5">
-                        No products found
-                    </div>
-                @endif
+           {{-- Products Grid --}}
+<div class="row g-4" id="product-list">
+    @forelse($products as $product)
+        @include('productuser.cartsui', ['product' => $product])
+    @empty
+        <div class="col-12 text-center text-muted py-5">
+            No products found
+        </div>
+    @endforelse
+</div>
 
-            </div>
+{{-- PAGINATION (MUST BE HERE) --}}
+@if($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
+    <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
+        {{ $products->links('pagination::bootstrap-5') }}
+    </div>
+@endif
+
             
 
         </div>
 
     </div>
 </div>
+
 
 
 

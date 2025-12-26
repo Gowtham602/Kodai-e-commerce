@@ -1,78 +1,45 @@
-// ============================
-// CATEGORY FILTER (MULTI)
-// ============================
 import { Toast } from 'bootstrap';
+
+// FILTER & SORT
 $(document).on('change', '.category-filter, #sortBy', function () {
 
-    let categories = [];
-    $('.category-filter:checked').each(function () {
-        categories.push($(this).val());
-    });
+    let categories = $('.category-filter:checked')
+        .map(function () { return $(this).val(); })
+        .get();
 
     let sort = $('#sortBy').val();
 
-    $.ajax({
-        url: window.appConfig.routes.filterProducts,
-        method: "GET",
-        data: { categories, sort },
-        success: function (products) {
+    $.get(window.appConfig.routes.filterProducts, { categories, sort }, function (products) {
 
-            let html = '';
+        let html = products.length
+            ? products.map(productCard).join('')
+            : `<div class="col-12 text-center text-muted py-5">No products found</div>`;
 
-            if (!products.length) {
-                html = `<div class="col-12 text-center text-muted py-5">
-                            No products found
-                        </div>`;
-            } else {
-                products.forEach(product => {
-                    html += productCard(product);
-                });
-            }
-
-            $('#product-list').html(html);
-        },
-        error: function (xhr) {
-            console.error(xhr.responseText);
-            alert('Filter failed');
-        }
+        $('#product-list').html(html);
     });
 });
 
-
-// ============================
 // ADD TO CART
-// ============================
 $(document).on('click', '.add-to-cart', function () {
 
     let btn = $(this);
-    let name = btn.data('name');
-
-    //  Disable button immediately (prevent double click)
     btn.prop('disabled', true);
 
-    $.ajax({
-        url: window.appConfig.routes.addToCart,
-        method: "POST",
-        data: {
-            _token: window.appConfig.csrf,
-            id: btn.data('id'),
-            name: name,
-            price: btn.data('price'),
-            image: btn.data('image')
-        },
-        success: function (res) {
-            $('#toastText').text(`${name} added to cart`);
-            showCartToast();
-            $('#cart-count').text(res.count);
-        },
-        complete: function () {
-            //  Re-enable button after 1 second
-            setTimeout(() => {
-                btn.prop('disabled', false);
-            }, 2000);
-        }
+    $.post(window.appConfig.routes.addToCart, {
+        _token: window.appConfig.csrf,
+        id: btn.data('id'),
+        name: btn.data('name'),
+        price: btn.data('price'),
+        image: btn.data('image')
+    }, function (res) {
+        $('#toastText').text(`${btn.data('name')} added to cart`);
+        new Toast(document.getElementById('cartToast'), { delay: 2000 }).show();
+        $('#cart-count').text(res.count);
+    }).always(() => {
+        setTimeout(() => btn.prop('disabled', false), 1500);
     });
 });
+
 
 // SHOW TOAST
 function showCartToast() {                          
@@ -88,25 +55,73 @@ function showCartToast() {
 // ============================
 function productCard(product) {
     return `
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-        <div class="card product-card h-100 shadow-sm border-0">
+    <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="card product-card h-100 border-0">
 
-            <img src="/storage/${product.image}" class="card-img-top">
+            <div class="product-img-wrapper">
+                <img src="/storage/${product.image}" alt="${product.name}">
+                <span class="badge bg-success product-badge">Fresh</span>
+            </div>
 
-            <div class="card-body d-flex flex-column">
-                <small>${product.category.name}</small>
-                <h6 class="fw-bold mt-1">${product.name}</h6>
-                <p>${product.weight}</p>
-                <h5 class="text-success">₹${product.price}</h5>
+            <div class="card-body d-flex flex-column p-4">
+                <small class="text-muted text-uppercase category">
+                    ${product.category.name}
+                </small>
 
-                <button class="btn btn-success mt-auto w-100 add-to-cart"
+                <h6 class="product-title mt-1">
+                    ${product.name}
+                </h6>
+
+                <p class="product-weight mb-2">
+                    ${product.weight}
+                </p>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="product-price mb-0">
+                        ₹${product.price}
+                    </h5>
+                
+                </div>
+
+                <button class="btn btn-success add-to-cart mt-auto w-100"
                     data-id="${product.id}"
                     data-name="${product.name}"
                     data-price="${product.price}"
                     data-image="${product.image}">
-                    Add to Cart
+                    🛒 Add to Cart
                 </button>
             </div>
         </div>
     </div>`;
+}
+
+//pagination
+$(document).on('click', '.pagination a', function (e) {
+    e.preventDefault();
+
+    let page = $(this).attr('href').split('page=')[1];
+    loadProducts(page);
+});
+
+function loadProducts(page = 1) {
+
+    let categories = $('.category-filter:checked')
+        .map(function () { return $(this).val(); })
+        .get();
+
+    let sort = $('#sortBy').val();
+
+    $.get(window.appConfig.routes.filterProducts, {
+        categories,
+        sort,
+        page
+    }, function (res) {
+
+        let html = res.products.length
+            ? res.products.map(productCard).join('')
+            : `<div class="col-12 text-center text-muted py-5">No products found</div>`;
+
+        $('#product-list').html(html);
+        $('#pagination-wrapper').html(res.pagination);
+    });
 }

@@ -153,3 +153,39 @@
     box-shadow: 0 18px 35px rgba(139, 75, 18, 0.55);
     color: #fff;
 }
+/* GRID FIX */
+#product-list {
+    min-height: 300px;
+}
+
+/* MOBILE CARD SPACING */
+@media (max-width: 576px) {
+    .product-card {
+        border-radius: 12px;
+    }
+
+    .product-img-wrapper {
+        height: 200px;
+    }
+
+    .product-title {
+        font-size: 14px;
+    }
+
+    .add-to-cart {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* //pagination */
+.pagination .page-link {
+    border-radius: 50px;
+    margin: 0 4px;
+    color: #198754;
+}
+
+.pagination .active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+}
