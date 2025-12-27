@@ -92,7 +92,7 @@ function productCard(product) {
                 
                 </div>
 
-                <button class="btn btn-success add-to-cart mt-auto w-100"
+                <button class="btn btn-success add-to-cart mt-auto w-100 "
                     data-id="${product.id}"
                     data-name="${product.name}"
                     data-price="${product.price}"
