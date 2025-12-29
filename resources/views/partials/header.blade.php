@@ -1,43 +1,43 @@
 <!-- Navbar HTML -->
- <div class="d-none d-md-block">
-<nav class="smn navbar">
-    
+<div class="d-none d-md-block">
+    <nav class="smn navbar">
 
-    <div class="container">
 
-        <!-- Logo -->
-        <a href="{{ route('home') }}" class="logo">
-            <i class="fas fa-mountain"></i> Kodai Specials
-        </a>
+        <div class="container">
 
-        <!-- Mobile toggle -->
-        <button class="mobile-toggle" id="mobile-menu-button">
-            &#9776;
-        </button>
+            <!-- Logo -->
+            <a href="{{ route('home') }}" class="logo">
+                <i class="fas fa-mountain"></i> Kodai Specials
+            </a>
 
-        <!-- Links -->
-        <div class="nav-links" id="navbar-menu">
+            <!-- Mobile toggle -->
+            <button class="mobile-toggle" id="mobile-menu-button">
+                &#9776;
+            </button>
 
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
-            <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.index') ? 'active' : '' }}">Products</a>
-            <a href="{{ route('about') }}">About</a>
-            <a href="{{ route('home') }}">Contact </a>
+            <!-- Links -->
+            <div class="nav-links" id="navbar-menu">
 
-            {{-- Admin link --}}
-            @auth
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
+                <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.index') ? 'active' : '' }}">Products</a>
+                <a href="{{ route('about') }}">About</a>
+                <a href="{{ route('home') }}">Contact </a>
+
+                {{-- Admin link --}}
+                @auth
                 @if(auth()->user()->role === 'admin')
-                    <a href="{{ route('admin.dashboard') }}">Admin Panel</a>
+                <a href="{{ route('admin.dashboard') }}">Admin Panel</a>
                 @endif
-            @endauth
+                @endauth
 
-            {{-- Guest --}}
-            @guest
+                {{-- Guest --}}
+                @guest
                 <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
-            @endguest
+                @endguest
 
-            {{-- Logged-in user --}}
-            @auth
+                {{-- Logged-in user --}}
+                @auth
                 <div class="dropdown">
                     <button class="dropbtn">
                         {{ Auth::user()->name }} &#x25BC;
@@ -52,16 +52,16 @@
                         </form>
                     </div>
                 </div>
-            @endauth
+                @endauth
 
-            {{-- Cart (always visible) --}}
-            <a href="{{ route('cart.index') }}" class="cart">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count">Order</span>
-            </a>
+                {{-- Cart (always visible) --}}
+                <a href="{{ route('cart.index') }}" class="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">Order</span>
+                </a>
 
+            </div>
         </div>
+        {{-- //mobile --}}
+    </nav>
     </div>
-    {{-- //mobile --}}
-</nav>
-</div>

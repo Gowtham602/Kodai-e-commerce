@@ -1,110 +1,240 @@
 <x-app-layout>
-<div class="container my-5">
+<div class="container my-4 admin-products">
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 p-4 rounded shadow-sm text-white"
-         style="background: linear-gradient(135deg, #198754, #20c997);">
+    <!-- HEADER -->
+    <div class="admin-header mb-4">
         <div>
-            <h3 class="mb-1">Products Management</h3>
-            <p class="mb-0 opacity-75">Manage all your products in one place</p>
+            <h3 class="mb-1">Products</h3>
+            <p class="mb-0">Manage your store inventory</p>
         </div>
 
-        <a href="{{ route('admin.products.create') }}"
-           class="btn btn-light fw-semibold shadow-sm">
-            <i class="bi bi-plus-circle me-1"></i> Add Product
+        <a href="{{ route('admin.products.create') }}" class="add-btn">
+            <i class="bi bi-plus-lg"></i> Add Product
         </a>
     </div>
 
-    <!-- Success Alert -->
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm">
-            <i class="bi bi-check-circle me-1"></i>
+        <div class="alert alert-success rounded-3">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    <!-- Products Table -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-body p-0">
+    <!-- DESKTOP GRID -->
+    <div class="row g-4 d-none d-md-flex">
+        @foreach($products as $product)
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="product-card">
 
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
+                    <div class="img-wrap">
+                        <img src="{{ asset('storage/'.$product->image) }}">
+                    </div>
 
-                <tbody>
-                    @foreach($products as $product)
-                    <tr>
-                        <td class="fw-semibold text-muted">{{ $loop->iteration }}</td>
+                    <div class="product-body">
+                        <h6>{{ $product->name }}</h6>
 
-                        <td>
-                            <div class="fw-semibold">{{ $product->name }}</div>
-                        </td>
+                        <span class="category">
+                            {{ $product->category->name ?? 'Uncategorized' }}
+                        </span>
 
-                        <td>
-                            <span class="badge bg-secondary-subtle text-dark">
-                                {{ $product->category->name ?? 'Uncategorized' }}
-                            </span>
-                        </td>
+                        <div class="price">
+                            ₹{{ number_format($product->price,2) }}
+                        </div>
 
-                        <td class="fw-bold text-success">
-                            ₹{{ number_format($product->price, 2) }}
-                        </td>
-
-                        <td class="text-end">
-                            <a href="{{ route('admin.products.edit', $product) }}"
-                               class="btn btn-sm btn-outline-primary me-1">
-                                <i class="bi bi-pencil"></i>
+                        <div class="d-actions">
+                            <a href="{{ route('admin.products.edit',$product) }}"
+                               class="btn btn-outline-primary btn-sm ">
+                                Edit
                             </a>
 
-                            <form action="{{ route('admin.products.destroy', $product) }}"
-                                  method="POST" class="d-inline">
+                            <form method="POST"
+                                  action="{{ route('admin.products.destroy',$product) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Delete this product?')">
-                                    <i class="bi bi-trash"></i>
+                                <button class="btn btn-outline-danger btn-sm ">
+                                    Delete
                                 </button>
                             </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                        </div>
+                    </div>
 
-                    @if($products->isEmpty())
-                    <tr>
-                        <td colspan="5" class="text-center py-5 text-muted">
-                            No products found
-                        </td>
-                    </tr>
-                    @endif
-                </tbody>
-
-            </table>
-
-        </div>
+                </div>
+            </div>
+        @endforeach
     </div>
+
+    <!-- MOBILE LIST -->
+    <div class="d-md-none">
+        @foreach($products as $product)
+            <div class="mobile-card">
+
+                <img src="{{ asset('storage/'.$product->image) }}">
+
+                <div class="mobile-content">
+                    <h6>{{ $product->name }}</h6>
+                    <small>{{ $product->category->name ?? 'Uncategorized' }}</small>
+
+                    <div class="price">
+                        ₹{{ number_format($product->price,2) }}
+                    </div>
+
+                    <div class="mobile-actions">
+                        <a href="{{ route('admin.products.edit',$product) }}"
+                           class="btn btn-outline-primary btn-sm w-100">
+                            Edit
+                        </a>
+
+                        <form method="POST"
+                              action="{{ route('admin.products.destroy',$product) }}"
+                              class="w-100">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-outline-danger btn-sm w-100">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        @endforeach
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="mt-5 d-flex justify-content-center">
+        {{ $products->links('pagination::bootstrap-5') }}
+    </div>
+
 </div>
 
-<!-- Custom Premium CSS -->
 <style>
-    table tbody tr {
-        transition: background 0.2s ease;
+/* HEADER */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#198754,#20c997);
+    color: #fff;
+}
+
+/*  MOBILE FIX */
+@media (max-width: 576px) {
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
     }
 
-    table tbody tr:hover {
-        background-color: #f8f9fa;
+    .admin-header h3 {
+        font-size: 20px;
     }
 
-    .btn-outline-primary:hover,
-    .btn-outline-danger:hover {
-        color: #fff;
+    .admin-header p {
+        font-size: 13px;
     }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+.add-btn {
+    background:#fff;
+    color:#198754;
+    padding:10px 18px;
+    border-radius:999px;
+    font-weight:600;
+    text-decoration:none;
+}
+
+/* CARD */
+.product-card {
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+    transition:.3s;
+    height:100%;
+}
+
+.product-card:hover {
+    transform:translateY(-6px);
+}
+
+.img-wrap img {
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.product-body {
+    padding:16px;
+}
+
+.product-body h6 {
+    font-weight:700;
+    margin-bottom:4px;
+}
+
+.category {
+    font-size:13px;
+    color:#6c757d;
+}
+
+.price {
+    font-weight:800;
+    color:#198754;
+    margin:10px 0;
+}
+
+/* MOBILE */
+.mobile-card {
+    display:flex;
+    gap:12px;
+    background:#fff;
+    padding:12px;
+    border-radius:16px;
+    margin-bottom:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.mobile-card img {
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.mobile-content {
+    flex:1;
+}
+
+.mobile-content h6 {
+    font-weight:700;
+    font-size:15px;
+}
+
+.mobile-actions {
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+}
+.d-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.d-actions > a,
+.d-actions > form {
+    flex: 1;   /* equal width */
+}
+
+.d-actions .btn {
+    width: 100%;
+}
+
 </style>
 </x-app-layout>

@@ -1,50 +1,217 @@
-/* //marque for scrolling  */
 
+/* ================= HERO ================= */
+.hero-swiper,
+.hero-swiper .swiper-slide {
+    height: 50vh;
+}
+
+.hero-overlay {
+    background: rgba(0,0,0,0.55);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff;
+}
+
+/* ================= TODAY DEAL ================= */
+.deal-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.deal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 55px rgba(0,0,0,0.12);
+}
+
+.deal-img {
+    position: relative;
+}
+
+.deal-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.deal-card:hover img {
+    transform: scale(1.08);
+}
+
+.deal-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #dc3545, #ff6b6b);
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.deal-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.price-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #adb5bd;
+}
+
+.new-price {
+    color: #198754;
+    margin-left:10px ;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.countdown {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #fff5f5;
+    color: #dc3545;
+    padding: 6px 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .deal-img img {
+        height: 180px;
+    }
+}
+/* top deal scrolling  14 product */
+.home-marquee-section {
+    background: linear-gradient(180deg, #ffffff, #f9fafb);
+}
+
+/* Wrapper */
 .marquee-wrapper {
     overflow: hidden;
     position: relative;
 }
-
-.marquee-track {
-    display: flex;
-    gap: 24px;
-    width: max-content;
-    animation: marquee 35s linear infinite;
+.marquee-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.marquee-scroll::-webkit-scrollbar {
+    display: none;
 }
 
-/* Pause on hover (desktop) */
+/* Track */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-marquee 40s linear infinite;
+}
+
+/* Pause on hover */
 .marquee-wrapper:hover .marquee-track {
     animation-play-state: paused;
 }
 
-/* Marquee animation */
-@keyframes marquee {
-    from {
+/* Item */
+.marquee-item {
+    width: 160px;
+    min-width: 160px;
+    margin: 0 14px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+    /* box-shadow: 0 10px 25px rgba(0,0,0,0.08); */
+    transition: transform 0.3s ease;
+}
+
+.marquee-item:hover {
+    transform: translateY(-6px);
+}
+
+/* Image */
+.marquee-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+/* Text */
+.marquee-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #198754;
+}
+
+/* Animation */
+@keyframes scroll-marquee {
+    0% {
         transform: translateX(0);
     }
-    to {
+    100% {
         transform: translateX(-50%);
     }
 }
-
-/* Item */
-.marquee-item {
-    flex: 0 0 auto;
-    width: 180px;
-    text-align: center;
+/* Desktop animation */
+@keyframes scroll-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
-.marquee-item img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+/* MOBILE BEHAVIOR */
+/* @media (max-width: 768px) {
+    .marquee-track {
+        animation: none;       ❌ disable animation
+    }
+
+    .marquee-scroll {
+        cursor: grab;
+    }
+
+    .marquee-scroll:active {
+        cursor: grabbing;
+    }
+} */
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .marquee-item {
+        width: 130px;
+        min-width: 130px;
+    }
+
+    .marquee-item img {
+        height: 80px;
+    }
+    
+}
+.home-m{
+      padding-top: 10px;
+}
+@media (max-width: 576px) {
+   .home-m{
+    padding-top: 70px;
+} 
+    
 }
 
-.marquee-item span {
-    display: block;
-    margin-top: 10px;
-    font-weight: 600;
-    font-size: 14px;
-}
+
