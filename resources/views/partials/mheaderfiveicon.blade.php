@@ -12,10 +12,10 @@
         <span>Categories</span>
     </a>
 
-    <a href="#" class="">
+    <!-- <a href="#" class="">
         <i class="bi bi-heart"></i>
         <span>Favorites</span>
-    </a>
+    </a> -->
 
     @auth
         <a href="{{ route('profile.edit') }}">
@@ -35,3 +35,6 @@
     </a>
 
 </nav>
+
+
+

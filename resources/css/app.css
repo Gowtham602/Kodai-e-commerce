@@ -38,8 +38,11 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1050;
 }
+.navbar-collapse { display: none; }
+
+
 .nav-links {
     display: flex;
 }
@@ -54,8 +57,11 @@
         left: 0;
         width: 100%;
     }
-
+.smn{
+    display: none ;
+}
     .nav-links.show {
         display: flex;
     }
 }
+

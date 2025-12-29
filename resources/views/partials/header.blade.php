@@ -1,5 +1,8 @@
 <!-- Navbar HTML -->
+ <div class="d-none d-md-block">
 <nav class="smn navbar">
+    
+
     <div class="container">
 
         <!-- Logo -->
@@ -18,7 +21,7 @@
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
             <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.index') ? 'active' : '' }}">Products</a>
             <a href="{{ route('about') }}">About</a>
-            <a href="{{ route('home') }}">Contact</a>
+            <a href="{{ route('home') }}">Contact </a>
 
             {{-- Admin link --}}
             @auth
@@ -61,3 +64,4 @@
     </div>
     {{-- //mobile --}}
 </nav>
+</div>

@@ -34,8 +34,8 @@
     {{-- moblie --}}
     @include('partials.mobileheader')
 
-    {{-- OFFSET FOR FIXED HEADER --}}
-    {{-- <div class="navbar-offset"></div> --}}
+ 
+
     @if(!request()->routeIs('home'))
     <div class="navbar-offset"></div>
 @endif
@@ -51,7 +51,7 @@
     @include('auth.login-modal')
     @include('auth.register-modal')
 
-    {{-- ✅ SUCCESS TOAST --}}
+    {{--  SUCCESS TOAST --}}
     @if(session('success'))
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:9999;">
         <div id="successToast" class="toast text-bg-success border-0">
@@ -78,7 +78,7 @@
     </script>
     @endif
 
-    {{-- ✅ AUTO OPEN REGISTER MODAL ON ERROR --}}
+    {{--  AUTO OPEN REGISTER MODAL ON ERROR --}}
     @if ($errors->getBag('register')->any())
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -93,7 +93,7 @@
     </script>
     @endif
 
-    {{-- ✅ AUTO OPEN LOGIN MODAL ON ERROR --}}
+    {{--  AUTO OPEN LOGIN MODAL ON ERROR --}}
     @if ($errors->getBag('login')->any())
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -134,59 +134,8 @@
 {{-- //toster for login and register --}}
 
 
-
-<!-- MOBILE BOTTOM NAV -->
-<!-- MOBILE OFFCANVAS MENU -->
-<div class="offcanvas offcanvas-start d-md-none" id="mobileMenu">
-    <div class="offcanvas-header">
-        <h5 class="fw-bold">Kodai Specials</h5>
-        <button class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>
-
-    <div class="offcanvas-body">
-
-        {{-- <a href="{{ route('home') }}" class="d-block mb-3">Home</a> --}}
-        <a href="{{ route('products.index') }}" class="d-block mb-3">Products</a>
-        <a href="{{ route('about') }}" class="d-block mb-3">About</a>
-        <a href="#" class="d-block mb-3">Contact</a>
-
-        <hr>
-
-        @auth
-            <div class="mb-3 fw-semibold">
-                👋 Hi, {{ Auth::user()->name }}
-            </div>
-
-            @if(auth()->user()->role === 'admin')
-                <a href="{{ route('admin.dashboard') }}" class="d-block mb-3">
-                    Admin Panel
-                </a>
-            @endif
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn btn-danger w-100">
-                    Logout
-                </button>
-            </form>
-        @else
-            <button class="btn btn-success w-100 mb-2"
-                    data-bs-dismiss="offcanvas"
-                    data-bs-toggle="modal"
-                    data-bs-target="#loginModal">
-                Login
-            </button>
-
-            <button class="btn btn-outline-success w-100"
-                    data-bs-dismiss="offcanvas"
-                    data-bs-toggle="modal"
-                    data-bs-target="#registerModal">
-                Register
-            </button>
-        @endauth
-
-    </div>
-</div>
+    <!-- mobile offcanvan   -->
+    @include('partials.offcanvaheader')
 
     @include('partials.mheaderfiveicon')
 

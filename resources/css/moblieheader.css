@@ -83,15 +83,12 @@
 }
 
 /* BODY FIX */
-/* @media (max-width: 768px) {
-    body {
-        padding-top: 56px;
-        padding-bottom: 7px;
-    }
-} */
+
 /* Hide desktop navbar on mobile */
-@media (max-width: 768px) {
-    .smn {
-        display: none !important;
-    }
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
 }
+

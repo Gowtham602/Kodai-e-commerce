@@ -181,13 +181,23 @@
     .marquee-item img {
         height: 80px;
     }
+    
+}
+.home-m{
+      padding-top: 10px;
+}
+@media (max-width: 576px) {
+   .home-m{
+    padding-top: 70px;
+} 
+    
 }
 
 
 </style>
 
 <!-- ================= HERO SECTION ================= -->
-<div class="container-fluid py-4 px-3 px-lg-5">
+<div class="container-fluid  px-3 px-lg-5 home-m">
 
 <div class="swiper hero-swiper rounded-4 shadow-lg overflow-hidden">
     <div class="swiper-wrapper">
@@ -241,7 +251,7 @@
 
 {{-- 14 product scrollinf design  --}}
 <section class="home-marquee-section py-5">
-    <div class="container-fluid">
+    <div class="container">
 
         <!-- TITLE -->
         <div class="text-center mb-4">
@@ -347,7 +357,7 @@
 
 
 <!-- ================= TODAY DEAL SECTION ================= -->
-<section class="container my-5 shadow-lg rounded-4 overflow-hidden">
+<section class="container my-5 shadow-lg rounded-4 overflow-hidden ">
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
