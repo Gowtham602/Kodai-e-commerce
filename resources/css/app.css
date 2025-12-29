@@ -40,7 +40,7 @@
     width: 100%;
     z-index: 1050;
 }
-.navbar-collapse { display: none; }
+/* .navbar-collapse { display: none; } */
 
 
 .nav-links {
@@ -56,10 +56,9 @@
         top: 72px;
         left: 0;
         width: 100%;
+        padding: 12px 0;
     }
-.smn{
-    display: none ;
-}
+
     .nav-links.show {
         display: flex;
     }
