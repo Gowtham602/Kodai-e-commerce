@@ -104,9 +104,9 @@ function productCard(product) {
     </div>`;
 }
 
-//pagination
+//pagination also admin product also 
 $(document).on('click', '.pagination a', function (e) {
-    e.preventDefault();
+    // e.preventDefault();
 
     let page = $(this).attr('href').split('page=')[1];
     loadProducts(page);
