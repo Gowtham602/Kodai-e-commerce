@@ -114,22 +114,10 @@
         </div>
     </div>
 </div>
-
-{{-- @if ($errors->getBag('register')->any())
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    new bootstrap.Modal(
-        document.getElementById('registerModal'),
-        { backdrop: 'static', keyboard: false }
-    ).show();
-});
-</script> --}}
-{{-- @endif --}}
 <script>
 document.getElementById('registerForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const form = this;
     const errorBox = document.getElementById('registerErrors');
     errorBox.classList.add('d-none');
     errorBox.innerHTML = '';
@@ -140,8 +128,16 @@ document.getElementById('registerForm').addEventListener('submit', async functio
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
             'Accept': 'application/json'
         },
-        body: new FormData(form)
+        body: new FormData(this)
     });
+
+    const contentType = res.headers.get("content-type");
+
+    if (!contentType || !contentType.includes("application/json")) {
+        errorBox.innerHTML = "Server error. Please try again.";
+        errorBox.classList.remove('d-none');
+        return;
+    }
 
     const data = await res.json();
 
@@ -153,16 +149,13 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         return;
     }
 
-    // SUCCESS
-    bootstrap.Modal.getInstance(
-        document.getElementById('registerModal')
-    ).hide();
-    setTimeout(() => {
-    window.location.reload();
-}, 500);
+    //  SUCCESS
+    const modalEl = document.getElementById('registerModal');
+    bootstrap.Modal.getOrCreateInstance(modalEl).hide();
 
-    alert(data.message); // replace with toast later
+    window.location.href = "/";
 });
 </script>
+
 
 

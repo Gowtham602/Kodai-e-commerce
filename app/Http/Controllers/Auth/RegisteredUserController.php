@@ -32,34 +32,57 @@ class RegisteredUserController extends Controller
      */
 
 
+// public function store(Request $request): JsonResponse
+// {
+//     try {
+//         $validated = $request->validate([
+//             'name' => ['required', 'string', 'max:255'],
+//             'email' => ['required', 'email', 'max:255', 'unique:users'],
+//             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+//         ]);
+
+//         $user = User::create([
+//             'name' => $validated['name'],
+//             'email' => $validated['email'],
+//             'password' => Hash::make($validated['password']),
+//         ]);
+
+//         Auth::login($user);
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Registration successful. Welcome!',
+//         ]);
+
+//     } catch (ValidationException $e) {
+//         return response()->json([
+//             'success' => false,
+//             'errors' => $e->errors(),
+//         ], 422);
+//     }
+// }
+
 public function store(Request $request): JsonResponse
 {
-    try {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+    $validated = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
+    $user = User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => Hash::make($validated['password']),
+    ]);
 
-        Auth::login($user);
+    Auth::login($user);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Registration successful. Welcome!',
-        ]);
-
-    } catch (ValidationException $e) {
-        return response()->json([
-            'success' => false,
-            'errors' => $e->errors(),
-        ], 422);
-    }
+    return response()->json([
+        'success' => true,
+        'message' => 'Registration successful'
+    ]);
 }
+
 
 }
