@@ -105,12 +105,14 @@ function productCard(product) {
 }
 
 //pagination also admin product also 
-$(document).on('click', '.pagination a', function (e) {
-    // e.preventDefault();
+// AJAX pagination ONLY inside user product page
+$(document).on('click', '#pagination-wrapper .pagination a', function (e) {
+    e.preventDefault();
 
-    let page = $(this).attr('href').split('page=')[1];
+    let page = new URL($(this).attr('href')).searchParams.get('page');
     loadProducts(page);
 });
+
 
 function loadProducts(page = 1) {
 

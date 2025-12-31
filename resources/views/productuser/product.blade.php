@@ -259,9 +259,13 @@
 
 {{-- PAGINATION (MUST BE HERE) --}}
 @if($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
-    <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
+    <!-- <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
         {{ $products->links('pagination::bootstrap-5') }}
-    </div>
+    </div> -->
+    <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
+    {!! $products->links('pagination::bootstrap-5') !!}
+</div>
+
 @endif
 
             
