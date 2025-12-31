@@ -125,6 +125,52 @@
         justify-content: space-between;
     }
 }
+/* Pagination Wrapper */
+#pagination-wrapper .pagination {
+    gap: 6px;
+}
+
+/* Page item */
+#pagination-wrapper .page-item .page-link {
+    border-radius: 10px;
+    padding: 8px 14px;
+    color: #2c5364;
+    border: 1px solid #e0e0e0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+#pagination-wrapper .page-item .page-link:hover {
+    background-color: #28a745;
+    color: #ffffff;
+    border-color: #28a745;
+    transform: translateY(-2px);
+}
+
+/* Active page */
+#pagination-wrapper .page-item.active .page-link {
+    background: linear-gradient(135deg, #28a745, #5dd39e);
+    border-color: #28a745;
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.35);
+}
+
+/* Disabled */
+#pagination-wrapper .page-item.disabled .page-link {
+    color: #aaa;
+    background-color: #f8f9fa;
+    border-color: #ddd;
+}
+
+/* Mobile friendly */
+@media (max-width: 576px) {
+    #pagination-wrapper .page-item .page-link {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}
+
 
 
     </style>

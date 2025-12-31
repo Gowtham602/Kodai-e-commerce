@@ -1,0 +1,120 @@
+.footer-section {
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+    font-size: 0.95rem;
+    border-radius: 15px;
+     border-radius: 0;
+}
+@media (min-width: 992px) {
+    .footer-section {
+        border-radius: 15px;
+    }
+}
+
+.footer-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.footer-tagline {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #9be7c4;
+}
+
+.footer-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.footer-title::after {
+    content: "";
+    width: 35px;
+    height: 2px;
+    background: #28a745;
+    display: block;
+    margin-top: 6px;
+}
+
+.footer-text {
+    color: #d1d1d1;
+    line-height: 1.7;
+}
+
+/* CONTACT */
+.footer-contact .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: #d1d1d1;
+}
+.footer-contact p {
+    margin: 0;
+}
+
+.footer-contact span {
+    font-size: 1.1rem;
+}
+
+/* MAP */
+.footer-map {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.map-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #28a745;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+/* DIVIDER */
+.footer-divider {
+    border-color: rgba(255,255,255,0.15);
+}
+
+.footer-copy strong {
+    color: #cccccc;
+    font-size: 1rem;
+}
+.footer-credit strong {
+    color: #ffffff;
+    font-weight: 600;
+
+}
+/* Mobile: same line */
+@media (max-width: 767px) {
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-bottom .col-md-6 {
+        width: 100%;
+    }
+
+    .footer-bottom small {
+        display: inline;
+        font-size: 0.85rem;
+    }
+
+    .footer-bottom .footer-credit::before {
+        content: " · ";
+        margin: 0 5px;
+        color: #ccc;
+    }
+    .footer-map iframe {
+        height: 140px;
+    }
+    .mar{
+        margin-bottom: 50px;
+    }
+}

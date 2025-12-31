@@ -159,7 +159,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h4 class="fw-bold mt-4 mb-1">🔥 Today’s Deals</h4>
+                <h4 class="fw-bold mt-4 mb-1">Today’s Deals</h4>
                 <small class="fw-bold text-success ps-4">Limited time offers</small>
             </div>
             <span class="badge bg-danger text-white rounded-pill px-3 py-2">Flash Sale</span>
