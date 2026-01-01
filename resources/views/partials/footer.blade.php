@@ -1,4 +1,4 @@
-<footer class="footer-section text-white pt-5">
+<footer class="footer-section text-white pt-3">
     <div class="container">
 
         <div class="row g-4">
@@ -21,7 +21,7 @@
 
             <!-- CONTACT -->
             <div class="col-lg-4 col-md-6">
-                <h5 class="footer-title">Contact</h5>
+                <h5 class="footer-brand mb-3">Contact</h5>
 
                 <div class="footer-contact">
                     <div class="contact-item">
@@ -43,14 +43,14 @@
 
             <!-- MAP -->
             <div class="col-lg-4">
-                <h5 class="footer-title">Our Origin</h5>
+                <h5 class="footer-brand mb-3">Our Origin</h5>
 
                 <div class="footer-map position-relative">
                     <span class="map-badge">Kodai Origin</span>
                     <iframe
                         src="https://www.google.com/maps?q=Kodaikanal&output=embed"
                         width="100%"
-                        height="190"
+                        height="160"
                         style="border:0;"
                         loading="lazy">
                     </iframe>
@@ -59,11 +59,11 @@
 
         </div>
 
-        <hr class="footer-divider my-3">
+        <hr class="footer-divider my-2">
 
       <!-- COPYRIGHT & DESIGN CREDIT -->
-<div class="row align-items-center footer-bottom pb-3 mar ">
-    <div class="mb-3 col-md-6 text-center text-md-start ">
+<div class="row align-items-center footer-bottom pb-2 mar ">
+    <div class="mb-2 col-md-6 text-center text-md-start ">
         <small class="footer-copy">
             © {{ date('Y') }} <strong>Kodai Specials</strong>. All rights reserved.
         </small>

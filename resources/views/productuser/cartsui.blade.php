@@ -33,7 +33,7 @@
                 data-name="{{ $product->name }}"
                 data-price="{{ $product->price }}"
                 data-image="{{ $product->image }}">
-                🛒 Add to Cart
+                🛒 Add <span id="uicart">to Cart</span>
             </button>
 
         </div>

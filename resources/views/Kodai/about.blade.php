@@ -29,6 +29,7 @@
 /* ABOUT IMAGE */
 .about-img {
     transition: transform .4s ease;
+    max-height: 300px;
 }
 .about-img:hover {
     transform: scale(1.03);
@@ -79,11 +80,11 @@
 </section>
 
 <!-- ABOUT SECTION -->
-<section class="container py-5">
+<section class="container py-4">
     <div class="row align-items-center g-5">
                 <!-- TEXT -->
-        <div class="col-lg-6">
-            <h2 class="fw-bold text-success">
+        <div class="col-lg-7">
+            <h2 class="fw-bold text-success mb-3">
                 About Kodai Specials
             </h2>
 
@@ -92,7 +93,7 @@
                 freshness of Kodaikanal directly to your doorstep.
             </p>
 
-            <p class="text-muted">
+            <p class="text-muted text-justify">
                 From homemade chocolates to herbal and natural products,
                 every item is inspired by the misty hills and cool climate
                 of Tamil Nadu’s most loved hill station.
@@ -110,7 +111,7 @@
         </div>
 
         <!-- IMAGE -->
-        <div class="col-lg-6 text-center">
+        <div class="col-lg-5 text-center">
             <img
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
                 alt="Kodaikanal Hills"
