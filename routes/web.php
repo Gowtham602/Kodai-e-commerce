@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\TodayDealController;
 
 
 
+Route::get('/login', function () {
+    return redirect()->route('home');
+});
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -175,6 +175,16 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
+{{-- PAGINATION (MUST BE HERE) --}}
+@if($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
+    <!-- <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
+        {{ $products->links('pagination::bootstrap-5') }}
+    </div> -->
+    <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
+    {!! $products->links('pagination::bootstrap-5') !!}
+</div>
+
+@endif
 
     <div class="offcanvas-body">
 

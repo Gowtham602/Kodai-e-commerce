@@ -18,7 +18,7 @@ public function index()
     $products = Product::where('is_active', 1)
         ->with('category')
         ->latest()
-        ->paginate(8); // ✅ paginator
+        ->paginate(8); //  paginator
 
     return view('productuser.product', compact('categories', 'products'));
 }
@@ -30,12 +30,10 @@ public function filter(Request $request)
     $query = Product::with('category')
         ->where('is_active', 1);
 
-    // ✅ FIXED CATEGORY FILTER
-    if ($request->has('categories') && is_array($request->categories) && count($request->categories) > 0) {
-        $query->whereIn('category_id', $request->categories);
+    if ($request->filled('categories')) {
+        $query->whereIn('category_id', (array) $request->categories);
     }
 
-    // SORT
     if ($request->sort === 'latest') {
         $query->latest();
     } elseif ($request->sort === 'price_low') {
@@ -44,13 +42,17 @@ public function filter(Request $request)
         $query->orderBy('price', 'desc');
     }
 
-    $products = $query->paginate(8);
+    $products = $query
+        ->paginate(8)
+        ->withQueryString();
 
     return response()->json([
         'products' => $products->items(),
         'pagination' => (string) $products->links('pagination::bootstrap-5'),
     ]);
 }
+
+
 
 
 
