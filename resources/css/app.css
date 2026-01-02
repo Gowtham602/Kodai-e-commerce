@@ -15,7 +15,6 @@
 /* your custom css below */
 /*cart ui */
 .product-card img {
-    height: 220px;
     object-fit: cover;
     border-radius: 8px 8px 0 0;
 }

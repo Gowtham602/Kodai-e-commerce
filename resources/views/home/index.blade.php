@@ -62,7 +62,7 @@
     </div>
 
     {{-- 14 product scrollinf design  --}}
-    <section class="home-marquee-section py-5">
+    <section class="home-marquee-section py-4">
         <div class="container">
 
             <!-- TITLE -->
@@ -205,17 +205,17 @@
 
 
     <!-- ================= TODAY DEAL SECTION ================= -->
-    <section class="container my-5 shadow-lg rounded-4 overflow-hidden ">
+    <section class="container my-3 rounded-4 overflow-hidden ">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h4 class="fw-bold mt-4 mb-1">Today’s Deals</h4>
-                <small class="fw-bold text-success ps-4">Limited time offers</small>
+                <h4 class="fw-bold  mb-1">Today’s Deals</h4>
+                <small class="fw-bold text-success ">Limited time offers</small>
             </div>
             <span class="badge bg-danger text-white rounded-pill px-3 py-2">Flash Sale</span>
         </div>
 
-        <div class="swiper todayDealSwiper">
+        <div class="swiper todayDealSwiper ">
             <div class="swiper-wrapper">
 
                 @foreach($todayDeals as $deal)
@@ -228,18 +228,18 @@
                         </div>
 
                         <div class="deal-body">
-                            <h6 class="fw-semibold">{{ $deal->product->name }}</h6>
+                            <h6 class="fw-semibold ">{{ $deal->product->name }}</h6>
 
                             <div class="price-box mb-2">
                                 <span class="old-price">₹{{ $deal->product->price }}</span>
                                 <span class="new-price">₹{{ $deal->deal_price }}</span>
                             </div>
 
-                            <div class="countdown" data-end="{{ $deal->end_time }}">
+                            <!-- <div class="countdown" data-end="{{ $deal->end_time }}">
                                 ⏳ Loading...
-                            </div>
+                            </div> -->
 
-                            <button class="btn btn-success rounded-pill w-100 mt-3">
+                            <button class="btn btn-success rounded-pill w-100 mt-2">
                                 Buy Now
                             </button>
                         </div>
@@ -259,94 +259,66 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
     <script>
-        /* Hero */
+/* HERO SWIPER */
+new Swiper('.hero-swiper', {
+    loop: true,
+    autoplay: {
+        delay: 4500
+    },
+    pagination: {
+        el: '.hero-pagination',
+        clickable: true
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    }
+});
 
-        new Swiper('.todayDealSwiper', {
-            slidesPerView: 1.2,
-            spaceBetween: 16,
+/* TODAY DEALS SWIPER */
+new Swiper('.todayDealSwiper', {
+    spaceBetween: 16,
+    grabCursor: true,
 
-            /*  MOBILE TOUCH SETTINGS */
-            touchRatio: 1,
-            touchAngle: 45,
-            grabCursor: true,
-            simulateTouch: true,
-            allowTouchMove: true,
+    pagination: {
+        el: '.today-pagination',
+        clickable: true
+    },
 
-            /* Pagination */
-            pagination: {
-                el: '.today-pagination',
-                clickable: true,
-            },
+    breakpoints: {
+        0: {                // Mobile
+            slidesPerView: 2
+        },
+        768: {              // Tablet
+            slidesPerView: 4
+        },
+        1200: {             // Laptop & above
+            slidesPerView: 6
+        }
+    }
+});
 
-            breakpoints: {
-                576: {
-                    slidesPerView: 2.2
-                },
-                768: {
-                    slidesPerView: 3
-                },
-                1200: {
-                    slidesPerView: 4
-                }
-            }
-        });
+/* COUNTDOWN */
+setInterval(() => {
+    document.querySelectorAll('.countdown').forEach(el => {
+        let end = new Date(el.dataset.end).getTime();
+        let now = new Date().getTime();
+        let diff = end - now;
 
-        new Swiper('.hero-swiper', {
-            loop: true,
-            autoplay: {
-                delay: 4500
-            },
-            pagination: {
-                el: '.hero-pagination',
-                clickable: true
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            }
-        });
+        if (diff <= 0) {
+            el.innerHTML = "Deal ended";
+            el.closest('.deal-card')?.classList.add('opacity-50');
+            return;
+        }
 
-        /* Today Deals */
-        new Swiper('.todayDealSwiper', {
-            slidesPerView: 1.2,
-            spaceBetween: 16,
-            pagination: {
-                el: '.today-pagination',
-                clickable: true
-            },
-            breakpoints: {
-                576: {
-                    slidesPerView: 2.2
-                },
-                768: {
-                    slidesPerView: 3
-                },
-                1200: {
-                    slidesPerView: 4
-                }
-            }
-        });
+        let h = Math.floor(diff / (1000 * 60 * 60));
+        let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((diff % (1000 * 60)) / 1000);
 
-        /* Countdown */
-        setInterval(() => {
-            document.querySelectorAll('.countdown').forEach(el => {
-                let end = new Date(el.dataset.end).getTime();
-                let now = new Date().getTime();
-                let diff = end - now;
+        el.innerHTML = `⏳ ${h}h ${m}m ${s}s`;
+    });
+}, 1000);
+</script>
 
-                if (diff <= 0) {
-                    el.innerHTML = "Deal ended";
-                    el.closest('.deal-card').classList.add('opacity-50');
-                    return;
-                }
-
-                let h = Math.floor(diff / (1000 * 60 * 60));
-                let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                let s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                el.innerHTML = `⏳ ${h}h ${m}m ${s}s`;
-            });
-        }, 1000);
-    </script>
 
 </x-app-layout>
