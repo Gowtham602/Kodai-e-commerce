@@ -68,6 +68,44 @@
     background-color: #f8f9fa;
     cursor: pointer;
 }
+/* ================== PAGINATION ================== */
+.pagination {
+    gap: 6px;
+}
+
+.pagination .page-item .page-link {
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-weight: 500;
+    color: #198754;
+    background: #f1f3f5;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-item .page-link:hover {
+    background: #198754;
+    color: #fff;
+}
+
+.pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #198754, #2ecc71);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(25,135,84,0.35);
+}
+
+.pagination .page-item.disabled .page-link {
+    background: #e9ecef;
+    color: #adb5bd;
+}
+
+/* Mobile compact pagination */
+@media (max-width: 576px) {
+    .pagination .page-link {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+}
 
 /* ================== MOBILE OFFCANVAS ================== */
 @media (max-width: 576px) {
@@ -181,16 +219,8 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
-{{-- PAGINATION (MUST BE HERE) --}}
-<!-- @if($products instanceof \Illuminate\Pagination\LengthAwarePaginator) -->
-    <!-- <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
-        {{ $products->links('pagination::bootstrap-5') }}
-    </div> -->
-    <!-- <div id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
-    {!! $products->links('pagination::bootstrap-5') !!}
-</div> -->
 
-@endif
+
 
     <div class="offcanvas-body">
 

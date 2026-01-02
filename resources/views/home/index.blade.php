@@ -86,7 +86,7 @@
 
                         <div class="marquee-item">
                             <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55" alt="">
-                            <span>Truffle Chocolates</span>
+                            <span>Toys</span>
                         </div>
 
                         <div class="marquee-item">
@@ -136,14 +136,64 @@
                             <span>Health Products</span>
                         </div>
                         <!-- DUPLICATE ITEMS (for smooth infinite scroll) -->
-                        <div class="marquee-item">
+                        <!-- <div class="marquee-item">
                             <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52" alt="">
                             <span>Fluffy</span>
-                        </div>
+                        </div> -->
                         <!-- repeat same list again -->
 
 
                         <!-- DUPLICATE FOR INFINITE LOOP -->
+                         <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52" alt="">
+                            <span>Fluffy</span>
+                        </div>
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55" alt="">
+                            <span>Toys</span>
+                        </div>
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924" alt="">
+                            <span>Honey</span>
+                        </div>
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60" alt="">
+                            <span>Stone & Gems Chocolate</span>
+                        </div>
+                         <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80" alt="Fruit Filling Chocolates">
+                            <span>Fruit Filling Chocolates</span>
+                        </div>
+
+
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="">
+                            <span>Tea</span>
+                        </div>
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1615484477778-ca3b77940c25" alt="">
+                            <span>Essential Oils</span>
+                        </div>
+
+
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" alt="Cosmetics">
+                            <span>Cosmetics</span>
+                        </div>
+
+
+
+                        <div class="marquee-item">
+                            <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400&q=80" alt="Health Products">
+                            <span>Health Products</span>
+                        </div>
+
                         <!-- copy same items again (important) -->
 
                     </div>
