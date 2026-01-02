@@ -79,6 +79,12 @@
         width: 80% !important;   /* change to 70%, 75%, 85% as you like */
         max-width: 250px;        /* optional: prevents too wide on large phones */
     }
+
+    #mobileFilter .offcanvas-body {
+        overflow-y: auto;
+        max-height: calc(100vh - 56px); /* subtract header height */
+        padding-bottom: 80px; /* prevents last item being hidden */
+    }
 }
 </style>
 

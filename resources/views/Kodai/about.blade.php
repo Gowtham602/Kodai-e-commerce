@@ -28,9 +28,13 @@
 
 /* ABOUT IMAGE */
 .about-img {
+    width: 100%;          /* stretch width */
+    height: 260px;        /* reduce image height */
+    object-fit: cover;    /* crop without distortion */
+    border-radius: 16px;
     transition: transform .4s ease;
-    max-height: 300px;
 }
+
 .about-img:hover {
     transform: scale(1.03);
 }
