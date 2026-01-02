@@ -86,7 +86,12 @@ Route::middleware(['auth', 'admin'])
         Route::resource('products', AdminProductController::class);
 });
 
-//today deal admin login
+//today deal admin login           
+
+Route::get('/test-log', function () {
+    logger('LOG SYSTEM WORKING');
+    return 'Log test success';
+});
 
 
 Route::get(
