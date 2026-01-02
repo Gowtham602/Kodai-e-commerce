@@ -83,6 +83,79 @@ public function store(Request $request): JsonResponse
         'message' => 'Registration successful'
     ]);
 }
+//send otp
+public function sendOtp(Request $request)
+{
+    $validated = $request->validate([
+        'name'  => 'required|string|max:255',
+        'phone' => 'required|digits:10|unique:users,phone',
+    ]);
+
+    $otp = rand(100000, 999999);
+
+    session([
+        'otp' => $otp,
+        'otp_expires_at' => now()->addSeconds(60),
+        'register_name' => $validated['name'],
+        'register_phone' => $validated['phone'],
+    ]);
+
+    logger("OTP: ".$otp); // temp for testing
+
+    return response()->json([
+        'message' => 'OTP sent successfully'
+    ]);
+}
+
+
+//verify otp 
+public function verifyOtp(Request $request)
+{
+    $request->validate([
+        'otp' => 'required|digits:6',
+    ]);
+
+    if (!session()->has('otp') || now()->greaterThan(session('otp_expires_at'))) {
+        return response()->json(['message' => 'OTP expired'], 422);
+    }
+
+    if ($request->otp != session('otp')) {
+        return response()->json(['message' => 'Invalid OTP'], 422);
+    }
+
+    return response()->json(['success' => true]);
+}
+
+// completeRegister() — CREATE USER
+
+public function completeRegister(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email|unique:users,email',
+        'password' => ['required','confirmed', Rules\Password::defaults()],
+    ]);
+
+    if (!session()->has('register_phone')) {
+        return response()->json(['message' => 'Session expired'], 422);
+    }
+
+    $user = User::create([
+        'name' => session('register_name'),
+        'phone' => session('register_phone'),
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
+
+    Auth::login($user);
+
+    session()->forget([
+        'otp','otp_expires_at','register_name','register_phone'
+    ]);
+
+    return response()->json(['success' => true]);
+}
+
+
 
 
 }

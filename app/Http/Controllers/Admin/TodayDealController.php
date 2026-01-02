@@ -9,14 +9,14 @@ use App\Models\TodayDeal;
 
 class TodayDealController extends Controller
 {
-    // ✅ SHOW CREATE FORM (THIS WAS MISSING)
+    //  SHOW CREATE FORM (THIS WAS MISSING)
     public function create()
     {
         $products = Product::where('is_active', 1)->get();
         return view('admin.todaydeals.create', compact('products'));
     }
 
-    // ✅ STORE DEAL
+    //  STORE DEAL
     public function store(Request $request)
     {
         $request->validate([
