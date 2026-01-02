@@ -14,36 +14,61 @@
     color: #fff;
 }
 
-/* ================= TODAY DEAL ================= */
+/* ================= TODAY DEAL SWIPER ================= */
+
+/* Swiper must stretch slides to tallest card */
+.todayDealSwiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+/* Each slide stretches vertically only */
+.todayDealSwiper .swiper-slide {
+    display: flex;
+    height: auto;
+}
+
+/* Card fills slide height */
 .deal-card {
-    background: #fff;
+    background: #ffffff;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     height: 100%;
 }
 
+/* Hover effect */
 .deal-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 25px 55px rgba(0,0,0,0.12);
 }
 
+/* ================= IMAGE ================= */
+
+/* Image container */
 .deal-img {
     position: relative;
+    overflow: hidden;
 }
 
+/* Fixed image height */
 .deal-img img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
     transition: transform 0.4s ease;
 }
 
+/* Image hover zoom */
 .deal-card:hover img {
     transform: scale(1.08);
 }
 
+/* Badge */
 .deal-badge {
     position: absolute;
     top: 12px;
@@ -56,30 +81,47 @@
     font-weight: 600;
 }
 
+/* ================= CONTENT ================= */
+
+/* Content grows dynamically */
 .deal-body {
-    padding: 16px;
+    padding: 13px;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;              /* KEY */
 }
 
+.deal-body h6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;   /* change to 3 if you want */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    min-height: 48px;        /* ensures equal height even if 1 line */
+    line-height: 1.1;
+    font-size: 14px;
+}
+
+/* Price row */
 .price-box {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
 }
 
 .old-price {
     text-decoration: line-through;
     color: #adb5bd;
+    font-size: 14px;
 }
 
 .new-price {
     color: #198754;
-    margin-left:10px ;
     font-size: 20px;
     font-weight: 700;
 }
 
+/* Countdown (optional) */
 .countdown {
     margin-top: 10px;
     font-size: 13px;
@@ -91,12 +133,31 @@
     text-align: center;
 }
 
-/* Mobile */
+/* Button pushed to bottom */
+.deal-body button {
+    margin-top: auto;
+}
+
+/* ================= MOBILE ================= */
 @media (max-width: 576px) {
+
     .deal-img img {
         height: 180px;
     }
+
+    .new-price {
+        font-size: 18px;
+    }
 }
+
+
+/* Hide pagination by default */
+.todayDealSwiper .swiper-pagination {
+    display: none;
+}
+
+
+
 /* top deal scrolling  14 product */
 .home-marquee-section {
     background: linear-gradient(180deg, #ffffff, #f9fafb);

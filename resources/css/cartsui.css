@@ -50,6 +50,7 @@
 .product-weight {
     font-size: 13px;
     color: #6c757d;
+    font-weight: bold;
 }
 
 .product-price {
@@ -80,7 +81,7 @@
  */
  @media (max-width: 576px) {
     .product-img-wrapper {
-        height: 160px;
+        height: 140px;
     }
 
     .product-title {

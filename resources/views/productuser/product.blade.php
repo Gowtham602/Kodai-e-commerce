@@ -39,7 +39,7 @@
         rgba(255,255,255,0.95)
     );
     border-radius: 18px;
-    padding: 20px 24px;
+    padding: 15px 24px;
 }
 
 /* ================== SORT ================== */
@@ -99,13 +99,19 @@
     color: #adb5bd;
 }
 
+
 /* Mobile compact pagination */
 @media (max-width: 576px) {
     .pagination .page-link {
         padding: 6px 10px;
         font-size: 13px;
     }
+
+    .koodai-spec{
+        display: none;
+    }
 }
+
 
 /* ================== MOBILE OFFCANVAS ================== */
 @media (max-width: 576px) {
@@ -123,11 +129,18 @@
         max-height: calc(100vh - 56px); /* subtract header height */
         padding-bottom: 80px; /* prevents last item being hidden */
     }
+
+    .product-page{
+        padding-top: 0 !important;
+    }
 }
+
+
+
 </style>
 
-<div class="container-fluid px-3 px-lg-5 py-4">
-<div class="row g-4">
+<div class="container-fluid product-page px-3 px-lg-3 py-4">
+<div class="row g-3 ">
 
     {{-- ================= DESKTOP / TABLET FILTER ================= --}}
     <div class="col-lg-3 col-md-4 d-none d-sm-block">
@@ -172,7 +185,7 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div>
                     <h4 class="fw-bold mb-1">Products</h4>
-                    <p class="text-muted small mb-0">
+                    <p class="koodai-spec text-muted small mb-0">
                         Koodai Specials Products for you
                     </p>
                 </div>
@@ -202,7 +215,7 @@
 
         {{-- PAGINATION --}}
         @if($products instanceof \Illuminate\Pagination\LengthAwarePaginator)
-            <div  id="pagination-wrapper" class="mt-5 d-flex justify-content-center">
+            <div  id="pagination-wrapper" class="mt-3 d-flex justify-content-center">
                 {{ $products->links('pagination::bootstrap-5') }}
             </div>
         @endif

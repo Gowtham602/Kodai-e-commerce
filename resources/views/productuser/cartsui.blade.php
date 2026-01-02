@@ -3,32 +3,32 @@
 
         <div class="product-img-wrapper">
             <img src="{{ asset('storage/'.$product->image) }}"
-                 alt="{{ $product->name }}">
+                alt="{{ $product->name }}">
             <span class="badge bg-success product-badge">Fresh</span>
         </div>
 
-        <div class="card-body d-flex flex-column p-3">
+        <div class="card-body d-flex flex-column p-2">
 
-            <small class="text-muted text-uppercase category pt-3">
+            <!-- <small class="text-muted text-uppercase category mt-1">
                 {{ $product->category->name }}
-            </small>
+            </small> -->
 
-            <h6 class="product-title mt-1">
+            <h6 class="product-title mt-1 mb-2">
                 {{ $product->name }}
             </h6>
 
-            <p class="product-weight mb-2">
-                {{ $product->weight }}
-            </p>
-
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="product-price mb-0">
+                <span class="product-weight">
+                    {{ $product->weight }}
+                </span>
+
+                <h5 class="product-price mb-0 ">
                     ₹{{ $product->price }}
                 </h5>
-                {{-- <span class="rating">⭐ 4.6</span> --}}
             </div>
 
-            <button class="btn btn-success add-to-cart mt-auto w-100"
+
+            <button class="btn btn-success add-to-cart mb-2 mt-auto w-100"
                 data-id="{{ $product->id }}"
                 data-name="{{ $product->name }}"
                 data-price="{{ $product->price }}"
