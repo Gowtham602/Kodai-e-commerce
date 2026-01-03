@@ -48,70 +48,68 @@
             }
         }
     </style>
+   
+
     <div class="container py-2">
         <div class="row g-4">
-
             <!-- CART ITEMS -->
             <div class="col-12 col-lg-8">
-
                 {{-- <h4 class="fw-bold mb-4">
                 Shopping Cart (<span id="cart-count">{{ count(session('cart', [])) }}</span>)
                 </h4> --}}
+              
 
-                @forelse(session('cart', []) as $id => $item)
-                <div class="card cart-item mb-3 border-0 shadow-sm" data-id="{{ $id }}">
-                    <div class="card-body">
+                @if($useDb && $cart && $cart->items->count())
 
-                        <!-- TOP ROW -->
-                        <div class="d-flex gap-3 align-items-start">
+    {{-- DB CART --}}
+    @foreach($cart->items as $item)
+        <div class="card cart-item mb-3">
+            <div class="card-body">
+                <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
+                <h6>{{ $item->product->name }}</h6>
+                <div>₹{{ $item->price }}</div>
 
-                            <!-- Image -->
-                            <img src="{{ asset('storage/'.$item['image']) }}"
-                                class="cart-img" alt="{{ $item['name'] }}">
-
-                            <!-- Name + price -->
-                            <div class="flex-grow-1">
-                                <h6 class="fw-semibold mb-1">{{ $item['name'] }}</h6>
-                                <div class="text-success fw-bold">₹{{ $item['price'] }}</div>
-                                <div class="text-muted small">
-                                    Weight: {{ $item['weight'] ?? '500g' }}
-                                </div>
-                            </div>
-
-                            <!-- Delete -->
-                            <button class="btn btn-link p-0 text-danger delete-item"
-                                data-id="{{ $id }}">
-                                <i class="bi bi-trash-fill fs-5"></i>
-                            </button>
-                        </div>
-
-                        <!-- BOTTOM ROW -->
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-
-                            <!-- Quantity -->
-                            <div class="qty-box">
-                                <button class="qty-btn qty-minus" data-id="{{ $id }}">−</button>
-                                <span class="qty-value">{{ $item['qty'] }}</span>
-                                <button class="qty-btn qty-plus" data-id="{{ $id }}">+</button>
-                            </div>
-
-                            <!-- Totals -->
-                            <div class="text-end">
-                                <div class="fw-bold item-total">
-                                    ₹{{ $item['price'] * $item['qty'] }}
-                                </div>
-                                <!-- <div class="text-muted small">
-                                    Total weight:
-                                    {{ ($item['weight_grams'] ?? 500) * $item['qty'] }}g
-                                </div> -->
-                            </div>
-
-                        </div>
-
-                    </div>
+                <div class="qty-box">
+                    <button class="qty-minus" data-id="{{ $item->product_id }}">−</button>
+                    <span class="qty-value">{{ $item->qty }}</span>
+                    <button class="qty-plus" data-id="{{ $item->product_id }}">+</button>
                 </div>
-                @empty
-                @endforelse
+
+                <div class="item-total">
+                    ₹{{ $item->qty * $item->price }}
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+@elseif(!$useDb && !empty($cart))
+
+    {{-- SESSION CART --}}
+    @foreach($cart as $id => $item)
+        <div class="card cart-item mb-3">
+            <div class="card-body">
+                <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
+                <h6>{{ $item['name'] }}</h6>
+                <div>₹{{ $item['price'] }}</div>
+
+                <div class="qty-box">
+                    <button class="qty-minus" data-id="{{ $id }}">−</button>
+                    <span class="qty-value">{{ $item['qty'] }}</span>
+                    <button class="qty-plus" data-id="{{ $id }}">+</button>
+                </div>
+
+                <div class="item-total">
+                    ₹{{ $item['price'] * $item['qty'] }}
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+@else
+    <p class="text-muted">Your cart is empty</p>
+@endif
+
+
 
 
             </div>
@@ -124,11 +122,17 @@
                         <h5 class="fw-bold mb-3">PRICE DETAILS</h5>
 
                         @php
-                        $subtotal = collect(session('cart', []))
-                        ->sum(fn($i) => $i['price'] * $i['qty']);
+                        if ($useDb && isset($cart)) {
+                        $subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
+                        } else {
+                        $subtotal = collect($cart ?? [])->sum(fn($i) => $i['price'] * $i['qty']);
+                        }
+
                         $discount = 0;
                         $total = $subtotal - $discount;
                         @endphp
+
+
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Price</span>

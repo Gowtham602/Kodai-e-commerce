@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KodaiController;
 use Illuminate\Support\Facades\Route;
@@ -17,9 +16,6 @@ Route::get('/login', function () {
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/cart', [CardController::class, 'index'])
-    ->name('cart.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -41,39 +37,19 @@ Route::get('/products/filter', [ProductController::class, 'filter'])->name('prod
 //filter by sort
 // Route::get('/products/filter/sort',[ProductController::class,'sort'])->name('product.sort');
 
-Route::post('/cart/add', [CardController::class, 'add'])->name('cart.add');
-Route::get('/cart/count', [CardController::class, 'count'])->name('cart.count');
+Route::post('/cart/add', [ProductController::class, 'add'])->name('cart.add');
+Route::get('/cart/count', [ProductController::class, 'count'])->name('cart.count');
 
 
 //cart + add and - 
-Route::post('/cart/update', [CardController::class, 'update'])->name('cart.update');
-Route::post('/cart/delete', [CardController::class, 'delete'])->name('cart.delete');
+Route::post('/cart/update', [ProductController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete', [ProductController::class, 'delete'])->name('cart.delete');
+
+Route::get('/cart', [ProductController::class, 'show'])
+    ->name('cart.index'); // IMPORTANT: rename
 
 
-//admin for later middleware add
-// Route::get('/admin/products/create', [ProductController::class, 'create'])
-//     ->name('products.create');
 
-// Route::post('/admin/products', [ProductController::class, 'store'])
-//     ->name('products.store');
-
-//     Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard');
-//     });
-// });
-// Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard');
-//     });
-
-//     Route::get('/products/create', [ProductController::class, 'create'])
-//         ->name('products.create');
-
-//     Route::post('/products', [ProductController::class, 'store'])
-//         ->name('products.store');
-// });
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')

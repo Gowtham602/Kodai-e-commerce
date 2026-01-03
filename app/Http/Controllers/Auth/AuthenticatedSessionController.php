@@ -9,6 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Cart;
+use App\Models\CartItem;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -23,16 +25,55 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+   public function store(LoginRequest $request): RedirectResponse
 {
+    // SAVE SESSION CART FIRST
+    $sessionCart = session('cart', []);
+
     $request->authenticate();
+
+    //  regenerate AFTER storing cart
     $request->session()->regenerate();
+
+    // restore cart back
+    session(['cart' => $sessionCart]);
+
+    $this->mergeSessionCartToDb();
 
     if (auth()->user()->role === 'admin') {
         return redirect('/admin/dashboard');
     }
 
     return redirect('/');
+}
+
+private function mergeSessionCartToDb()
+{
+    $sessionCart = session('cart', []);
+    if (empty($sessionCart)) return;
+
+    $cart = Cart::firstOrCreate([
+        'user_id' => auth()->id()
+    ]);
+
+    foreach ($sessionCart as $productId => $item) {
+        $cartItem = CartItem::firstOrNew([
+            'cart_id' => $cart->id,
+            'product_id' => $productId
+        ]);
+
+        $cartItem->qty = ($cartItem->qty ?? 0) + $item['qty'];
+        $cartItem->price = $item['price'];
+        $cartItem->save();
+    }
+
+    // reload relation
+    $cart->load('items');
+
+    $cart->subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
+    $cart->save();
+
+    session()->forget('cart');
 }
 
 
@@ -54,7 +95,7 @@ class AuthenticatedSessionController extends Controller
     if ($user->role === 'admin') {
         return redirect('/admin/dashboard');
     }
-
+    
     return redirect('/kodai/about');
 }
 

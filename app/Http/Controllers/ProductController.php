@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -53,11 +55,215 @@ public function filter(Request $request)
 }
 
 
+// check if user is login or session  -> store to session or db
+public function add(Request $request)
+{
+    if (auth()->check()) {
+        return $this->addToDbCart($request);
+    }
+    return $this->addToSessionCart($request);
+}
+
+//if user not login add to session 
+private function addToSessionCart($request)
+{
+    $cart = session('cart', []);
+
+    $id = $request->id;
+
+    if (!isset($cart[$id])) {
+        $cart[$id] = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'image' => $request->image,
+            'qty' => 1
+        ];
+    } else {
+        $cart[$id]['qty']++;
+    }
+
+    session(['cart' => $cart]);
+
+    return response()->json([
+        'count' => collect($cart)->sum('qty')
+    ]);
+}
+
+//if user is login means store to db 
+private function addToDbCart($request)
+{
+    $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
+
+    $item = CartItem::firstOrNew([
+        'cart_id' => $cart->id,
+        'product_id' => $request->id
+    ]);
+
+    $item->qty += 1;
+    $item->price = $request->price;
+    $item->save();
+
+   $cart->load('items');
+
+$cart->subtotal = $cart->items->sum(fn($i)=>$i->qty * $i->price);
+$cart->save();
+
+
+    return response()->json([
+        'count' => $cart->items->sum('qty')
+    ]);
+}
+public function show()
+{
+    if (auth()->check()) {
+        $cart = Cart::with('items.product')
+            ->where('user_id', auth()->id())
+            ->first();
+
+        return view('cart.index', [
+            'cart' => $cart,
+            'useDb' => true,
+        ]);
+    }
+
+    return view('cart.index', [
+        'cart' => session('cart', []),
+        'useDb' => false,
+    ]);
+}
 
 
 
+    //UPDATE QTY (SESSION + DB)
+public function update(Request $request)
+{
+    if (auth()->check()) {
+        return $this->updateDbCart($request);
+    }
+
+    // SESSION
+    $cart = session('cart', []);
+    $id = $request->id;
+
+    if (isset($cart[$id])) {
+        $cart[$id]['qty'] = max(1, $cart[$id]['qty'] + $request->change);
+    }
+
+    session(['cart' => $cart]);
+
+    return $this->sessionSummary($cart);
+}
+
+// updated for db after login
+private function updateDbCart($request)
+{
+    $cart = Cart::where('user_id', auth()->id())->first();
+    if (!$cart) return response()->json($this->emptyResponse());
+
+    $item = CartItem::where('cart_id', $cart->id)
+        ->where('product_id', $request->id)
+        ->first();
+
+    if ($item) {
+        $item->qty = max(1, $item->qty + $request->change);
+        $item->save();
+    }
+
+    return $this->dbSummary($cart);
+}
 
 
+// DELETE ITEM (SESSION + DB)
+public function delete(Request $request)
+{
+    if (auth()->check()) {
+        return $this->deleteDbCart($request);
+    }
+
+    // SESSION
+    $cart = session('cart', []);
+    unset($cart[$request->id]);
+
+    session(['cart' => $cart]);
+
+    return $this->sessionSummary($cart);
+}
+
+// DELETE DB CART ITEM
+private function deleteDbCart($request)
+{
+    $cart = Cart::where('user_id', auth()->id())->first();
+    if (!$cart) return response()->json($this->emptyResponse());
+
+    CartItem::where('cart_id', $cart->id)
+        ->where('product_id', $request->id)
+        ->delete();
+
+    return $this->dbSummary($cart);
+}
+
+// SESSION SUMMARY
+private function sessionSummary($cart)
+{
+    return response()->json([
+        'cart' => $cart,
+        'count' => collect($cart)->sum('qty'),
+        'subtotal' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
+        'total' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
+    ]);
+}
+
+// DB SUMMARY
+private function dbSummary($cart)
+{
+    $cart->load('items.product');
+
+    $subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
+
+    $cart->update(['subtotal' => $subtotal]);
+
+    return response()->json([
+        'cart' => $cart->items->mapWithKeys(fn($i) => [
+            $i->product_id => [
+                'qty' => $i->qty,
+                'price' => $i->price,
+            ]
+        ]),
+        'count' => $cart->items->sum('qty'),
+        'subtotal' => $subtotal,
+        'total' => $subtotal,
+    ]);
+}
+
+//EMPTY RESPONSE (FOR SAFETY)
+private function emptyResponse()
+{
+    return [
+        'cart' => [],
+        'count' => 0,
+        'subtotal' => 0,
+        'total' => 0,
+    ];
+}
+
+private function cartSummary($cart)
+    {
+        $subtotal = collect($cart)->sum(fn($i) => $i['price'] * $i['qty']);
+        $discount = 0;
+        $total = $subtotal - $discount;
+
+        return [
+            'cart' => $cart,
+            'subtotal' => $subtotal,
+            'total' => $total,
+            'count' => count($cart)
+        ];
+    }
+
+ public function count()
+    {
+        return response()->json(['count' => count(session('cart',[]))]);
+    }
 
 
 
