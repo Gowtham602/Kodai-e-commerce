@@ -1,26 +1,24 @@
 <x-app-layout>
     <style>
-        /* Cart card */
         .cart-item {
             border-radius: 14px;
         }
 
-        /* Image */
         .cart-img {
-            width: 64px;
-            height: 64px;
+            width: 70px;
+            height: 70px;
             border-radius: 12px;
             object-fit: cover;
         }
 
-        /* Quantity box */
         .qty-box {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             border: 1px solid #e5e7eb;
-            border-radius: 20px;
-            padding: 4px 10px;
+            border-radius: 999px;
+            padding: 4px 14px;
+            background: #f9fafb;
         }
 
         .qty-btn {
@@ -28,7 +26,8 @@
             background: none;
             font-size: 18px;
             font-weight: 600;
-            color: #166534;
+            color: #198754;
+            width: 28px;
         }
 
         .qty-value {
@@ -37,112 +36,114 @@
             font-weight: 600;
         }
 
-        /* Mobile tuning */
         @media (max-width: 768px) {
             .cart-item .card-body {
-                padding: 14px;
-            }
-
-            .item-total {
-                font-size: 15px;
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
-   
 
-    <div class="container py-2">
+    <div class="container py-3">
         <div class="row g-4">
-            <!-- CART ITEMS -->
-            <div class="col-12 col-lg-8">
-                {{-- <h4 class="fw-bold mb-4">
-                Shopping Cart (<span id="cart-count">{{ count(session('cart', [])) }}</span>)
-                </h4> --}}
-              
+
+            {{-- ================= CART ITEMS ================= --}}
+            <div class="col-lg-8">
 
                 @if($useDb && $cart && $cart->items->count())
 
-    {{-- DB CART --}}
-    @foreach($cart->items as $item)
-        <div class="card cart-item mb-3">
-            <div class="card-body">
-                <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
-                <h6>{{ $item->product->name }}</h6>
-                <div>₹{{ $item->price }}</div>
+                {{-- DB CART --}}
+                @foreach($cart->items as $item)
+                <div class="card cart-item mb-3 border-0 shadow-sm">
+                    <div class="card-body d-flex gap-3 align-items-center">
 
-                <div class="qty-box">
-                    <button class="qty-minus" data-id="{{ $item->product_id }}">−</button>
-                    <span class="qty-value">{{ $item->qty }}</span>
-                    <button class="qty-plus" data-id="{{ $item->product_id }}">+</button>
-                </div>
+                        <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
 
-                <div class="item-total">
-                    ₹{{ $item->qty * $item->price }}
+                        <div class="flex-grow-1">
+                            <h6 class="fw-semibold mb-1">{{ $item->product->name }}</h6>
+                            <div class="text-muted">₹{{ $item->price }}</div>
+
+                            <div class="d-flex align-items-center gap-3 mt-2">
+                                <div class="qty-box">
+                                    <button class="qty-btn qty-minus" data-id="{{ $item->product_id }}">−</button>
+                                    <span class="qty-value">{{ $item->qty }}</span>
+                                    <button class="qty-btn qty-plus" data-id="{{ $item->product_id }}">+</button>
+                                </div>
+
+                                <strong class="ms-auto">
+                                    ₹{{ $item->qty * $item->price }}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-link text-danger delete-item"
+                            data-id="{{ $item->product_id }}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
                 </div>
+                @endforeach
+
+                @elseif(!$useDb && !empty($cart))
+
+                {{-- SESSION CART --}}
+                @foreach($cart as $id => $item)
+                <div class="card cart-item mb-3 border-0 shadow-sm">
+                    <div class="card-body d-flex gap-3 align-items-center">
+
+                        <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
+
+                        <div class="flex-grow-1">
+                            <h6 class="fw-semibold mb-1">{{ $item['name'] }}</h6>
+                            <div class="text-muted">₹{{ $item['price'] }}</div>
+
+                            <div class="d-flex align-items-center gap-3 mt-2">
+                                <div class="qty-box">
+                                    <button class="qty-btn qty-minus" data-id="{{ $id }}">−</button>
+                                    <span class="qty-value">{{ $item['qty'] }}</span>
+                                    <button class="qty-btn qty-plus" data-id="{{ $id }}">+</button>
+                                </div>
+
+                                <strong class="ms-auto">
+                                    ₹{{ $item['price'] * $item['qty'] }}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-link text-danger delete-item"
+                            data-id="{{ $id }}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                @endforeach
+
+                @else
+                <p class="text-muted">Your cart is empty</p>
+                @endif
+
             </div>
-        </div>
-    @endforeach
 
-@elseif(!$useDb && !empty($cart))
-
-    {{-- SESSION CART --}}
-    @foreach($cart as $id => $item)
-        <div class="card cart-item mb-3">
-            <div class="card-body">
-                <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
-                <h6>{{ $item['name'] }}</h6>
-                <div>₹{{ $item['price'] }}</div>
-
-                <div class="qty-box">
-                    <button class="qty-minus" data-id="{{ $id }}">−</button>
-                    <span class="qty-value">{{ $item['qty'] }}</span>
-                    <button class="qty-plus" data-id="{{ $id }}">+</button>
-                </div>
-
-                <div class="item-total">
-                    ₹{{ $item['price'] * $item['qty'] }}
-                </div>
-            </div>
-        </div>
-    @endforeach
-
-@else
-    <p class="text-muted">Your cart is empty</p>
-@endif
-
-
-
-
-            </div>
-
-            <!-- PRICE SUMMARY -->
+            {{-- ================= PRICE SUMMARY ================= --}}
             <div class="col-lg-4">
-                <div class="card price-card border-0 shadow-sm sticky">
+                <div class="card border-0 shadow-sm sticky-top" style="top:90px">
                     <div class="card-body">
 
                         <h5 class="fw-bold mb-3">PRICE DETAILS</h5>
 
                         @php
-                        if ($useDb && isset($cart)) {
+                        if ($useDb && $cart) {
                         $subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
                         } else {
                         $subtotal = collect($cart ?? [])->sum(fn($i) => $i['price'] * $i['qty']);
                         }
-
-                        $discount = 0;
-                        $total = $subtotal - $discount;
+                        $total = $subtotal;
                         @endphp
-
-
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Price</span>
-                            <span id="subtotal">₹{{ $subtotal }}</span>
+                            <span>₹{{ $subtotal }}</span>
                         </div>
-
-                        <!-- <div class="d-flex justify-content-between mb-2 text-success">
-                        <span>Discount</span>
-                        <span>-₹{{ $discount }}</span>
-                    </div> -->
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Delivery Charges</span>
