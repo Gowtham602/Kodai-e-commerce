@@ -68,14 +68,14 @@ public function add(Request $request)
 private function addToSessionCart($request)
 {
     $cart = session('cart', []);
-
-    $id = $request->id;
+    $product = Product::findOrFail($request->id);
+    $id = $product->id;
 
     if (!isset($cart[$id])) {
         $cart[$id] = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'image' => $request->image,
+            'name' => $product->name,
+            'price' => $product->price,
+            'image' => $product->image,
             'qty' => 1
         ];
     } else {
@@ -89,30 +89,63 @@ private function addToSessionCart($request)
     ]);
 }
 
+
 //if user is login means store to db 
 private function addToDbCart($request)
 {
+    $product = Product::findOrFail($request->id);
+
     $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
 
     $item = CartItem::firstOrNew([
         'cart_id' => $cart->id,
-        'product_id' => $request->id
+        'product_id' => $product->id
     ]);
 
-    $item->qty += 1;
-    $item->price = $request->price;
+    $item->qty = ($item->qty ?? 0) + 1;
+    $item->price = $product->price; // ALWAYS DB PRICE
     $item->save();
 
-   $cart->load('items');
-
-$cart->subtotal = $cart->items->sum(fn($i)=>$i->qty * $i->price);
-$cart->save();
-
+    $cart->load('items');
+    $cart->subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
+    $cart->save();
 
     return response()->json([
         'count' => $cart->items->sum('qty')
     ]);
 }
+
+// Call this BEFORE checkout page
+public function checkout()
+{
+    $cart = Cart::with('items.product')
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+    $this->refreshCartPrices($cart);
+
+    return view('checkout.index', compact('cart'));
+}
+
+
+// MOST IMPORTANT: PRICE VALIDATION AT CHECKOUT
+private function refreshCartPrices($cart)
+{
+    foreach ($cart->items as $item) {
+        $currentPrice = $item->product->price;
+
+        if ($item->price != $currentPrice) {
+            $item->price = $currentPrice;
+            $item->save();
+        }
+    }
+
+    $cart->update([
+        'subtotal' => $cart->items->sum(fn($i) => $i->qty * $i->price)
+    ]);
+}
+
+
 public function show()
 {
     if (auth()->check()) {

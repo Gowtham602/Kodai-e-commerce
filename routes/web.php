@@ -4,9 +4,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KodaiController;
+use App\Http\Controllers\CheckOutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\TodayDealController;
+use App\Models\Order;
 
 
 
@@ -61,6 +63,29 @@ Route::middleware(['auth', 'admin'])
 
         Route::resource('products', AdminProductController::class);
 });
+
+
+// check function routes
+Route::middleware('auth')->group(function () {
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])
+        ->name('checkout');
+
+    Route::post('/place-order', [CheckoutController::class, 'placeOrder'])
+        ->name('place.order');
+
+    Route::get('/order-success/{order}', function (Order $order) {
+        return view('checkout.success', compact('order'));
+    })->name('order.success');
+
+});
+
+if (!$cart || $cart->items->isEmpty()) {
+    return redirect()->route('products.index')
+        ->with('error', 'Please add items to your cart');
+}
+
+
 
 //today deal admin login           
 
