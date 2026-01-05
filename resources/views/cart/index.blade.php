@@ -53,7 +53,7 @@ body {
 /* =====================
    QTY CONTROLLER (DESIGNER)
 ===================== */
-.qty-box {
+.qty-box1 {
     display: inline-flex;
     align-items: center;
     background: #f9fafb;
@@ -61,6 +61,22 @@ body {
     padding: 6px 18px;
     gap: 18px;
     border: 1px solid #e5e7eb;
+}
+
+@media (max-width: 556px) {
+    
+.qty-box1 {
+    padding: 10px;
+    gap: 5px;
+}
+
+.item-total{
+    font-size: 14px !important;
+}
+
+#price{
+    font-size: 14px;
+}
 }
 
 .qty-btn {
@@ -86,7 +102,6 @@ body {
 
 /* ITEM TOTAL */
 .item-total {
-    font-size: 18px;
     font-weight: 800;
     color: var(--text-dark);
 }
@@ -107,7 +122,6 @@ body {
 }
 
 .price-card h5 {
-    font-size: 15px;
     font-weight: 800;
     letter-spacing: 0.08em;
 }
@@ -115,7 +129,6 @@ body {
 .price-row {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
     color: var(--text-light);
     margin-bottom: 12px;
 }
@@ -152,8 +165,8 @@ body {
     }
 
     .cart-img {
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 100px;
     }
 
     .mobile-checkout {
@@ -167,12 +180,23 @@ body {
         z-index: 2000;
     }
 }
+
+/* DELETE BUTTON TOP RIGHT */
+.delete-top {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 18px;
+    padding: 0;
+}
+
+
 </style>
 
 
 
     <div class="container py-3">
-        <div class="row g-4">
+        <div class="row g-3">
 
             {{-- ================= CART ITEMS ================= --}}
             <div class="col-lg-8">
@@ -182,33 +206,35 @@ body {
                 {{-- DB CART --}}
                 @foreach($cart->items as $item)
                 <div class="card cart-item mb-3 border-0 shadow-sm">
-                    <div class="card-body d-flex gap-3 align-items-center">
+    <div class="card-body d-flex gap-3 align-items-start position-relative">
 
-                        <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
+        <!-- DELETE (TOP RIGHT) -->
+        <button class="btn btn-link text-danger delete-item delete-top"
+            data-id="{{ $item->product_id }}">
+            <i class="bi bi-trash"></i>
+        </button>
 
-                        <div class="flex-grow-1">
-                            <h6 class="fw-semibold mb-1">{{ $item->product->name }}</h6>
-                            <div class="cart-price">₹{{ $item->price }}</div>
+        <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
 
-                            <div class="d-flex align-items-center gap-3 mt-2">
-                                <div class="qty-box">
-                                    <button class="qty-btn qty-minus" data-id="{{ $item->product_id }}">−</button>
-                                    <span class="qty-value">{{ $item->qty }}</span>
-                                    <button class="qty-btn qty-plus" data-id="{{ $item->product_id }}">+</button>
-                                </div>
+        <div class="flex-grow-1">
+            <h6 class="fw-semibold mb-1">{{ $item->product->name }}</h6>
+            <div class="cart-price mb-2">₹{{ $item->price }}</div>
 
-                                <strong class="ms-auto item-total">
-                                    ₹{{ $item->qty * $item->price }}
-                                </strong>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-link text-danger delete-item"
-                            data-id="{{ $item->product_id }}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
+            <div class="d-flex align-items-center gap-3 mt-2">
+                <div class="qty-box1">
+                    <button class="qty-btn qty-minus" data-id="{{ $item->product_id }}">−</button>
+                    <span class="qty-value">{{ $item->qty }}</span>
+                    <button class="qty-btn qty-plus" data-id="{{ $item->product_id }}">+</button>
                 </div>
+
+                <strong class="ms-auto item-total">
+                    ₹{{ $item->qty * $item->price }}
+                </strong>
+            </div>
+        </div>
+    </div>
+</div>
+
                 @endforeach
 
                 @elseif(!$useDb && !empty($cart))
@@ -216,7 +242,7 @@ body {
                 {{-- SESSION CART --}}
                 @foreach($cart as $id => $item)
                 <div class="card cart-item mb-3 border-0 shadow-sm">
-                    <div class="card-body d-flex gap-3 align-items-center">
+                    <div class="card-body d-flex gap-2 align-items-center">
 
                         <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
 
@@ -225,7 +251,7 @@ body {
                             <div class="cart-price">₹{{ $item['price'] }}</div>
 
                             <div class="d-flex align-items-center gap-3 mt-2">
-                                <div class="qty-box">
+                                <div class="qty-box1">
                                     <button class="qty-btn qty-minus" data-id="{{ $id }}">−</button>
                                     <span class="qty-value">{{ $item['qty'] }}</span>
                                     <button class="qty-btn qty-plus" data-id="{{ $id }}">+</button>
@@ -268,18 +294,18 @@ body {
                         @endphp
 
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Price</span>
+                            <span id="price">Price</spanid>
                             <span>₹{{ $subtotal }}</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Delivery Charges</span>
+                            <span id="price">Delivery Charges</span>
                             <span class="text-success">Free</span>
                         </div>
 
                         <hr>
 
-                        <div class="d-flex justify-content-between fw-bold fs-5">
+                        <div class="d-flex justify-content-between fw-bold mt-2">
                             <span>Total Amount</span>
                             <span id="total">₹{{ $total }}</span>
                         </div>

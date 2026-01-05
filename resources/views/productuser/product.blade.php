@@ -186,7 +186,7 @@
                 <div>
                     <h4 class="fw-bold mb-1">Products</h4>
                     <p class="koodai-spec text-muted small mb-0">
-                        Koodai Specials Products for you
+                        Koodai Chocolates Products for you
                     </p>
                 </div>
 

@@ -14,7 +14,7 @@
             <div class="modal-body p-4">
 
                 <p class="text-muted small mb-4">
-                    Login to continue shopping at <strong>Kodai Specials</strong>
+                    Login to continue shopping at <strong>Kodai Chocolates</strong>
                 </p>
 
                 <form method="POST" action="{{ route('login') }}">

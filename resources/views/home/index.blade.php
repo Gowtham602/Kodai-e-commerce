@@ -21,7 +21,7 @@
                     <div class="position-relative h-100 d-flex align-items-center justify-content-center text-center text-white">
                         <div>
                             <h1 class="fw-bold mb-3">
-                                Welcome to <span class="text-success">Kodai Specials</span>
+                                Welcome to <span class="text-success">Kodai Chocolates</span>
                             </h1>
                             <p class="lead mb-4">
                                 Authentic taste from the hills of Kodaikanal
@@ -67,7 +67,7 @@
 
             <!-- TITLE -->
             <div class="text-center mb-4">
-                <h3 class="fw-bold">Kodai Specials Collection</h3>
+                <h3 class="fw-bold">Kodai Chocolate Collection</h3>
                 <p class="text-muted mb-0">
                     Handpicked products from Kodaikanal
                 </p>
@@ -205,7 +205,7 @@
 
 
     <!-- ================= TODAY DEAL SECTION ================= -->
-    <section class="container my-3 rounded-4 overflow-hidden ">
+    <!-- <section class="container my-3 rounded-4 overflow-hidden ">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
@@ -235,9 +235,9 @@
                                 <span class="new-price">₹{{ $deal->deal_price }}</span>
                             </div>
 
-                            <!-- <div class="countdown" data-end="{{ $deal->end_time }}">
+                            <div class="countdown" data-end="{{ $deal->end_time }}">
                                 ⏳ Loading...
-                            </div> -->
+                            </div> 
 
                             <button class="btn btn-success rounded-pill w-100 mt-2">
                                 Buy Now
@@ -253,7 +253,7 @@
             <div class="swiper-pagination today-pagination mt-3"></div>
         </div>
 
-    </section>
+    </section> -->
 
     <!-- ================= JS ================= -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

@@ -4,7 +4,7 @@
 
         <!-- Logo -->
         <a href="{{ route('home') }}" class="mobile-logo">
-            Kodai <span>Specials</span>
+            Kodai <span>Chocolates</span>
         </a>
 
         <!-- Right icons -->
