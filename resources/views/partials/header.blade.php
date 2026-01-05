@@ -33,7 +33,7 @@
                 {{-- Guest --}}
                 @guest
                 <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                <!-- <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a> -->
                 @endguest
 
                 {{-- Logged-in user --}}
