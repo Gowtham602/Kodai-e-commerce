@@ -246,7 +246,18 @@ body {
                 @endforeach
 
                 @else
-                <p class="cart-price">Your cart is empty</p>
+                <div class="empty-cart-wrapper">
+            <div class="empty-cart-card">
+                <div class="cart-icon">🛒</div>
+
+                <h3>Your cart is empty</h3>
+                <p>Add some delicious products from Kodaikanal!</p>
+
+                <a href="{{ route('products.index') }}" class="start-shopping-btn">
+                    👜 Start Shopping
+                </a>
+            </div>
+        </div>
                 @endif
 
             </div>
@@ -287,10 +298,11 @@ body {
                         <!-- <button class="btn btn-success w-100 mt-4 py-2 fw-semibold">
                             PLACE ORDER
                         </button> -->
-                        <div class="mobile-checkout d-lg-none">
-    <button class="btn place-order-btn w-100 mt-4 d-none d-lg-block">
-    PLACE ORDER
-</button>
+                      <a href="{{ route('checkout') }}"
+                            class="btn btn-success w-100 mt-4 py-2 fw-semibold text-center">
+                                PLACE ORDER
+                     </a>
+
 
 
 

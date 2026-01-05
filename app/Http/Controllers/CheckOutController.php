@@ -12,8 +12,10 @@ class CheckOutController extends Controller
     public function index()
 {
     if (!auth()->check()) {
-        session(['redirect' => 'checkout']);
-        return redirect()->route('login');
+        // session(['redirect' => 'checkout']);
+         session(['redirect' => url('/checkout')]);
+        // return redirect()->route('login');
+        return redirect()->back()->with('showLoginModal', true);
     }
 
     $cart = Cart::with('items.product')

@@ -66,25 +66,19 @@ Route::middleware(['auth', 'admin'])
 
 
 // check function routes
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
     Route::get('/checkout', [CheckoutController::class, 'index'])
         ->name('checkout');
 
-    Route::post('/place-order', [CheckoutController::class, 'placeOrder'])
+    Route::post('/place-order', [CheckoutController::class, 'placeOrder']) ->middleware('auth')
         ->name('place.order');
 
     Route::get('/order-success/{order}', function (Order $order) {
         return view('checkout.success', compact('order'));
     })->name('order.success');
 
-});
-
-if (!$cart || $cart->items->isEmpty()) {
-    return redirect()->route('products.index')
-        ->with('error', 'Please add items to your cart');
-}
-
+// });
 
 
 //today deal admin login           

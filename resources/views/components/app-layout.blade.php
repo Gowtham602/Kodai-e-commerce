@@ -25,6 +25,8 @@
 
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+ 
+
 </head>
 {{-- <body class="pt-[72px]"> offset for fixed navbar --}}
 <body class="d-flex flex-column min-vh-100">
@@ -92,6 +94,26 @@
     });
     </script>
     @endif
+@if(session('showLoginModal'))
+<script>
+    window.addEventListener('load', function () {
+        if (typeof bootstrap !== 'undefined') {
+            console.log('bootstrap:', typeof bootstrap);
+console.log('modal:', document.getElementById('loginModal'));
+
+            const modalEl = document.getElementById('loginModal');
+            if (modalEl) {
+                console.log("login model")
+                new bootstrap.Modal(modalEl, {
+                    backdrop: 'static',
+                    keyboard: false
+                }).show();
+            }
+        }
+    });
+</script>
+@endif
+
 
     {{--  AUTO OPEN LOGIN MODAL ON ERROR --}}
     @if ($errors->getBag('login')->any())

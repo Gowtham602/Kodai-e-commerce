@@ -95,6 +95,9 @@ private function mergeSessionCartToDb()
     if ($user->role === 'admin') {
         return redirect('/admin/dashboard');
     }
+  if (session()->has('redirect')) {
+        return redirect()->to(session()->pull('redirect'));
+    }
     
     return redirect('/kodai/about');
 }
