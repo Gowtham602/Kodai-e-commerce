@@ -57,7 +57,7 @@ $(document).on('click', '.delete-item', function () {
 
         <div class="empty-cart-wrapper">
             <div class="empty-cart-card">
-                <div class="cart-icon">🛒</div>
+                <i class="bi bi-cart"></i>
 
                 <h3>Your cart is empty</h3>
                 <p>Add some delicious products from Kodaikanal!</p>
