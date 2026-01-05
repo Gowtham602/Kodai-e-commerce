@@ -184,7 +184,7 @@
         <div class="premium-header mb-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div>
-                    <h4 class="fw-bold mb-1">Products</h4>
+                    <h4 class="koodai-spec fw-bold mb-1">Products</h4>
                     <p class="koodai-spec text-muted small mb-0">
                         Koodai Chocolates Products for you
                     </p>

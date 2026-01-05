@@ -203,13 +203,21 @@
                 {{-- SESSION CART --}}
                 @foreach($cart as $id => $item)
                 <div class="card cart-item mb-3 border-0 shadow-sm">
-                    <div class="card-body d-flex gap-2 align-items-center">
+                    <div class="card-body d-flex gap-3 align-items-start position-relative">
 
+                        <!-- DELETE (TOP RIGHT) -->
+                        <button class="btn btn-link text-danger delete-item delete-top"
+                            data-id="{{ $id }}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+
+                        <!-- IMAGE -->
                         <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
 
+                        <!-- CONTENT -->
                         <div class="flex-grow-1">
                             <h6 class="fw-semibold mb-1">{{ $item['name'] }}</h6>
-                            <div class="cart-price">₹{{ $item['price'] }}</div>
+                            <div class="cart-price mb-2">₹{{ $item['price'] }}</div>
 
                             <div class="d-flex align-items-center gap-3 mt-2">
                                 <div class="qty-box1">
@@ -224,13 +232,10 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-link text-danger delete-item"
-                            data-id="{{ $id }}">
-                            <i class="bi bi-trash"></i>
-                        </button>
                     </div>
                 </div>
                 @endforeach
+
 
                 @else
                 <div class="empty-cart-wrapper">
