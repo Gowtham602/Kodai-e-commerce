@@ -1,4 +1,4 @@
-/* CART ITEM */
+/* CART ITEM
 .cart-item {
     border-radius: 14px;
 }
@@ -11,7 +11,6 @@
     background: #f8f9fa;
 }
 
-/* QTY */
 .qty-box {
     display: flex;
     align-items: center;
@@ -35,27 +34,15 @@
     background: #e9ecef;
 }
 
-/* PRICE CARD */
+
 .price-card {
     border-radius: 14px;
     top: 90px;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-    .cart-img {
-        width: 65px;
-        height: 65px;
-    }
-
-    .qty-box {
-        gap: 6px;
-        padding: 3px 8px;
-    }
-}
 
 
-/* deleted icon */
+
 .delete-item i {
     transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -67,4 +54,4 @@
 .iew{
     background-color: aquamarine;
     color: brown;
-}
+} */

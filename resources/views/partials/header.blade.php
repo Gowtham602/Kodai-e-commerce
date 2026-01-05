@@ -7,7 +7,7 @@
 
             <!-- Logo -->
             <a href="{{ route('home') }}" class="logo">
-                <i class="fas fa-mountain"></i> Kodai Specials
+                <i class="fas fa-mountain"></i> Kodai Chocolates
             </a>
 
             <!-- Mobile toggle -->

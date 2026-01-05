@@ -75,7 +75,7 @@
 
         <a href="{{ route('products.index') }}"
            class="btn btn-success btn-lg rounded-pill px-5 mt-4 shadow">
-            Shop Kodai Specials
+            Shop Kodai Chocolates
     </a>
     </div>
 
@@ -89,11 +89,11 @@
                 <!-- TEXT -->
         <div class="col-lg-7">
             <h2 class="fw-bold text-success mb-3">
-                About Kodai Specials
+                About Kodai Chocolates
             </h2>
 
             <p class="text-muted">
-                <strong>Kodai Specials</strong> brings the authentic taste and
+                <strong>Kodai Chocolates</strong> brings the authentic taste and
                 freshness of Kodaikanal directly to your doorstep.
             </p>
 
@@ -130,7 +130,7 @@
 <section class="bg-light py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h3 class="fw-bold">Why Kodai Specials?</h3>
+            <h3 class="fw-bold">Why Kodai Chocolates?</h3>
             <p class="text-muted mb-0">
                 Quality, freshness, and authenticity — always
             </p>

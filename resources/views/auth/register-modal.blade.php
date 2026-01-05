@@ -23,7 +23,7 @@
       <div class="modal-body p-4">
 
         <p class="text-muted small mb-3">
-          Join <strong>Kodai Specials</strong> and enjoy exclusive deals
+          Join <strong>Kodai Chocolates</strong> and enjoy exclusive deals
         </p>
 
         <div id="registerErrors" class="alert alert-danger d-none"></div>

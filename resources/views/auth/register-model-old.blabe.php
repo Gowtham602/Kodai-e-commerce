@@ -15,7 +15,7 @@
             <div class="modal-body p-4">
 
                 <p class="text-muted small mb-4">
-                    Join <strong>Kodai Specials</strong> and enjoy exclusive deals
+                    Join <strong>Kodai Chocolates</strong> and enjoy exclusive deals
                 </p>
 
                 {{-- Validation Errors --}}
