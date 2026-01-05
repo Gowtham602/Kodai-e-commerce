@@ -6,7 +6,7 @@
             <!-- BRAND -->
             <div class="col-lg-4 col-md-6">
                 <h4 class="footer-brand mb-3">
-                    🌿 Kodai Specials
+                    🌿 Kodai Chocolates
                 </h4>
                 <p class="footer-text">
                     Bringing the authentic taste and freshness of
@@ -36,7 +36,7 @@
 
                     <div class="contact-item">
                         <span>✉️</span>
-                        <p>support@kodaispecials.com</p>
+                        <p>support@kodaichocolates.com</p>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
 <div class="row align-items-center footer-bottom pb-2 mar ">
     <div class="mb-2 col-md-6 text-center text-md-start ">
         <small class="footer-copy">
-            © {{ date('Y') }} <strong>Kodai Specials</strong>. All rights reserved.
+            © {{ date('Y') }} <strong>Kodai Chocolates</strong>. All rights reserved.
         </small>
     </div>
 

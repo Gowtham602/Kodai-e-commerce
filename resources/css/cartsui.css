@@ -91,6 +91,10 @@
     .product-price {
         font-size: 16px;
     }
+
+    #uicart{
+        display: none;
+    }
 }
 
 

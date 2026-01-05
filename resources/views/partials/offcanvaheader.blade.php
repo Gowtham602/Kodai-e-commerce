@@ -78,7 +78,7 @@
     <!-- HEADER -->
     <div class="offcanvas-header border-bottom">
         <h5 class="fw-bold text-success mb-0">
-            <i class="fas fa-leaf me-2"></i> Kodai Specials
+            <i class="fas fa-leaf me-2"></i> Kodai Chocolates
         </h5>
         <button class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
