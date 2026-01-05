@@ -70,7 +70,7 @@
                                     <button class="qty-btn qty-plus" data-id="{{ $item->product_id }}">+</button>
                                 </div>
 
-                                <strong class="ms-auto">
+                                <strong class="ms-auto item-total">
                                     ₹{{ $item->qty * $item->price }}
                                 </strong>
                             </div>
@@ -104,7 +104,7 @@
                                     <button class="qty-btn qty-plus" data-id="{{ $id }}">+</button>
                                 </div>
 
-                                <strong class="ms-auto">
+                                <strong class="ms-auto item-total">
                                     ₹{{ $item['price'] * $item['qty'] }}
                                 </strong>
                             </div>
@@ -126,7 +126,7 @@
 
             {{-- ================= PRICE SUMMARY ================= --}}
             <div class="col-lg-4">
-                <div class="card border-0 shadow-sm sticky-top" style="top:90px">
+                <div class="card border-0 shadow-sm sticky-top price-card" style="top:90px">
                     <div class="card-body">
 
                         <h5 class="fw-bold mb-3">PRICE DETAILS</h5>
