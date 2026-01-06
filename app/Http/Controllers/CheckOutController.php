@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Address;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -38,15 +39,38 @@ class CheckOutController extends Controller
     $cart->update([
         'subtotal' => $cart->items->sum(fn($i) => $i->qty * $i->price)
     ]);
+      $addresses = Address::where('user_id', auth()->id())->latest()->get();
 
-    return view('checkout.index', compact('cart', 'priceChanged'));
+    return view('checkout.index', compact('cart', 'priceChanged','addresses'));
 }
+
 
 
 
 
 public function placeOrder(Request $request)
 {
+    // dd($request->all());
+// 
+    //  CASE 1: Saved address
+    if ($request->address_type === 'saved') {
+        $request->validate([
+            'address_id' => 'required|exists:addresses,id',
+        ]);
+    }
+    //  CASE 2: Self / Other (manual address)
+    else {
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required|min:10',
+            'email' => 'required|email',
+            'address' => 'required|min:10',
+            'state' => 'required',
+            'pincode' => 'required',
+        ]);
+    }
+// dd('Reached transaction');
+
     $cart = Cart::with('items.product')
         ->where('user_id', auth()->id())
         ->firstOrFail();
@@ -55,6 +79,25 @@ public function placeOrder(Request $request)
 
     try {
 
+        //  ADDRESS
+        if ($request->address_type === 'saved') {
+            $address = Address::where('id', $request->address_id)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+        } else {
+            $address = Address::create([
+                'user_id' => auth()->id(),
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'state' => $request->state,
+                'pincode' => $request->pincode,
+                'near_place' => $request->near_place,
+            ]);
+        }
+
+        //  ORDER
         $order = Order::create([
             'user_id' => auth()->id(),
             'order_number' => 'ORD' . now()->timestamp,
@@ -62,8 +105,18 @@ public function placeOrder(Request $request)
             'total' => $cart->subtotal,
             'status' => 'placed',
             'payment_method' => 'cod',
+
+            // SNAPSHOT
+            'customer_name' => $address->name,
+            'customer_phone' => $address->phone,
+            'customer_email' => $address->email,
+            'shipping_address' => $address->address,
+            'state' => $address->state,
+            'pincode' => $address->pincode,
+            'near_place' => $address->near_place,
         ]);
 
+        //  ORDER ITEMS
         foreach ($cart->items as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
@@ -75,19 +128,17 @@ public function placeOrder(Request $request)
             ]);
         }
 
-        // Clear cart
+        //  CLEAR CART
         $cart->items()->delete();
         $cart->delete();
 
         DB::commit();
-
         return redirect()->route('order.success', $order->id);
 
     } catch (\Exception $e) {
         DB::rollBack();
-        return back()->with('error', 'Order failed');
+        return back()->with('error', 'Order failed. Please try again.');
     }
 }
-
 
 }
