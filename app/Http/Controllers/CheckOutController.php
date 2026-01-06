@@ -7,6 +7,10 @@ use App\Models\Address;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlacedCustomer;
+use App\Mail\OrderPlacedAdmin;
+
 
 class CheckOutController extends Controller
 {
@@ -69,7 +73,7 @@ public function placeOrder(Request $request)
             'pincode' => 'required',
         ]);
     }
-// dd('Reached transaction');
+    // dd('Reached transaction');
 
     $cart = Cart::with('items.product')
         ->where('user_id', auth()->id())
@@ -133,6 +137,14 @@ public function placeOrder(Request $request)
         $cart->delete();
 
         DB::commit();
+        // Send email to customer
+            Mail::to($order->customer_email)
+                ->send(new OrderPlacedCustomer($order));
+
+            // Send email to admin
+            Mail::to('admin@kodaichocolates.com')
+                ->send(new OrderPlacedAdmin($order));
+
         return redirect()->route('order.success', $order->id);
 
     } catch (\Exception $e) {

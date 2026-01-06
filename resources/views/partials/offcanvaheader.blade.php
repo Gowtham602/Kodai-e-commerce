@@ -94,9 +94,10 @@
             <a href="{{ route('about') }}" class="menu-item active">
                 <i class="fas fa-info-circle me-3"></i> About
             </a>
-            <a href="#" class="menu-item">
+            <!-- <a href="#" class="menu-item">
                 <i class="fas fa-phone me-3"></i> Contact
-            </a>
+            </a> -->
+             <a href="{{ route('orders.index') }}" class="menu-item">Your Orders </a>
         </nav>
 
         <hr class="menu-divider">
