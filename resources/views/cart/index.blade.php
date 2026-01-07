@@ -291,7 +291,7 @@
                             PLACE ORDER
                         </button> -->
                         @if($subtotal > 0)
-                        <a href="{{ route('checkout') }}" class="btn place-order-btn w-100 mt-4 text-white">
+                        <a href="{{ route('checkout.index') }}" class="btn place-order-btn w-100 mt-4 text-white">
                             PLACE ORDER
                         </a>
                         @else

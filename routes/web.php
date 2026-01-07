@@ -4,7 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KodaiController;
-use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -70,7 +70,7 @@ Route::middleware(['auth', 'admin'])
 // Route::middleware('auth')->group(function () {
 
     Route::get('/checkout', [CheckoutController::class, 'index'])
-        ->name('checkout');
+        ->name('checkout.index');
 
     Route::post('/place-order', [CheckoutController::class, 'placeOrder']) ->middleware('auth')
         ->name('place.order');

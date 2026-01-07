@@ -66,6 +66,7 @@ body{background:var(--bg);}
 
 <form method="POST" action="{{ route('place.order') }}" id="checkoutForm">
 @csrf
+<input type="hidden" name="address_type" id="address_type" value="self">
 
 <div class="container py-4">
 
@@ -163,9 +164,14 @@ body{background:var(--bg);}
                     <span>₹{{ $cart->subtotal }}</span>
                 </div>
 
-                <button id="placeOrderBtn" class="btn btn-success w-100 fw-bold py-3 mt-3 d-none">
+                <!-- <button id="placeOrderBtn" class="btn btn-success w-100 fw-bold py-3 mt-3 d-none">
+                    PLACE ORDER
+                </button> -->
+                <button type="submit" id="placeOrderBtn"
+                    class="btn btn-success w-100 fw-bold py-3 mt-3 d-none">
                     PLACE ORDER
                 </button>
+
             </div>
         </div>
 
@@ -288,7 +294,7 @@ $(document).ready(function () {
     
     console.log('Checkout validation JS loaded');
 
-    $('form').on('submit', function (e) {
+    $('#checkoutForm').on('submit', function (e) {
 
         e.preventDefault(); //  ALWAYS STOP FIRST
 
@@ -357,7 +363,9 @@ if (error !== '') {
         console.log('Validation passed → submitting form');
 
         //  ONLY NOW submit
-        this.submit();
+        // this.submit();
+        e.currentTarget.submit();
+
     });
 
 });

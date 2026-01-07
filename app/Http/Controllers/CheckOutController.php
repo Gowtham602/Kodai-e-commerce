@@ -12,7 +12,8 @@ use App\Mail\OrderPlacedCustomer;
 use App\Mail\OrderPlacedAdmin;
 
 
-class CheckOutController extends Controller
+
+class CheckoutController extends Controller
 {
     public function index()
 {
@@ -20,7 +21,9 @@ class CheckOutController extends Controller
         // session(['redirect' => 'checkout']);
          session(['redirect' => url('/checkout')]);
         // return redirect()->route('login');
-        return redirect()->back()->with('showLoginModal', true);
+        // return redirect()->back()->with('showLoginModal', true);
+        return redirect()->route('home')->with('showLoginModal', true);
+
     }
 
     $cart = Cart::with('items.product')
@@ -47,6 +50,42 @@ class CheckOutController extends Controller
 
     return view('checkout.index', compact('cart', 'priceChanged','addresses'));
 }
+// public function index()
+// {
+//     if (!auth()->check()) {
+//         session(['redirect' => url('/checkout')]);
+//         return redirect()->route('login');
+//     }
+
+//     $cart = Cart::with('items.product')
+//         ->where('user_id', auth()->id())
+//         ->first();
+
+//     if (!$cart || $cart->items->isEmpty()) {
+//         return redirect()->route('cart.index')
+//             ->with('error', 'Your cart is empty');
+//     }
+
+//     $priceChanged = false;
+
+//     foreach ($cart->items as $item) {
+//         $latestPrice = $item->product->price;
+//         if ($item->price != $latestPrice) {
+//             $item->price = $latestPrice;
+//             $item->save();
+//             $priceChanged = true;
+//         }
+//     }
+
+//     $cart->update([
+//         'subtotal' => $cart->items->sum(fn($i) => $i->qty * $i->price)
+//     ]);
+
+//     $addresses = Address::where('user_id', auth()->id())->latest()->get();
+
+//     return view('checkout.index', compact('cart', 'priceChanged', 'addresses'));
+// }
+
 
 
 
@@ -138,17 +177,18 @@ public function placeOrder(Request $request)
 
         DB::commit();
         // Send email to customer
-            Mail::to($order->customer_email)
-                ->send(new OrderPlacedCustomer($order));
+            // Mail::to($order->customer_email)
+            //     ->send(new OrderPlacedCustomer($order));
 
-            // Send email to admin
-            Mail::to('admin@kodaichocolates.com')
-                ->send(new OrderPlacedAdmin($order));
+            // // Send email to admin
+            // Mail::to('admin@kodaichocolates.com')
+            //     ->send(new OrderPlacedAdmin($order));
 
-        return redirect()->route('order.success', $order->id);
+        return redirect()->route('order.success', $order->id)->with('order_placed', true);;
 
     } catch (\Exception $e) {
         DB::rollBack();
+         dd($e->getMessage());
         return back()->with('error', 'Order failed. Please try again.');
     }
 }
