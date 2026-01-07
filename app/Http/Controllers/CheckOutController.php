@@ -15,26 +15,28 @@ use App\Mail\OrderPlacedAdmin;
 
 class CheckoutController extends Controller
 {
-    public function index()
+  public function index()
 {
     if (!auth()->check()) {
-        // session(['redirect' => 'checkout']);
-         session(['redirect' => url('/checkout')]);
-        // return redirect()->route('login');
-        // return redirect()->back()->with('showLoginModal', true);
+        session(['redirect' => url('/checkout')]);
         return redirect()->route('home')->with('showLoginModal', true);
-
     }
 
     $cart = Cart::with('items.product')
         ->where('user_id', auth()->id())
-        ->firstOrFail();
-    // dd($cart);
+        ->first();
+
+    //  VERY IMPORTANT CHECK
+    if (!$cart || $cart->items->isEmpty()) {
+        return redirect()
+            ->route('home')
+            ->with('info', 'Your cart is empty');
+    }
+
     $priceChanged = false;
 
     foreach ($cart->items as $item) {
         $latestPrice = $item->product->price;
-        // dd($latestPrice);
 
         if ($item->price != $latestPrice) {
             $item->price = $latestPrice;
@@ -44,51 +46,13 @@ class CheckoutController extends Controller
     }
 
     $cart->update([
-        'subtotal' => $cart->items->sum(fn($i) => $i->qty * $i->price)
+        'subtotal' => $cart->items->sum(fn ($i) => $i->qty * $i->price)
     ]);
-      $addresses = Address::where('user_id', auth()->id())->latest()->get();
 
-    return view('checkout.index', compact('cart', 'priceChanged','addresses'));
+    $addresses = Address::where('user_id', auth()->id())->latest()->get();
+
+    return view('checkout.index', compact('cart', 'priceChanged', 'addresses'));
 }
-// public function index()
-// {
-//     if (!auth()->check()) {
-//         session(['redirect' => url('/checkout')]);
-//         return redirect()->route('login');
-//     }
-
-//     $cart = Cart::with('items.product')
-//         ->where('user_id', auth()->id())
-//         ->first();
-
-//     if (!$cart || $cart->items->isEmpty()) {
-//         return redirect()->route('cart.index')
-//             ->with('error', 'Your cart is empty');
-//     }
-
-//     $priceChanged = false;
-
-//     foreach ($cart->items as $item) {
-//         $latestPrice = $item->product->price;
-//         if ($item->price != $latestPrice) {
-//             $item->price = $latestPrice;
-//             $item->save();
-//             $priceChanged = true;
-//         }
-//     }
-
-//     $cart->update([
-//         'subtotal' => $cart->items->sum(fn($i) => $i->qty * $i->price)
-//     ]);
-
-//     $addresses = Address::where('user_id', auth()->id())->latest()->get();
-
-//     return view('checkout.index', compact('cart', 'priceChanged', 'addresses'));
-// }
-
-
-
-
 
 
 public function placeOrder(Request $request)
@@ -120,7 +84,7 @@ public function placeOrder(Request $request)
 
     DB::beginTransaction();
 
-    try {
+    // try {
 
         //  ADDRESS
         if ($request->address_type === 'saved') {
@@ -177,20 +141,22 @@ public function placeOrder(Request $request)
 
         DB::commit();
         // Send email to customer
-            // Mail::to($order->customer_email)
-            //     ->send(new OrderPlacedCustomer($order));
 
-            // // Send email to admin
-            // Mail::to('admin@kodaichocolates.com')
-            //     ->send(new OrderPlacedAdmin($order));
+try {
+    Mail::to($order->customer_email)
+        ->send(new OrderPlacedCustomer($order));
 
-        return redirect()->route('order.success', $order->id)->with('order_placed', true);;
+    Mail::to('admin@kodaichocolates.com')
+        ->send(new OrderPlacedAdmin($order));
+} catch (\Exception $e) {
+    logger('Mail error: '.$e->getMessage());
+}
 
-    } catch (\Exception $e) {
-        DB::rollBack();
-         dd($e->getMessage());
-        return back()->with('error', 'Order failed. Please try again.');
-    }
+return redirect()
+    ->route('order.success', $order->id)
+    ->with('order_placed', true);
 }
 
 }
+
+
