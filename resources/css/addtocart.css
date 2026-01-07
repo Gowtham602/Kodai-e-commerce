@@ -1,57 +1,27 @@
-/* CART ITEM
-.cart-item {
-    border-radius: 14px;
+/* stickly */
+
+.sticky-cart {
+    position: fixed;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+}
+@media (min-width: 768px) {
+    .sticky-cart { display: none !important; }
 }
 
-.cart-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 10px;
-    background: #f8f9fa;
+.sticky-cart .container {
+    background: #1a7f4b;
+    color: #fff;
+    border-radius: 16px;
+    padding: 12px 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
-.qty-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 30px;
-    padding: 4px 10px;
+.sticky-cart .btn {
+    border-radius: 999px;
+    padding: 6px 14px;
 }
 
-.qty-btn {
-    border: none;
-    background: none;
-    font-size: 18px;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.qty-btn:hover {
-    background: #e9ecef;
-}
-
-
-.price-card {
-    border-radius: 14px;
-    top: 90px;
-}
-
-
-
-
-.delete-item i {
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.delete-item:hover i {
-    color: #0f4ed6;
-    transform: scale(1.2);
-}
-.iew{
-    background-color: aquamarine;
-    color: brown;
-} */
+/* Hide on desktop (optional) */

@@ -11,329 +11,276 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    //for uses page interface
-   
-public function index()
-{
-    $categories = Category::where('is_active', 1)->get();
+    /* ==============================
+       PRODUCT LISTING
+    ============================== */
 
-    $products = Product::where('is_active', 1)
-        ->with('category')
-        ->latest()
-        ->paginate(8); //  paginator
+    public function index()
+    {
+        $categories = Category::where('is_active', 1)->get();
 
-    return view('productuser.product', compact('categories', 'products'));
-}
+        $products = Product::where('is_active', 1)
+            ->with('category')
+            ->latest()
+            ->paginate(8);
 
-
-//filter and also the sort by price
-public function filter(Request $request)
-{
-    $query = Product::with('category')
-        ->where('is_active', 1);
-
-    if ($request->filled('categories')) {
-        $query->whereIn('category_id', (array) $request->categories);
+        return view('productuser.product', compact('categories', 'products'));
     }
 
-    if ($request->sort === 'latest') {
-        $query->latest();
-    } elseif ($request->sort === 'price_low') {
-        $query->orderBy('price', 'asc');
-    } elseif ($request->sort === 'price_high') {
-        $query->orderBy('price', 'desc');
-    }
+    public function filter(Request $request)
+    {
+        $query = Product::with('category')->where('is_active', 1);
 
-    $products = $query
-        ->paginate(8)
-        ->withQueryString();
-
-    return response()->json([
-        'products' => $products->items(),
-        'pagination' => (string) $products->links('pagination::bootstrap-5'),
-    ]);
-}
-
-
-// check if user is login or session  -> store to session or db
-public function add(Request $request)
-{
-    if (auth()->check()) {
-        return $this->addToDbCart($request);
-    }
-    return $this->addToSessionCart($request);
-}
-
-//if user not login add to session 
-private function addToSessionCart($request)
-{
-    $cart = session('cart', []);
-    $product = Product::findOrFail($request->id);
-    $id = $product->id;
-
-    if (!isset($cart[$id])) {
-        $cart[$id] = [
-            'name' => $product->name,
-            'price' => $product->price,
-            'image' => $product->image,
-            'qty' => 1
-        ];
-    } else {
-        $cart[$id]['qty']++;
-    }
-
-    session(['cart' => $cart]);
-
-    return response()->json([
-        'count' => collect($cart)->sum('qty')
-    ]);
-}
-
-
-//if user is login means store to db 
-private function addToDbCart($request)
-{
-    $product = Product::findOrFail($request->id);
-
-    $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
-
-    $item = CartItem::firstOrNew([
-        'cart_id' => $cart->id,
-        'product_id' => $product->id
-    ]);
-
-    $item->qty = ($item->qty ?? 0) + 1;
-    $item->price = $product->price; // ALWAYS DB PRICE
-    $item->save();
-
-    $cart->load('items');
-    $cart->subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
-    $cart->save();
-
-    return response()->json([
-        'count' => $cart->items->sum('qty')
-    ]);
-}
-
-// Call this BEFORE checkout page
-public function checkout()
-{
-    $cart = Cart::with('items.product')
-        ->where('user_id', auth()->id())
-        ->firstOrFail();
-
-    $this->refreshCartPrices($cart);
-
-    return view('checkout.index', compact('cart'));
-}
-
-
-// MOST IMPORTANT: PRICE VALIDATION AT CHECKOUT
-private function refreshCartPrices($cart)
-{
-    foreach ($cart->items as $item) {
-        $currentPrice = $item->product->price;
-
-        if ($item->price != $currentPrice) {
-            $item->price = $currentPrice;
-            $item->save();
+        if ($request->filled('categories')) {
+            $query->whereIn('category_id', (array) $request->categories);
         }
-    }
 
-    $cart->update([
-        'subtotal' => $cart->items->sum(fn($i) => $i->qty * $i->price)
-    ]);
-}
+        match ($request->sort) {
+            'latest' => $query->latest(),
+            'price_low' => $query->orderBy('price', 'asc'),
+            'price_high' => $query->orderBy('price', 'desc'),
+            default => null,
+        };
 
+        $products = $query->paginate(8)->withQueryString();
 
-public function show()
-{
-    if (auth()->check()) {
-        $cart = Cart::with('items.product')
-            ->where('user_id', auth()->id())
-            ->first();
-
-        return view('cart.index', [
-            'cart' => $cart,
-            'useDb' => true,
+        return response()->json([
+            'products' => $products->items(),
+            'pagination' => (string) $products->links('pagination::bootstrap-5'),
         ]);
     }
 
-    return view('cart.index', [
-        'cart' => session('cart', []),
-        'useDb' => false,
-    ]);
-}
+    /* ==============================
+       ADD TO CART
+    ============================== */
 
-
-
-    //UPDATE QTY (SESSION + DB)
-public function update(Request $request)
-{
-    if (auth()->check()) {
-        return $this->updateDbCart($request);
+    public function add(Request $request)
+    {
+        return auth()->check()
+            ? $this->addToDbCart($request)
+            : $this->addToSessionCart($request);
     }
 
-    // SESSION
-    $cart = session('cart', []);
-    $id = $request->id;
+    private function addToSessionCart(Request $request)
+    {
+        $cart = session('cart', []);
+        $product = Product::findOrFail($request->id);
 
-    if (isset($cart[$id])) {
-        $cart[$id]['qty'] = max(1, $cart[$id]['qty'] + $request->change);
+        if (!isset($cart[$product->id])) {
+            $cart[$product->id] = [
+                'name' => $product->name,
+                'price' => $product->price,
+                'image' => $product->image,
+                'qty' => 1
+            ];
+        } else {
+            $cart[$product->id]['qty']++;
+        }
+
+        session(['cart' => $cart]);
+
+        return $this->sessionSummary($cart);
     }
 
-    session(['cart' => $cart]);
+    private function addToDbCart(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
 
-    return $this->sessionSummary($cart);
-}
+        $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
 
-// updated for db after login
-private function updateDbCart($request)
-{
-    $cart = Cart::where('user_id', auth()->id())->first();
-    if (!$cart) return response()->json($this->emptyResponse());
+        $item = CartItem::firstOrNew([
+            'cart_id' => $cart->id,
+            'product_id' => $product->id,
+        ]);
 
-    $item = CartItem::where('cart_id', $cart->id)
-        ->where('product_id', $request->id)
-        ->first();
-
-    if ($item) {
-        $item->qty = max(1, $item->qty + $request->change);
+        $item->qty = ($item->qty ?? 0) + 1;
+        $item->price = $product->price;
         $item->save();
+
+        $cart->load('items');
+
+        return $this->buildResponse($cart->items);
     }
 
-    return $this->dbSummary($cart);
-}
+    /* ==============================
+       CART PAGE
+    ============================== */
 
+    public function show()
+    {
+        if (auth()->check()) {
+            $cart = Cart::with('items.product')
+                ->where('user_id', auth()->id())
+                ->first();
 
-// DELETE ITEM (SESSION + DB)
-public function delete(Request $request)
-{
-    if (auth()->check()) {
-        return $this->deleteDbCart($request);
+            return view('cart.index', [
+                'cart' => $cart,
+                'useDb' => true,
+            ]);
+        }
+
+        return view('cart.index', [
+            'cart' => session('cart', []),
+            'useDb' => false,
+        ]);
     }
 
-    // SESSION
-    $cart = session('cart', []);
-    unset($cart[$request->id]);
+    /* ==============================
+       UPDATE QTY
+    ============================== */
 
-    session(['cart' => $cart]);
+    public function update(Request $request)
+    {
+        return auth()->check()
+            ? $this->updateDbCart($request)
+            : $this->updateSessionCart($request);
+    }
 
-    return $this->sessionSummary($cart);
-}
+    private function updateSessionCart(Request $request)
+    {
+        $cart = session('cart', []);
+        $id = $request->id;
 
-// DELETE DB CART ITEM
-private function deleteDbCart($request)
-{
-    $cart = Cart::where('user_id', auth()->id())->first();
-    if (!$cart) return response()->json($this->emptyResponse());
+        if (isset($cart[$id])) {
+            $cart[$id]['qty'] = max(1, $cart[$id]['qty'] + $request->change);
+        }
 
-    CartItem::where('cart_id', $cart->id)
-        ->where('product_id', $request->id)
-        ->delete();
+        session(['cart' => $cart]);
 
-    return $this->dbSummary($cart);
-}
+        return $this->sessionSummary($cart);
+    }
 
-// SESSION SUMMARY
-private function sessionSummary($cart)
-{
-    return response()->json([
-        'cart' => $cart,
-        'count' => collect($cart)->sum('qty'),
-        'subtotal' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
-        'total' => collect($cart)->sum(fn($i) => $i['price'] * $i['qty']),
-    ]);
-}
+    private function updateDbCart(Request $request)
+    {
+        $cart = Cart::where('user_id', auth()->id())->first();
 
-// DB SUMMARY
-private function dbSummary($cart)
-{
-    $cart->load('items.product');
+        if (!$cart) {
+            return $this->emptyResponse();
+        }
 
-    $subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
+        $item = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $request->id)
+            ->first();
 
-    $cart->update(['subtotal' => $subtotal]);
+        if ($item) {
+            $item->qty = max(1, $item->qty + $request->change);
+            $item->save();
+        }
 
-    return response()->json([
-        'cart' => $cart->items->mapWithKeys(fn($i) => [
-            $i->product_id => [
-                'qty' => $i->qty,
-                'price' => $i->price,
+        $cart->load('items');
+
+        return $this->buildResponse($cart->items);
+    }
+
+    /* ==============================
+       DELETE ITEM
+    ============================== */
+
+    public function delete(Request $request)
+    {
+        return auth()->check()
+            ? $this->deleteDbCart($request)
+            : $this->deleteSessionCart($request);
+    }
+
+    private function deleteSessionCart(Request $request)
+    {
+        $cart = session('cart', []);
+        unset($cart[$request->id]);
+
+        session(['cart' => $cart]);
+
+        return $this->sessionSummary($cart);
+    }
+
+    private function deleteDbCart(Request $request)
+    {
+        $cart = Cart::where('user_id', auth()->id())->first();
+
+        if (!$cart) {
+            return $this->emptyResponse();
+        }
+
+        CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $request->id)
+            ->delete();
+
+        $cart->load('items');
+
+        return $this->buildResponse($cart->items);
+    }
+
+    /* ==============================
+       CART COUNT (HEADER)
+    ============================== */
+
+    public function count()
+    {
+        if (auth()->check()) {
+            $cart = Cart::where('user_id', auth()->id())->first();
+            return response()->json([
+                'count' => $cart ? $cart->items()->sum('qty') : 0
+            ]);
+        }
+
+        return response()->json([
+            'count' => collect(session('cart', []))->sum('qty')
+        ]);
+    }
+
+    /* ==============================
+       HELPERS (IMPORTANT)
+    ============================== */
+
+    private function buildResponse($items)
+    {
+        return response()->json([
+            'items' => $items->mapWithKeys(fn($i) => [
+                $i->product_id => [
+                    'qty' => $i->qty,
+                    'price' => $i->price,
+                ]
+            ]),
+            'count' => $items->sum('qty'),
+            'subtotal' => $items->sum(fn($i) => $i->qty * $i->price),
+        ]);
+    }
+
+    private function sessionSummary($cart)
+    {
+        $items = collect($cart)->mapWithKeys(fn($i, $id) => [
+            $id => [
+                'qty' => $i['qty'],
+                'price' => $i['price'],
             ]
-        ]),
-        'count' => $cart->items->sum('qty'),
-        'subtotal' => $subtotal,
-        'total' => $subtotal,
-    ]);
-}
+        ]);
 
-//EMPTY RESPONSE (FOR SAFETY)
-private function emptyResponse()
-{
-    return [
-        'cart' => [],
-        'count' => 0,
-        'subtotal' => 0,
-        'total' => 0,
-    ];
-}
-
-private function cartSummary($cart)
-    {
-        $subtotal = collect($cart)->sum(fn($i) => $i['price'] * $i['qty']);
-        $discount = 0;
-        $total = $subtotal - $discount;
-
-        return [
-            'cart' => $cart,
-            'subtotal' => $subtotal,
-            'total' => $total,
-            'count' => count($cart)
-        ];
+        return response()->json([
+            'items' => $items,
+            'count' => $items->sum('qty'),
+            'subtotal' => $items->sum(fn($i) => $i['qty'] * $i['price']),
+        ]);
     }
 
- public function count()
+    private function emptyResponse()
     {
-        return response()->json(['count' => count(session('cart',[]))]);
+        return response()->json([
+            'items' => [],
+            'count' => 0,
+            'subtotal' => 0,
+        ]);
     }
 
+    /* ==============================
+       ADMIN PRODUCT CREATE
+    ============================== */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // show add product form for admin
     public function create()
     {
         $categories = Category::where('is_active', true)->get();
         return view('admin.products.create', compact('categories'));
     }
 
-    // store product in DB for admin
     public function store(Request $request)
     {
         $request->validate([
@@ -351,27 +298,17 @@ private function cartSummary($cart)
         $product->price = $request->price;
         $product->is_active = true;
 
-        // image upload
-         if ($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
+            $slug = Str::slug($request->name);
+            $ext = $request->image->getClientOriginalExtension();
+            $count = Product::where('name', $request->name)->count() + 1;
 
-        $slug = Str::slug($request->name); // pineapple-jelly
-        $extension = $request->image->getClientOriginalExtension(); // jpg
-
-        // count existing images with same name
-        $count = Product::where('name', $request->name)->count() + 1;
-
-        $imageName = $slug . '-' . $count . '.' . $extension;
-        $path = $request->image->storeAs('products', $imageName, 'public');
-
-        $product->image = $path;
-    }
+            $imageName = "{$slug}-{$count}.{$ext}";
+            $product->image = $request->image->storeAs('products', $imageName, 'public');
+        }
 
         $product->save();
 
         return redirect()->back()->with('success', 'Product added successfully');
     }
-
-
-
-
 }

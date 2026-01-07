@@ -36,7 +36,21 @@
     @include('partials.header')
     {{-- moblie --}}
     @include('partials.mobileheader')
+    @include('partials.sticky')
+<div id="stickyCartBar" class="sticky-cart py-5 d-none">
+    <div class="container d-flex align-items-center justify-content-between">
+        <div>
+            <strong>View cart</strong><br>
+            <small>
+                <span id="stickyCartCount">0</span> items
+            </small>
+        </div>
 
+        <a href="{{ route('cart.index') }}" class="btn btn-light btn-sm fw-bold">
+            Open
+        </a>
+    </div>
+</div>
  
 
     @if(!request()->routeIs('home'))
