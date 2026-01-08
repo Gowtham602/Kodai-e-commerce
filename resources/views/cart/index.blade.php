@@ -287,10 +287,8 @@
                             <span id="total">₹{{ $total }}</span>
                         </div>
 
-                        <!-- <button class="btn btn-success w-100 mt-4 py-2 fw-semibold">
-                            PLACE ORDER
-                        </button> -->
-                        @if($subtotal > 0)
+                      
+                        <!-- @if($subtotal > 0)
                         <a href="{{ route('checkout.index') }}" class="btn place-order-btn w-100 mt-4 text-white">
                             PLACE ORDER
                         </a>
@@ -298,7 +296,33 @@
                         <button class="btn btn-secondary w-100 mt-4" disabled>
                             Cart is empty
                         </button>
+                        @endif -->
+                        @if($subtotal > 0)
+
+                            @guest
+                                <!-- Guest → Open Login Modal -->
+                                <button type="button"
+                                        class="btn place-order-btn w-100 mt-4 text-white"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">
+                                    PLACE ORDER
+                                </button>
+                            @endguest
+
+                            @auth
+                                <!-- Logged in → Go to checkout -->
+                                <a href="{{ route('checkout.index') }}"
+                                class="btn place-order-btn w-100 mt-4 text-white">
+                                    PLACE ORDER
+                                </a>
+                            @endauth
+
+                        @else
+                            <button class="btn btn-secondary w-100 mt-4" disabled>
+                                Cart is empty
+                            </button>
                         @endif
+
                         <p class="text-center cart-price mt-3 small">
                             🔒 Safe and Secure Payments
                         </p>

@@ -25,27 +25,25 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-   public function store(LoginRequest $request): RedirectResponse
+ public function store(LoginRequest $request): RedirectResponse
 {
-    // SAVE SESSION CART FIRST
     $sessionCart = session('cart', []);
 
     $request->authenticate();
-
-    //  regenerate AFTER storing cart
     $request->session()->regenerate();
 
-    // restore cart back
     session(['cart' => $sessionCart]);
-
     $this->mergeSessionCartToDb();
 
     if (auth()->user()->role === 'admin') {
         return redirect('/admin/dashboard');
     }
 
-    return redirect('/');
+    //  THIS IS THE FIX
+    return redirect()->intended(route('cart.index'));
 }
+
+
 
 private function mergeSessionCartToDb()
 {
@@ -90,16 +88,6 @@ private function mergeSessionCartToDb()
 
         return redirect('/');
     }
-    protected function authenticated(Request $request, $user)
-{
-    if ($user->role === 'admin') {
-        return redirect('/admin/dashboard');
-    }
-  if (session()->has('redirect')) {
-        return redirect()->to(session()->pull('redirect'));
-    }
-    
-    return redirect('/kodai/about');
-}
+
 
 }

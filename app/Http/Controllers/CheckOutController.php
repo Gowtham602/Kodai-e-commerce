@@ -17,10 +17,10 @@ class CheckoutController extends Controller
 {
   public function index()
 {
-    if (!auth()->check()) {
-        session(['redirect' => url('/checkout')]);
-        return redirect()->route('home')->with('showLoginModal', true);
-    }
+    // if (!auth()->check()) {
+    //     session(['redirect' => url('/checkout')]);
+    //     return redirect()->route('home')->with('showLoginModal', true);
+    // }
 
     $cart = Cart::with('items.product')
         ->where('user_id', auth()->id())
