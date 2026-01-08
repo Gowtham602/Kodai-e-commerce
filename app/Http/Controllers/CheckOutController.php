@@ -80,11 +80,11 @@ public function placeOrder(Request $request)
 
     $cart = Cart::with('items.product')
         ->where('user_id', auth()->id())
-        ->firstOrFail();
+        ->first();
 
     DB::beginTransaction();
 
-    // try {
+    try {
 
         //  ADDRESS
         if ($request->address_type === 'saved') {
@@ -141,6 +141,11 @@ public function placeOrder(Request $request)
 
         DB::commit();
         // Send email to customer
+        } catch (\Exception $e) {
+    DB::rollBack();
+    logger('Order failed: '.$e->getMessage());
+    return back()->withErrors('Order failed. Please try again.');
+}
 
 try {
     Mail::to($order->customer_email)

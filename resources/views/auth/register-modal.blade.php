@@ -222,8 +222,14 @@ createAccountBtn.onclick = async () => {
     return;
   }
 
-  bootstrap.Modal.getInstance(registerModal).hide();
-  window.location.href = "/";
+bootstrap.Modal.getInstance(registerModal).hide();
+
+if (data.redirect) {
+    window.location.href = data.redirect;
+} else {
+    window.location.href = "/cart";
+}
+
 };
 
 // ERROR HANDLER

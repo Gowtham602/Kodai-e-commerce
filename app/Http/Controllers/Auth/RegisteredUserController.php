@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -75,8 +77,13 @@ public function store(Request $request): JsonResponse
         'email' => $validated['email'],
         'password' => Hash::make($validated['password']),
     ]);
-
+    //SAVE SESSION CART
+    $sessionCart = session('cart', []);
     Auth::login($user);
+    session(['cart' => $sessionCart]);
+
+    // MERGE CART
+    $this->mergeSessionCartToDb();
 
     return response()->json([
         'success' => true,
@@ -146,16 +153,54 @@ public function completeRegister(Request $request)
         'password' => Hash::make($request->password),
     ]);
 
-    Auth::login($user);
+        //  SAVE SESSION CART
+        $sessionCart = session('cart', []);
 
-    session()->forget([
-        'otp','otp_expires_at','register_name','register_phone'
-    ]);
+        Auth::login($user);
 
-    return response()->json(['success' => true]);
+        //  RESTORE SESSION CART
+        session(['cart' => $sessionCart]);
+
+        //  MERGE CART
+        $this->mergeSessionCartToDb();
+
+        session()->forget([
+            'otp','otp_expires_at','register_name','register_phone'
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'redirect' => route('cart.index')
+        ]);
+
 }
 
 
+private function mergeSessionCartToDb(){
+    $sessionCart =session('cart',[]);
+    if(empty($sessionCart)) return;
 
+      $cart = Cart::firstOrCreate([
+        'user_id' => auth()->id()
+    ]);
+
+     foreach ($sessionCart as $productId => $item) {
+        $cartItem = CartItem::firstOrNew([
+            'cart_id' => $cart->id,
+            'product_id' => $productId
+        ]);
+
+        $cartItem->qty = ($cartItem->qty ?? 0) + $item['qty'];
+        $cartItem->price = $item['price'];
+        $cartItem->save();
+    }
+         $cart->update([
+        'subtotal' => $cart->items->sum(fn ($i) => $i->qty * $i->price)
+    ]);
+
+    session()->forget('cart');
+
+
+} 
 
 }
