@@ -271,6 +271,29 @@ class ProductController extends Controller
         ]);
     }
 
+    // this for sitckly
+    public function summary()
+{
+    if (auth()->check()) {
+        $cart = Cart::with('items')->where('user_id', auth()->id())->first();
+
+        return response()->json([
+            'count' => $cart ? $cart->items->sum('qty') : 0,
+            'subtotal' => $cart
+                ? $cart->items->sum(fn ($i) => $i->qty * $i->price)
+                : 0,
+        ]);
+    }
+
+    $cart = collect(session('cart', []));
+
+    return response()->json([
+        'count' => $cart->sum('qty'),
+        'subtotal' => $cart->sum(fn ($i) => $i['qty'] * $i['price']),
+    ]);
+}
+
+
     /* ==============================
        ADMIN PRODUCT CREATE
     ============================== */

@@ -28,27 +28,7 @@ $(document).on('change', '.category-filter, #sortBy', function () {
 
 
 // ADD TO CART
-$(document).on('click', '.add-to-cart', function () {
-
-    let btn = $(this);
-    btn.prop('disabled', true);
-
-    $.post(window.appConfig.routes.addToCart, {
-        _token: window.appConfig.csrf,
-        id: btn.data('id'),
-        name: btn.data('name'),
-        price: btn.data('price'),
-        image: btn.data('image')
-    }, function (res) {
-        $('#toastText').text(`${btn.data('name')} added to cart`);
-        new Toast(document.getElementById('cartToast'), { delay: 2000 }).show();
-        $('#cart-count').text(res.count);
-        $('#cart-count-mobile').text(res.count);
-    }).always(() => {
-        setTimeout(() => btn.prop('disabled', false), 1500);
-    });
-});
-
+// this code is addcart.js 
 
 // SHOW TOAST
 function showCartToast() {                          

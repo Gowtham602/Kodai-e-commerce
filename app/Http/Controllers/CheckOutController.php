@@ -27,11 +27,15 @@ class CheckoutController extends Controller
         ->first();
 
     //  VERY IMPORTANT CHECK
-    if (!$cart || $cart->items->isEmpty()) {
-        return redirect()
-            ->route('home')
-            ->with('info', 'Your cart is empty');
-    }
+   $cart = Cart::with('items.product')
+    ->where('user_id', auth()->id())
+    ->first();
+
+if (!$cart || $cart->items->isEmpty()) {
+    return redirect()
+        ->route('cart.index')
+        ->withErrors('Your cart is empty. Please add products again.');
+}
 
     $priceChanged = false;
 

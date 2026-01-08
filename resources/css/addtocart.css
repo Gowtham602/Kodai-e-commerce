@@ -1,27 +1,35 @@
-/* stickly */
-
 .sticky-cart {
     position: fixed;
-    bottom: 12px;
-    left: 0;
-    right: 0;
+    bottom: 30px;
+    padding-bottom: 50px;
+    left: 12px;
+    right: 12px;
     z-index: 1050;
-}
-@media (min-width: 768px) {
-    .sticky-cart { display: none !important; }
 }
 
 .sticky-cart .container {
-    background: #1a7f4b;
+    background: linear-gradient(135deg, #198754, #0f5132);
     color: #fff;
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 12px 16px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
 .sticky-cart .btn {
     border-radius: 999px;
-    padding: 6px 14px;
+    padding: 6px 16px;
+    font-weight: 700;
 }
 
-/* Hide on desktop (optional) */
+.sticky-cart {
+    animation: slideUp .3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0 }
+    to { transform: translateY(0); opacity: 1 }
+}
+
+
+
+

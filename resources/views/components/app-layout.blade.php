@@ -15,7 +15,8 @@
                 addToCart: "{{ route('cart.add') }}",
                 updateCart: "{{ route('cart.update') }}",
                 deleteCart: "{{ route('cart.delete') }}",
-                products: "{{ route('products.index') }}"
+                products: "{{ route('products.index') }}",
+                  summary: "{{ route('cart.summary') }}"
             },
             csrf: "{{ csrf_token() }}"
         };
@@ -25,6 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+   
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -32,20 +34,38 @@
 {{-- HEADER --}}
 @include('partials.header')
 @include('partials.mobileheader')
-@include('partials.sticky')
+
+
 
 {{-- STICKY CART BAR --}}
-<div id="stickyCartBar" class="sticky-cart py-5 d-none">
+
+@php
+    $hideSticky = request()->routeIs(
+        'cart.index',
+        'checkout.index',
+        'order.success'
+    );
+@endphp
+@if (!$hideSticky)
+<div id="stickyCartBar" class="sticky-cart py-3 d-none">
     <div class="container d-flex align-items-center justify-content-between">
         <div>
             <strong>View cart</strong><br>
-            <small><span id="stickyCartCount">0</span> items</small>
+            <small>
+                <span id="stickyCartCount">0</span> items · ₹
+                <span id="stickySubtotal">0</span>
+            </small>
         </div>
+
         <a href="{{ route('cart.index') }}" class="btn btn-light btn-sm fw-bold">
             Open
         </a>
     </div>
 </div>
+@endif
+
+
+
 
 @if(!request()->routeIs('home'))
     <div class="navbar-offset"></div>

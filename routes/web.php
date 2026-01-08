@@ -62,6 +62,10 @@ Route::middleware(['auth', 'admin'])
         Route::resource('products', AdminProductController::class);
 });
 
+// for sticky
+Route::get('/cart/summary', [ProductController::class, 'summary'])
+    ->name('cart.summary');
+
 
 // check function routes
 // Route::middleware('auth')->group(function () {
