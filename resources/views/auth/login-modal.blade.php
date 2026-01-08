@@ -45,6 +45,13 @@
                             <i class="bi bi-lock me-1"></i>Password
                         </label>
                     </div>
+                    <div class="text-end mb-3">
+                        <a href="{{ route('password.request') }}"
+                        class="small fw-semibold text-success text-decoration-none">
+                            Forgot your password?
+                        </a>
+                    </div>
+
 
                     <!-- Error -->
                     @if ($errors->getBag('login')->any())
@@ -60,6 +67,7 @@
                         Login Securely
                     </button>
                 </form>
+                
 
                 <!-- Footer Links -->
                 <div class="text-center mt-4">
@@ -74,6 +82,7 @@
                         Register
                     </a>
                 </div>
+                
 
             </div>
         </div>
