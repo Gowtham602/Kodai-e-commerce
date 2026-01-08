@@ -1,35 +1,155 @@
+/* =========================
+   PREMIUM STICKY CART
+========================= */
 .sticky-cart {
+    
     position: fixed;
-    bottom: 30px;
-    padding-bottom: 50px;
+    bottom: 72px; /* above mobile nav */
     left: 12px;
     right: 12px;
     z-index: 1050;
+    animation: stickySlideUp .35s ease;
 }
 
-.sticky-cart .container {
-    background: linear-gradient(135deg, #198754, #0f5132);
+.sticky-cart-inner {
+    background: linear-gradient(135deg, #1fa463, #0f7a43);
     color: #fff;
     border-radius: 18px;
-    padding: 12px 16px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 14px 35px rgba(0,0,0,.28);
 }
 
-.sticky-cart .btn {
-    border-radius: 999px;
-    padding: 6px 16px;
+.sticky-cart-left {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.cart-title {
     font-weight: 700;
+    font-size: 15px;
 }
 
-.sticky-cart {
-    animation: slideUp .3s ease;
+.cart-meta {
+    font-size: 13px;
+    opacity: .9;
 }
 
-@keyframes slideUp {
-    from { transform: translateY(100%); opacity: 0 }
-    to { transform: translateY(0); opacity: 1 }
+.sticky-cart-btn {
+    background: #ffffff;
+    color: #0f7a43;
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform .2s ease;
+}
+
+.sticky-cart-btn:active {
+    transform: scale(.95);
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+    .sticky-cart {
+        width: 360px;
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+    }
 }
 
 
+/* Animation */
+@keyframes stickySlideUp {
+    from {
+        transform: translateY(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.sticky-bounce {
+    animation: stickyBounce .4s ease;
+}
 
+@keyframes stickyBounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.05); }
+    60%  { transform: scale(.97); }
+    100% { transform: scale(1); }
+}
+.cart-bubble {
+    position: fixed;
+    bottom: 130px;
+    right: 20px;
+    background: #22c55e;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    z-index: 1200;
+    animation: bubbleUp .8s ease forwards;
+}
 
+@keyframes bubbleUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+}
+/* Sticky Open Button – consistent on all devices */
+.sticky-open-btn {
+    background: #ffffff;
+    color: #0f5132;
+    font-weight: 700;
+    font-size: 13px;
+
+    padding: 6px 14px;
+    height: 34px;
+    line-height: 22px;
+
+    border-radius: 999px;
+    white-space: nowrap;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Arrow spacing */
+.sticky-open-btn::after {
+    content: "→";
+    margin-left: 6px;
+    font-size: 14px;
+}
+
+/* REMOVE bootstrap button inflation */
+.sticky-cart .btn {
+    padding: 0 !important;
+    height: auto !important;
+}
+
+@media (max-width: 360px) {
+    .sticky-open-btn {
+        font-size: 12px;
+        height: 30px;
+        padding: 4px 12px;
+    }
+}
+.sticky-open-btn:active {
+    transform: scale(0.95);
+}

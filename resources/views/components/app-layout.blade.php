@@ -37,36 +37,6 @@
 
 
 
-{{-- STICKY CART BAR --}}
-
-@php
-    $hideSticky = request()->routeIs(
-        'cart.index',
-        'checkout.index',
-        'order.success'
-    );
-@endphp
-@if (!$hideSticky)
-<div id="stickyCartBar" class="sticky-cart py-3 d-none">
-    <div class="container d-flex align-items-center justify-content-between">
-        <div>
-            <strong>View cart</strong><br>
-            <small>
-                <span id="stickyCartCount">0</span> items · ₹
-                <span id="stickySubtotal">0</span>
-            </small>
-        </div>
-
-        <a href="{{ route('cart.index') }}" class="btn btn-light btn-sm fw-bold">
-            Open
-        </a>
-    </div>
-</div>
-@endif
-
-
-
-
 @if(!request()->routeIs('home'))
     <div class="navbar-offset"></div>
 @endif
@@ -78,6 +48,34 @@
 
 {{-- FOOTER --}}
 @include('partials.footer')
+
+
+{{-- STICKY CART BAR --}}
+@php
+    $hideSticky = request()->routeIs(
+        'cart.index',
+        'checkout.index',
+        'order.success'
+    );
+@endphp
+
+@if (!$hideSticky)
+<div id="stickyCartBar" class="sticky-cart d-none">
+    <div class="sticky-cart-inner">
+        <div class="sticky-cart-left">
+            <span class="cart-title">View cart</span>
+            <span class="cart-meta">
+                <span id="stickyCartCount">0</span> item(s) · ₹<span id="stickySubtotal">0</span>
+            </span>
+        </div>
+
+        <a href="{{ route('cart.index') }}" class="sticky-cart-btn">
+            Open →
+        </a>
+    </div>
+</div>
+@endif
+
 
 {{-- AUTH MODALS --}}
 @include('auth.login-modal')
@@ -117,6 +115,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <div id="cartToast" class="toast cart-toast border-0">
         <div class="d-flex align-items-center px-3 py-2">
             <div class="toast-icon me-2">🛒</div>
+            <div id="cartBubble" class="cart-bubble d-none">+1</div>
+
             <div class="toast-body p-0" id="toastText">
                 Added to cart successfully
             </div>
