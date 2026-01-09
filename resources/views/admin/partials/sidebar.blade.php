@@ -24,6 +24,14 @@
             <div class="icon-box"><i class="bi bi-lightning-charge"></i></div>
             Deals
         </a>
+        <a href="{{ route('admin.orders.index') }}"
+   class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+    <span class="icon-box">
+        <i class="bi bi-receipt"></i>
+    </span>
+    Orders
+</a>
+
 
     </nav>
 

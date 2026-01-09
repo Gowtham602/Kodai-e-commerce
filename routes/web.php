@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KodaiController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\TodayDealController;
@@ -64,6 +65,16 @@ Route::middleware(['auth', 'admin'])
             ->name('dashboard');
 
         Route::resource('products', AdminProductController::class);
+
+        //order shows
+         Route::get('/orders', [AdminOrderController::class, 'index'])
+            ->name('orders.index');
+
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])
+            ->name('orders.show');
+
+        Route::post('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
+            ->name('orders.status');
 });
 
 // for sticky
