@@ -75,6 +75,10 @@ Route::middleware(['auth', 'admin'])
 
         Route::post('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
             ->name('orders.status');
+
+        Route::get('/admin/orders/{order}/invoice',  [AdminOrderController::class, 'invoice'])
+            ->name('orders.invoice');
+
 });
 
 // for sticky

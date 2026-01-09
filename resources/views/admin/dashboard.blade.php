@@ -1,60 +1,77 @@
 <x-admin-layout>
-<style>
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
 
+        .stat-card {
+            background: #fff;
+            padding: 18px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
 
-    .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-}
+        .stat-card h6 {
+            font-size: 14px;
+            color: #6b7280;
+        }
 
-.stat-card {
-    background: #fff;
-    padding: 18px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.08);
-}
+        .stat-card h2 {
+            font-weight: 800;
+        }
 
-.stat-card h6 {
-    font-size: 14px;
-    color: #6b7280;
-}
+        .stat-card.green {
+            border-left: 6px solid #22c55e;
+        }
 
-.stat-card h2 {
-    font-weight: 800;
-}
+        .stat-card.yellow {
+            border-left: 6px solid #facc15;
+        }
 
-.stat-card.green { border-left: 6px solid #22c55e; }
-.stat-card.yellow { border-left: 6px solid #facc15; }
-.stat-card.blue { border-left: 6px solid #3b82f6; }
-.stat-card.purple { border-left: 6px solid #8b5cf6; }
+        .stat-card.blue {
+            border-left: 6px solid #3b82f6;
+        }
 
-</style>
+        .stat-card.purple {
+            border-left: 6px solid #8b5cf6;
+        }
+    </style>
     <h2 class="mb-4">Admin Dashboard</h2>
-<div class="stats-grid">
+    <div class="stats-grid">
 
-    <div class="stat-card green">
-        <h6>Orders</h6>
-        <h2>{{ $ordersCount }}</h2>
+
+
+        <a href="{{ route('admin.orders.index') }}">
+            <div class="stat-card green">
+                <h6>Orders</h6>
+                <h2>{{ $ordersCount }}</h2>
+            </div>
+
+        </a>
+
+
+        <div class="stat-card yellow">
+            <h6>Today Orders</h6>
+            <h2>{{ $todayOrders }}</h2>
+        </div>
+
+        
+        <a href="{{ route('admin.products.index') }}">
+        <div class="stat-card blue">
+            <h6>Products</h6>
+            <h2>{{ $productsCount }}</h2>
+        </div>
+        </a>
+
+        <div class="stat-card purple">
+            <h6>Users</h6>
+            <h2>{{ $usersCount }}</h2>
+        </div>
+
     </div>
-
-    <div class="stat-card yellow">
-        <h6>Today Orders</h6>
-        <h2>{{ $todayOrders }}</h2>
-    </div>
-
-    <div class="stat-card blue">
-        <h6>Products</h6>
-        <h2>{{ $productsCount }}</h2>
-    </div>
-
-    <div class="stat-card purple">
-        <h6>Users</h6>
-        <h2>{{ $usersCount }}</h2>
-    </div>
-
-</div>
 
     <!-- <div class="row g-4">
 

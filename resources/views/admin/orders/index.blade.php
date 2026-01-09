@@ -3,13 +3,14 @@
 <h2 class="mb-4">Orders</h2>
 
 <div class="card shadow-sm rounded-4">
+    
     <div class="table-responsive">
         <table class="table align-middle mb-0">
             <thead class="table-light">
                 <tr>
                     <th>#Order</th>
                     <th>Customer</th>
-                    <th>Products</th>
+                    <!-- <th>Products</th> -->
                     <th>Total</th>
                     <th>Status</th>
                     <th>Date</th>
@@ -28,7 +29,7 @@
                     </td>
 
                     {{-- PRODUCTS WITH IMAGE --}}
-                    <td>
+                    <!-- <td>
                         <div class="d-flex gap-2">
                             @foreach($order->items as $item)
                                 @if($item->product)
@@ -43,7 +44,7 @@
                                 @endif
                             @endforeach
                         </div>
-                    </td>
+                    </td> -->
 
                     <td>₹{{ number_format($order->total,2) }}</td>
 
@@ -59,12 +60,18 @@
 
                     <td>{{ $order->created_at->format('d M Y') }}</td>
 
-                    <td>
-                        <a href="{{ route('admin.orders.show',$order) }}"
-                           class="btn btn-sm btn-outline-primary">
-                            View
-                        </a>
-                    </td>
+                   <td class="text-end">
+    <a href="{{ route('admin.orders.show',$order) }}"
+       class="btn btn-sm btn-outline-primary">
+        View
+    </a>
+
+    <a href="{{ route('admin.orders.invoice',$order) }}"
+       class="btn btn-sm btn-outline-dark">
+        🧾 Invoice
+    </a>
+</td>
+
                 </tr>
                 @endforeach
             </tbody>
