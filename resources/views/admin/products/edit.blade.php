@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
 <div class="container my-5">
 
     {{-- Page Header --}}
@@ -135,4 +135,4 @@
 
     </div>
 </div>
-</x-app-layout>
+</x-admin-layout>

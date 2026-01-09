@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
 
 <div class="container py-4">
     <div class="row justify-content-center">
@@ -103,4 +103,4 @@
     </div>
 </div>
 
-</x-app-layout>
+</x-admin-layout>

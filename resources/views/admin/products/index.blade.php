@@ -1,5 +1,6 @@
-<x-app-layout>
-    <div class="container my-4 admin-products">
+<x-admin-layout>
+
+    <div class="admin-products">
 
         <!-- HEADER -->
         <div class="admin-header mb-4">
@@ -308,4 +309,4 @@
             color: #fff !important;
         }
     </style>
-</x-app-layout>
+</x-admin-layout>

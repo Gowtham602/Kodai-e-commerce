@@ -54,7 +54,7 @@
 }
 
 /* Desktop */
-@media (min-width: 992px) {
+@media (min-width:768px) {
     .sticky-cart {
         width: 360px;
         left: auto;

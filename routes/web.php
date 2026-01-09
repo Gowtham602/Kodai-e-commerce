@@ -8,6 +8,8 @@ use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\TodayDealController;
+use App\Http\Controllers\Admin\DashBoardController;
+
 use App\Models\Order;
 
 
@@ -55,9 +57,11 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        // Route::get('/dashboard', function () {
+        //     return view('admin.dashboard');
+        // })->name('dashboard');
+         Route::get('/dashboard', [DashBoardController::class, 'dashboard'])
+            ->name('dashboard');
 
         Route::resource('products', AdminProductController::class);
 });

@@ -1,0 +1,226 @@
+/* =====================
+   BASE
+===================== */
+body {
+    margin: 0;
+    background: #f8fafc;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =====================
+   SIDEBAR
+===================== */
+.admin-sidebar {
+    width: 240px;
+    position: fixed;
+    inset: 0 auto 0 0;
+    background: linear-gradient(180deg,#064e3b,#065f46,#022c22);
+    padding: 20px 16px;
+    color: #ecfdf5;
+    z-index: 1000;
+}
+.admin-sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(transparent,#022c22);
+}
+
+
+/* Brand */
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.08);
+    margin-bottom: 30px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    background: #bbf7d0;
+    color: #064e3b;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+}
+
+.brand-text {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* Menu */
+.admin-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    color: #d1fae5;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .25s ease;
+}
+
+.icon-box {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,.12);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+}
+
+.menu-item:hover {
+    background: rgba(255,255,255,.15);
+    transform: translateX(4px);
+}
+
+/* .menu-item.active {
+    background: linear-gradient(135deg,#22c55e,#16a34a);
+    color: #022c22;
+} */
+ .menu-item.active {
+    box-shadow: inset 4px 0 0 #facc15;
+}
+
+
+.menu-item.active .icon-box {
+    background: #facc15;
+    color: #064e3b;
+}
+
+/* =====================
+   MAIN AREA
+===================== */
+.admin-main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+/* =====================
+   TOP BAR (PREMIUM)
+===================== */
+.admin-navbar {
+    height: 64px;
+    background: rgba(255,255,255,.75);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: #065f46;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #065f46;
+}
+
+.logout-btn {
+    background: #dcfce7;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+    color: #065f46;
+    font-weight: 600;
+}
+
+/* =====================
+   CONTENT
+===================== */
+.admin-content {
+    padding: 28px;
+}
+
+/* =====================
+   DASHBOARD CARDS
+===================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 18px;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 14px 40px rgba(0,0,0,.08);
+    transition: .25s;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+}
+
+.stat-card h6 {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.stat-card h2 {
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.stat-card.green { border-left: 6px solid #22c55e; }
+.stat-card.yellow { border-left: 6px solid #facc15; }
+.stat-card.blue { border-left: 6px solid #3b82f6; }
+.stat-card.purple { border-left: 6px solid #8b5cf6; }
+
+/* =====================
+   MOBILE
+===================== */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+        transition: .3s;
+    }
+
+    .admin-sidebar.show {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        margin-left: 0;
+        width: 100%;
+    }
+}
