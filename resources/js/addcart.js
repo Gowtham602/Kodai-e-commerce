@@ -60,6 +60,7 @@ $(document).on('click', '.delete-item', function () {
         $('#cart-count-mobile').text(res.count);
 
         updateStickyCart(res); //  hides when 0
+         toggleEmptyCart(res); 
     });
 });
 
@@ -212,4 +213,26 @@ function showCartBubble(text) {
     $('body').append(bubble);
 
     setTimeout(() => bubble.remove(), 800);
+}
+
+
+function toggleEmptyCart(res) {
+    if (res.count <= 0 || res.subtotal <= 0) {
+        console.log("if");
+        // show empty cart UI
+        // $('#cartItemsWrapper').addClass('d-none');
+        $('#emptyCartWrapper').removeClass('d-none');
+
+        // disable place order
+        $('.place-order-btn').prop('disabled', true)
+            .text('Cart is empty')
+            .removeClass('btn-success')
+            .addClass('btn-secondary');
+
+    } else {
+        console.log("else");
+        // show cart UI
+        $('#cartItemsWrapper').removeClass('d-none');
+        $('#emptyCartWrapper').addClass('d-none');
+    }
 }

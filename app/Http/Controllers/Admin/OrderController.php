@@ -50,7 +50,7 @@ class OrderController extends Controller
     ========================== */
     public function invoice(Order $order)
     {
-        dd($order);
+        // dd($order);
         $order->load('items');
 
         $pdf = Pdf::loadView('admin.orders.invoice', compact('order'))

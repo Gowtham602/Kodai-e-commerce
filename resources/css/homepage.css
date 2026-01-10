@@ -276,3 +276,15 @@
 }
 
 
+.whatsapp-banner {
+  background: linear-gradient(
+    90deg,
+    #1c2e21 0%,
+    #25d366 100%
+  ); /* Green gradient */
+  border-radius: 8px;
+  color: white;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}

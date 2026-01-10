@@ -204,6 +204,27 @@
     </section>
 
 
+    
+   <section class=" container mb-5">
+        <div
+          class="whatsapp-banner d-flex flex-column flex-md-row justify-content-between align-items-center"
+        >
+          <div>
+            <h2 class="fw-bold mb-2">
+              NOW ORDER ON <i class="fa-brands fa-whatsapp"></i> WHATSAPP
+            </h2>
+            <p class="mb-0 fs-5">
+              Get Instant delivery & exclusive offers via chat!
+            </p>
+          </div>
+          <button
+            class="btn btn-light text-success fw-bold px-4 py-2 mt-3 mt-md-0 rounded-pill shadow-sm"
+          >
+            CHAT NOW
+          </button>
+        </div>
+      </section>
+
     <!-- ================= TODAY DEAL SECTION ================= -->
     <!-- <section class="container my-3 rounded-4 overflow-hidden ">
 

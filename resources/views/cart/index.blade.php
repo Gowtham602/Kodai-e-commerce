@@ -153,106 +153,110 @@
         }
     </style>
 
-
-
-
     <div class="container py-3">
         <div class="row g-3">
-
-            {{-- ================= CART ITEMS ================= --}}
+            @php
+            if ($useDb) {
+            $isEmptyCart = !$cart || !$cart->items || $cart->items->isEmpty();
+            } else {
+            $isEmptyCart = empty($cart);
+            }
+            @endphp
             <div class="col-lg-8">
 
-                @if($useDb && $cart && $cart->items->count())
+                <!-- CART ITEMS -->
+                <div id="cartItemsWrapper" class="{{ $isEmptyCart ? 'd-none' : '' }}">
+                    @if($useDb && $cart && $cart->items && $cart->items->count())
+                    @foreach($cart->items as $item)
+                    {{-- cart item --}}
+                    <div class="card cart-item mb-3 border-0 shadow-sm">
+                        <div class="card-body d-flex gap-3 align-items-start position-relative">
 
-                {{-- DB CART --}}
-                @foreach($cart->items as $item)
-                <div class="card cart-item mb-3 border-0 shadow-sm">
-                    <div class="card-body d-flex gap-3 align-items-start position-relative">
+                            <!-- DELETE (TOP RIGHT) -->
+                            <button class="btn btn-link text-danger delete-item delete-top"
+                                data-id="{{ $item->product_id }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
 
-                        <!-- DELETE (TOP RIGHT) -->
-                        <button class="btn btn-link text-danger delete-item delete-top"
-                            data-id="{{ $item->product_id }}">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                            <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
 
-                        <img src="{{ asset('storage/'.$item->product->image) }}" class="cart-img">
+                            <div class="flex-grow-1">
+                                <h6 class="fw-semibold mb-1">{{ $item->product->name }}</h6>
+                                <div class="cart-price mb-2">₹{{ $item->price }}</div>
 
-                        <div class="flex-grow-1">
-                            <h6 class="fw-semibold mb-1">{{ $item->product->name }}</h6>
-                            <div class="cart-price mb-2">₹{{ $item->price }}</div>
+                                <div class="d-flex align-items-center gap-3 mt-2">
+                                    <div class="qty-box1">
+                                        <button class="qty-btn qty-minus" data-id="{{ $item->product_id }}">−</button>
+                                        <span class="qty-value">{{ $item->qty }}</span>
+                                        <button class="qty-btn qty-plus" data-id="{{ $item->product_id }}">+</button>
+                                    </div>
 
-                            <div class="d-flex align-items-center gap-3 mt-2">
-                                <div class="qty-box1">
-                                    <button class="qty-btn qty-minus" data-id="{{ $item->product_id }}">−</button>
-                                    <span class="qty-value">{{ $item->qty }}</span>
-                                    <button class="qty-btn qty-plus" data-id="{{ $item->product_id }}">+</button>
+                                    <strong class="ms-auto item-total">
+                                        ₹{{ $item->qty * $item->price }}
+                                    </strong>
                                 </div>
-
-                                <strong class="ms-auto item-total">
-                                    ₹{{ $item->qty * $item->price }}
-                                </strong>
                             </div>
                         </div>
                     </div>
-                </div>
+                    @endforeach
+                    @else
+                    @foreach($cart ?? [] as $id => $item)
+                    @continue(!is_array($item))
+                    {{-- cart item --}}
+                    <div class="card cart-item mb-3 border-0 shadow-sm">
+                        <div class="card-body d-flex gap-3 align-items-start position-relative">
 
-                @endforeach
+                            <!-- DELETE (TOP RIGHT) -->
+                            <button class="btn btn-link text-danger delete-item delete-top"
+                                data-id="{{ $id }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
 
-                @elseif(!$useDb && !empty($cart))
+                            <!-- IMAGE -->
+                            <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
 
-                {{-- SESSION CART --}}
-                @foreach($cart as $id => $item)
-                <div class="card cart-item mb-3 border-0 shadow-sm">
-                    <div class="card-body d-flex gap-3 align-items-start position-relative">
+                            <!-- CONTENT -->
+                            <div class="flex-grow-1">
+                                <h6 class="fw-semibold mb-1">{{ $item['name'] }}</h6>
+                                <div class="cart-price mb-2">₹{{ $item['price'] }}</div>
 
-                        <!-- DELETE (TOP RIGHT) -->
-                        <button class="btn btn-link text-danger delete-item delete-top"
-                            data-id="{{ $id }}">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                                <div class="d-flex align-items-center gap-3 mt-2">
+                                    <div class="qty-box1">
+                                        <button class="qty-btn qty-minus" data-id="{{ $id }}">−</button>
+                                        <span class="qty-value">{{ $item['qty'] }}</span>
+                                        <button class="qty-btn qty-plus" data-id="{{ $id }}">+</button>
+                                    </div>
 
-                        <!-- IMAGE -->
-                        <img src="{{ asset('storage/'.$item['image']) }}" class="cart-img">
-
-                        <!-- CONTENT -->
-                        <div class="flex-grow-1">
-                            <h6 class="fw-semibold mb-1">{{ $item['name'] }}</h6>
-                            <div class="cart-price mb-2">₹{{ $item['price'] }}</div>
-
-                            <div class="d-flex align-items-center gap-3 mt-2">
-                                <div class="qty-box1">
-                                    <button class="qty-btn qty-minus" data-id="{{ $id }}">−</button>
-                                    <span class="qty-value">{{ $item['qty'] }}</span>
-                                    <button class="qty-btn qty-plus" data-id="{{ $id }}">+</button>
+                                    <strong class="ms-auto item-total">
+                                        ₹{{ $item['price'] * $item['qty'] }}
+                                    </strong>
                                 </div>
-
-                                <strong class="ms-auto item-total">
-                                    ₹{{ $item['price'] * $item['qty'] }}
-                                </strong>
                             </div>
+
                         </div>
+                    </div>
+                    @endforeach
+                    @endif
+                </div>
 
+                <!-- EMPTY CART -->
+                <div id="emptyCartWrapper" class="{{ $isEmptyCart ? '' : 'd-none' }}">
+                    <div class="empty-cart-wrapper">
+                        <div class="empty-cart-card">
+                            <i class="bi bi-cart"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Add some delicious products from Kodaikanal!</p>
+
+                            <a href="{{ route('products.index') }}" class="start-shopping-btn">
+                                👜 Start Shopping
+                            </a>
+                        </div>
                     </div>
                 </div>
-                @endforeach
-
-
-                @else
-                <div class="empty-cart-wrapper">
-                    <div class="empty-cart-card">
-                        <i class="bi bi-cart"></i>
-
-                        <h3>Your cart is empty</h3>
-                        <p>Add some delicious products from Kodaikanal!</p>
-
-                        <a href="{{ route('products.index') }}" class="start-shopping-btn">
-                            👜 Start Shopping
-                        </a>
-                    </div>
-                </div>
-                @endif
 
             </div>
+
+            {{-- ================= CART ITEMS ================= --}}
 
             {{-- ================= PRICE SUMMARY ================= --}}
             <div class="col-lg-4">
@@ -260,23 +264,27 @@
                     <div class="card-body">
 
                         <h5 class="fw-bold mb-3">PRICE DETAILS</h5>
-
                         @php
-                        if ($useDb && $cart) {
+                        if ($useDb && $cart && $cart->items && $cart->items->count() > 0) {
                         $subtotal = $cart->items->sum(fn($i) => $i->qty * $i->price);
+                        } elseif (!$useDb && !empty($cart)) {
+                        $subtotal = collect($cart)->sum(fn($i) => $i['price'] * $i['qty']);
                         } else {
-                        $subtotal = collect($cart ?? [])->sum(fn($i) => $i['price'] * $i['qty']);
+                        $subtotal = 0;
                         }
+
+
                         $total = $subtotal;
                         @endphp
 
+
                         <div class="d-flex justify-content-between mb-2">
-                            <span id="price">Price</span>
-                            <span>₹{{ $subtotal }}</span>
+                            <span>Price</span>
+                            <span id="subtotal">₹{{ $subtotal }}</span>
                         </div>
 
                         <div class="d-flex justify-content-between mb-2">
-                            <span id="price">Delivery Charges</span>
+                            <span>Delivery Charges</span>
                             <span class="text-success">Free</span>
                         </div>
 
@@ -286,43 +294,29 @@
                             <span>Total Amount</span>
                             <span id="total">₹{{ $total }}</span>
                         </div>
+                        @if(!$isEmptyCart)
 
-                      
-                        <!-- @if($subtotal > 0)
-                        <a href="{{ route('checkout.index') }}" class="btn place-order-btn w-100 mt-4 text-white">
+                        @auth
+                        <a href="{{ route('checkout.index') }}"
+                            class="btn place-order-btn w-100 mt-4 text-white">
                             PLACE ORDER
                         </a>
+                        @endauth
+
+                        @guest
+                        <button type="button"
+                            class="btn place-order-btn w-100 mt-4 text-white"
+                            data-bs-toggle="modal"
+                            data-bs-target="#loginModal">
+                            PLACE ORDER
+                        </button>
+                        @endguest
+
                         @else
                         <button class="btn btn-secondary w-100 mt-4" disabled>
                             Cart is empty
                         </button>
-                        @endif -->
-                        @if($subtotal > 0)
-
-                            @guest
-                                <!-- Guest → Open Login Modal -->
-                                <button type="button"
-                                        class="btn place-order-btn w-100 mt-4 text-white"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#loginModal">
-                                    PLACE ORDER
-                                </button>
-                            @endguest
-
-                            @auth
-                                <!-- Logged in → Go to checkout -->
-                                <a href="{{ route('checkout.index') }}"
-                                class="btn place-order-btn w-100 mt-4 text-white">
-                                    PLACE ORDER
-                                </a>
-                            @endauth
-
-                        @else
-                            <button class="btn btn-secondary w-100 mt-4" disabled>
-                                Cart is empty
-                            </button>
                         @endif
-
                         <p class="text-center cart-price mt-3 small">
                             🔒 Safe and Secure Payments
                         </p>

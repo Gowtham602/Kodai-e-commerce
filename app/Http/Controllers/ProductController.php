@@ -188,7 +188,11 @@ class ProductController extends Controller
         $cart = session('cart', []);
         unset($cart[$request->id]);
 
-        session(['cart' => $cart]);
+        if (empty($cart)) {
+            session()->forget('cart');   //  IMPORTANT
+        } else {
+            session(['cart' => $cart]);
+        }
 
         return $this->sessionSummary($cart);
     }
@@ -248,12 +252,14 @@ class ProductController extends Controller
 
     private function sessionSummary($cart)
     {
-        $items = collect($cart)->mapWithKeys(fn($i, $id) => [
-            $id => [
-                'qty' => $i['qty'],
-                'price' => $i['price'],
-            ]
-        ]);
+        $items = collect($cart)
+    ->filter(fn ($i) => is_array($i))
+    ->mapWithKeys(fn ($i, $id) => [
+        $id => [
+            'qty' => $i['qty'],
+            'price' => $i['price'],
+        ]
+    ]);
 
         return response()->json([
             'items' => $items,
