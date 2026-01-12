@@ -80,6 +80,8 @@
 {{-- AUTH MODALS --}}
 @include('auth.login-modal')
 @include('auth.register-modal')
+@stack('scripts')
+
 
 {{-- =========================
    SUCCESS TOAST
