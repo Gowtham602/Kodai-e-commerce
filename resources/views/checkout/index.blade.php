@@ -178,73 +178,46 @@ body{background:var(--bg);}
     </div>
 </div>
 </form>
-
+@push('scripts')
 <script>
-
-    //three step 3 validation
-function goToStep(step){
+/* ===============================
+   GLOBAL STEP FUNCTION
+=============================== */
+function goToStep(step) {
     $('.checkout-step').addClass('d-none');
-    $('#step-'+step).removeClass('d-none');
+    $('#step-' + step).removeClass('d-none');
 
     $('.checkout-steps .step').removeClass('active');
-    $('.checkout-steps .step:nth-child('+step+')').addClass('active');
+    $('.checkout-steps .step:nth-child(' + step + ')')
+        .addClass('active');
 
-    if(step === 3){
-        $('#placeOrderBtn').removeClass('d-none');
-    } else {
-        $('#placeOrderBtn').addClass('d-none');
-    }
+    $('#placeOrderBtn').toggleClass('d-none', step !== 3);
 
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-$('#to-payment').click(function () {
-
-    let error = '';
-
-    if (!$('#name').val().trim()) {
-        error = 'Name is required';
-        $('#name').focus();
-    }
-    else if (!/^[0-9]{10}$/.test($('#phone').val())) {
-        error = 'Phone must be 10 digits';
-        $('#phone').focus();
-    }
-    else if (!$('#address').val().trim()) {
-        error = 'Address is required';
-        $('#address').focus();
-    }
-    else if (!$('#state').val().trim()) {
-        error = 'State is required';
-        $('#state').focus();
-    }
-    else if (!/^[0-9]{6}$/.test($('#pincode').val())) {
-        error = 'Pincode must be 6 digits';
-        $('#pincode').focus();
-    }
-
-    if (error) {
-        $('#form-error').removeClass('d-none').text(error);
-
-        $('html, body').animate({
-            scrollTop: $('#form-error').offset().top - 80
-        }, 300);
-
-        return;
-    }
-
-    $('#form-error').addClass('d-none');
-    goToStep(2);
-});
-
-
-$('#to-summary').click(function(){
-    goToStep(3);
-});
-
-//user details
 $(document).ready(function () {
 
+    /* ===============================
+       SAFETY CHECK
+    =============================== */
+    if (typeof $.validator === 'undefined') {
+        console.error(' jQuery Validation NOT loaded');
+        return;
+    }
+    $.validator.addMethod(
+    "strictEmail",
+    function (value, element) {
+        return this.optional(element) ||
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+    },
+    "Please enter a valid email address"
+);
+
+
+    /* ===============================
+       USER AUTO-FILL
+    =============================== */
     const userData = {
         name: "{{ auth()->user()->name }}",
         phone: "{{ auth()->user()->phone ?? '' }}",
@@ -255,7 +228,7 @@ $(document).ready(function () {
         near_place: "{{ auth()->user()->near_place ?? '' }}"
     };
 
-    function fillUser() {
+    function fillUserAddress() {
         $('#name').val(userData.name);
         $('#phone').val(userData.phone);
         $('#email').val(userData.email);
@@ -265,109 +238,79 @@ $(document).ready(function () {
         $('#near_place').val(userData.near_place);
     }
 
-    function clearForm() {
-        $('#address-form input, #address-form textarea').val('');
-    }
+    fillUserAddress();
 
-    fillUser();
+    /* ===============================
+       VALIDATION INIT
+       IMPORTANT: ignore hidden steps
+    =============================== */
+    const validator = $('#checkoutForm').validate({
+        ignore: ':hidden',
+        rules: {
+            name: { required: true, minlength: 3 },
+            phone: {
+                required: true,
+                digits: true,
+                minlength: 10,
+                maxlength: 10
+            },
+     email: {
+            required: true,
+            strictEmail: true
+        },
 
-    // RADIO CHANGE
-    $('input[name="order_for"]').change(function () {
-        $('input[name="address_id"]').prop('checked', false);
-
-        if (this.value === 'self') {
-            $('#address_type').val('self');
-            fillUser();
-        } else {
-            $('#address_type').val('other');
-            clearForm();
+            address: { required: true, minlength: 10 },
+            state: { required: true },
+            pincode: {
+                required: true,
+                digits: true,
+                minlength: 6,
+                maxlength: 6
+            }
+        },
+        messages: {
+            name: "Enter full name",
+            phone: "Enter valid 10-digit phone number",
+             strictEmail: "Enter a valid email address",
+            address: "Enter complete address (min 10 chars)",
+            state: "State is required",
+            pincode: "Enter valid 6-digit pincode"
+        },
+        errorElement: "small",
+        errorClass: "text-danger",
+        highlight(el) {
+            $(el).addClass("is-invalid");
+        },
+        unhighlight(el) {
+            $(el).removeClass("is-invalid");
         }
     });
 
-    // SAVED ADDRESS
-    $('input[name="address_id"]').change(function () {
-        clearForm();
-        $('#address_type').val('saved');
+    /* ===============================
+       STEP BUTTONS
+    =============================== */
+    $('#to-payment').on('click', function () {
+        if ($('#checkoutForm').valid()) {
+            goToStep(2);
+        }
     });
 
-    //  JQUERY VALIDATION (NO RELOAD)
-    
-    console.log('Checkout validation JS loaded');
+    $('#to-summary').on('click', function () {
+        goToStep(3);
+    });
 
+    /* ===============================
+       FINAL SUBMIT
+    =============================== */
     $('#checkoutForm').on('submit', function (e) {
-
-        e.preventDefault(); //  ALWAYS STOP FIRST
-
-        let addressType = $('#address_type').val();
-        let error = '';
-
-        console.log('Address type:', addressType);
-
-        // CASE: Saved address
-        if (addressType === 'saved') {
-            if ($('input[name="address_id"]:checked').length === 0) {
-                error = 'Please select a saved address';
-            }
-            if ($('input[name="state"]:checked').length === 0) {
-                error = 'Address is required';
-            }
-             if ($('input[name="pincode"]:checked').length === 0) {
-                error = 'Pincode  is required';
-            }
+        if (!$(this).valid()) {
+            e.preventDefault();
+            return false;
         }
-        // CASE: Manual address
-        else {
-            if (!$('#name').val().trim()) error = 'Name is required';
-            else if (!$('#phone').val().trim()) error = 'Phone is required';
-            else if ($('#phone').val().length < 10) error = 'Phone must be 10 digits';
-            else if (!$('#address').val().trim()) error = 'Address is required';
-            else if (!$('#state').val().trim()) error = 'State is required';
-            else if (!$('#pincode').val().trim()) error = 'Pincode is required';
-        }
-
-        // if (error !== '') {
-        //     $('#form-error')
-        //         .removeClass('d-none')
-        //         .text(error);
-
-        //     $('html, body').animate({
-        //         scrollTop: $('#form-error').offset().top - 100
-        //     }, 300);
-
-        //     console.warn('Validation failed:', error);
-        //     return false;
-        // }
-if (error !== '') {
-
-    $('#form-error')
-        .removeClass('d-none')
-        .text(error);
-
-    $('.form-control').removeClass('is-invalid');
-
-    if (error.includes('State')) {
-        $('#state').addClass('is-invalid').focus();
-    } else if (error.includes('Address')) {
-        $('#address').addClass('is-invalid').focus();
-    } else if (error.includes('Phone')) {
-        $('#phone').addClass('is-invalid').focus();
-    }
-
-    $('html, body').animate({
-        scrollTop: $('#form-error').offset().top - 80
-    }, 300);
-
-    return;
-}
-
-        console.log('Validation passed → submitting form');
-
-        //  ONLY NOW submit
-        // this.submit();
-        e.currentTarget.submit();
-
     });
 
 });
 </script>
+@endpush
+
 </x-app-layout>
