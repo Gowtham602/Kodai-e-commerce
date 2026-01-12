@@ -229,7 +229,7 @@
         <!-- IMAGE -->
         <div class="col-lg-6 text-center">
             <img
-                src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=80"
+                src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?q=80&w=1000&auto=format&fit=crop"
                 class="img-fluid rounded-4 shadow-lg"
                 alt="Kodai Chocolates">
         </div>
@@ -244,7 +244,7 @@
           class="whatsapp-banner d-flex flex-column flex-md-row justify-content-between align-items-center"
         >
           <div>
-            <h4 class="fw-bold mb-2">
+            <h4 class="fw-bold mb-2 text-center">
               NOW ORDER ON <i class="fa-brands fa-whatsapp"></i> WHATSAPP
             </h4>
             <p class="mb-0 fs-6">
