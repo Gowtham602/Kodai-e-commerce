@@ -1,15 +1,25 @@
 /* =====================
-   BASE
+   RESET & BASE
 ===================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     background: #f8fafc;
     font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
 }
 
+/* =====================
+   LAYOUT WRAPPER
+===================== */
 .admin-wrapper {
     display: flex;
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 /* =====================
@@ -17,36 +27,45 @@ body {
 ===================== */
 .admin-sidebar {
     width: 240px;
-    position: fixed;
-    inset: 0 auto 0 0;
-    background: linear-gradient(180deg,#064e3b,#065f46,#022c22);
+    height: 100dvh;
     padding: 20px 16px;
+    background: linear-gradient(180deg, #064e3b, #065f46, #022c22);
     color: #ecfdf5;
-    z-index: 1000;
-}
-.admin-sidebar::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
+
+    position: fixed;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(transparent,#022c22);
+    z-index: 1000;
+
+    overflow-y: auto;
+    transition: transform 0.3s ease;
 }
 
+.admin-sidebar::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 80px;
+    background: linear-gradient(transparent, #022c22);
+}
 
-/* Brand */
+/* =====================
+   BRAND
+===================== */
 .admin-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     padding: 14px;
     border-radius: 14px;
-    background: rgba(255,255,255,.08);
-    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    margin-bottom: 28px;
 }
 
-.brand-icon {
+.brand-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* .brand-icon {
     width: 42px;
     height: 42px;
     background: #bbf7d0;
@@ -55,14 +74,30 @@ body {
     display: grid;
     place-items: center;
     font-weight: 800;
-}
+} */
 
 .brand-text {
     font-size: 18px;
     font-weight: 800;
+    white-space: nowrap;
 }
 
-/* Menu */
+/* Close button */
+.sidebar-close {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ecfdf5;
+    font-size: 39px;
+    line-height: 1;
+    margin-left: 36px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* =====================
+   MENU
+===================== */
 .admin-menu {
     display: flex;
     flex-direction: column;
@@ -78,31 +113,26 @@ body {
     color: #d1fae5;
     text-decoration: none;
     font-weight: 600;
-    transition: .25s ease;
+    transition: all 0.25s ease;
 }
 
 .icon-box {
     width: 36px;
     height: 36px;
-    background: rgba(255,255,255,.12);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     display: grid;
     place-items: center;
 }
 
 .menu-item:hover {
-    background: rgba(255,255,255,.15);
+    background: rgba(255, 255, 255, 0.15);
     transform: translateX(4px);
 }
 
-/* .menu-item.active {
-    background: linear-gradient(135deg,#22c55e,#16a34a);
-    color: #022c22;
-} */
- .menu-item.active {
+.menu-item.active {
     box-shadow: inset 4px 0 0 #facc15;
 }
-
 
 .menu-item.active .icon-box {
     background: #facc15;
@@ -115,22 +145,26 @@ body {
 .admin-main {
     margin-left: 240px;
     width: calc(100% - 240px);
-    min-height: 100vh;
+    min-height: 100dvh;
     background: #f8fafc;
+    display: flex;
+    flex-direction: column;
 }
 
 /* =====================
-   TOP BAR (PREMIUM)
+   TOP NAVBAR
 ===================== */
 .admin-navbar {
     height: 64px;
-    background: rgba(255,255,255,.75);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid #e5e7eb;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 24px;
+    justify-content: space-between;
+    padding: 0 20px;
+
     position: sticky;
     top: 0;
     z-index: 900;
@@ -141,6 +175,7 @@ body {
     border: none;
     font-size: 26px;
     color: #065f46;
+    cursor: pointer;
 }
 
 .admin-user {
@@ -161,6 +196,7 @@ body {
     border-radius: 10px;
     color: #065f46;
     font-weight: 600;
+    cursor: pointer;
 }
 
 /* =====================
@@ -168,6 +204,7 @@ body {
 ===================== */
 .admin-content {
     padding: 28px;
+    flex: 1;
 }
 
 /* =====================
@@ -175,16 +212,16 @@ body {
 ===================== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 18px;
 }
 
 .stat-card {
-    background: #fff;
+    background: #ffffff;
     padding: 20px;
     border-radius: 18px;
-    box-shadow: 0 14px 40px rgba(0,0,0,.08);
-    transition: .25s;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease;
 }
 
 .stat-card:hover {
@@ -192,11 +229,13 @@ body {
 }
 
 .stat-card h6 {
-    color: #6b7280;
+    margin: 0;
     font-size: 14px;
+    color: #6b7280;
 }
 
 .stat-card h2 {
+    margin-top: 6px;
     font-size: 26px;
     font-weight: 800;
 }
@@ -207,20 +246,40 @@ body {
 .stat-card.purple { border-left: 6px solid #8b5cf6; }
 
 /* =====================
-   MOBILE
+   MOBILE RESPONSIVE
 ===================== */
 @media (max-width: 768px) {
+
+    /* Sidebar off-canvas */
     .admin-sidebar {
         transform: translateX(-100%);
-        transition: .3s;
     }
 
     .admin-sidebar.show {
         transform: translateX(0);
     }
 
+    /* Show close button */
+    .sidebar-close {
+        display: inline-flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    /* Main content full width */
     .admin-main {
         margin-left: 0;
         width: 100%;
+        min-height: auto;
+    }
+
+    /* Smaller padding */
+    .admin-content {
+        padding: 16px;
+    }
+
+    /* Force single-column stats on phones */
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
 }

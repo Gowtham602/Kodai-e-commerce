@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         body { font-family: DejaVu Sans; font-size: 14px; }
         table { width: 100%; border-collapse: collapse; }

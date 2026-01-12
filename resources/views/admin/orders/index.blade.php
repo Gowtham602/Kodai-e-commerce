@@ -1,4 +1,7 @@
 <x-admin-layout>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 <h2 class="mb-4">Orders</h2>
 
@@ -14,7 +17,7 @@
                     <th>Total</th>
                     <th>Status</th>
                     <th>Date</th>
-                    <th></th>
+                    <th>Inovice</th>
                 </tr>
             </thead>
 

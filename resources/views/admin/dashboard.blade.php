@@ -1,28 +1,50 @@
 <x-admin-layout>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
     <style>
+        /* RESET LINK CARDS */
+        .stats-grid a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* GRID */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
 
+        /* CARD */
         .stat-card {
             background: #fff;
             padding: 18px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
         }
 
         .stat-card h6 {
+            margin: 0;
             font-size: 14px;
             color: #6b7280;
         }
 
         .stat-card h2 {
+            margin-top: 6px;
+            font-size: 24px;
             font-weight: 800;
         }
 
+        /* COLORS */
         .stat-card.green {
             border-left: 6px solid #22c55e;
         }
@@ -38,7 +60,23 @@
         .stat-card.purple {
             border-left: 6px solid #8b5cf6;
         }
+
+        /* MOBILE FIX */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-card h2 {
+                font-size: 22px;
+            }
+        }
     </style>
+
     <h2 class="mb-4">Admin Dashboard</h2>
     <div class="stats-grid">
 
@@ -58,12 +96,12 @@
             <h2>{{ $todayOrders }}</h2>
         </div>
 
-        
+
         <a href="{{ route('admin.products.index') }}">
-        <div class="stat-card blue">
-            <h6>Products</h6>
-            <h2>{{ $productsCount }}</h2>
-        </div>
+            <div class="stat-card blue">
+                <h6>Products</h6>
+                <h2>{{ $productsCount }}</h2>
+            </div>
         </a>
 
         <div class="stat-card purple">
