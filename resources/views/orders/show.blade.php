@@ -127,13 +127,13 @@
                         <div class="product-row">
 
                             <!-- IMAGE -->
-           <!-- <img
+           <img
     src="{{ $item->product && $item->product->image
             ? asset('storage/'.$item->product->image)
             : asset('images/placeholder.png') }}"
     class="product-img"
     alt="{{ $item->product_name }}"
-> -->
+>
 
 
 
