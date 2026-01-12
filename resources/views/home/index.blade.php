@@ -203,6 +203,40 @@
         </div>
     </section>
 
+<!-- ================= ABOUT US SECTION ================= -->
+<section class="container my-5 about-section">
+    <div class="row align-items-center g-4">
+
+        <!-- TEXT -->
+        <div class="col-lg-6">
+            <h2 class="fw-bold mb-3">
+                About <span class="text-success">Kodai Chocolates</span>
+            </h2>
+
+            <p class="text-muted text-justify">
+                Nestled in the misty hills of Kodaikanal, Kodai Chocolates brings you
+                authentic, handmade chocolates crafted with love and tradition.
+                Every bite reflects the purity of the hills and the richness of
+                premium ingredients.
+            </p>
+
+            <a href="{{ route('about') }}"
+               class="btn btn-success rounded-pill px-4 mt-2">
+                Know More
+            </a>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="col-lg-6 text-center">
+            <img
+                src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=80"
+                class="img-fluid rounded-4 shadow-lg"
+                alt="Kodai Chocolates">
+        </div>
+
+    </div>
+</section>
+
 
     
    <section class=" container mb-5">
@@ -210,10 +244,10 @@
           class="whatsapp-banner d-flex flex-column flex-md-row justify-content-between align-items-center"
         >
           <div>
-            <h2 class="fw-bold mb-2">
+            <h4 class="fw-bold mb-2">
               NOW ORDER ON <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-            </h2>
-            <p class="mb-0 fs-5">
+            </h4>
+            <p class="mb-0 fs-6">
               Get Instant delivery & exclusive offers via chat!
             </p>
           </div>
@@ -275,6 +309,93 @@
         </div>
 
     </section> -->
+
+    <!-- ================= TESTIMONIAL SECTION ================= -->
+<section class="container my-5">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">What Our Customers Say</h3>
+        <p class="text-muted mb-0">
+            Real reviews from chocolate lovers ❤️
+        </p>
+    </div>
+
+    <div class="swiper testimonial-swiper">
+        <div class="swiper-wrapper">
+
+            <!-- Testimonial 1 -->
+            <div class="swiper-slide">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        “The chocolates are incredibly fresh and rich in taste.
+                        You can really feel the quality!”
+                    </p>
+                    <div class="testimonial-user">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg">
+                        <div>
+                            <h6 class="mb-0">Anitha R</h6>
+                            <small class="text-muted">Chennai</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="swiper-slide">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        “Absolutely loved the fruit filling chocolates.
+                        Perfect balance of sweetness and flavor.”
+                    </p>
+                    <div class="testimonial-user">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg">
+                        <div>
+                            <h6 class="mb-0">Rahul K</h6>
+                            <small class="text-muted">Bangalore</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="swiper-slide">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        “Fast delivery and amazing quality.
+                        Kodai Chocolates never disappoint!”
+                    </p>
+                    <div class="testimonial-user">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg">
+                        <div>
+                            <h6 class="mb-0">Priya S</h6>
+                            <small class="text-muted">Coimbatore</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="swiper-slide">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        “Reminds me of my Kodaikanal trips.
+                        Authentic taste and premium feel.”
+                    </p>
+                    <div class="testimonial-user">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg">
+                        <div>
+                            <h6 class="mb-0">Suresh M</h6>
+                            <small class="text-muted">Madurai</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination testimonial-pagination mt-3"></div>
+    </div>
+</section>
+
 
     <!-- ================= JS ================= -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -340,6 +461,33 @@ setInterval(() => {
     });
 }, 1000);
 </script>
+
+<script>
+new Swiper('.testimonial-swiper', {
+    loop: true,
+    spaceBetween: 20,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: '.testimonial-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        0: {          // Mobile
+            slidesPerView: 1
+        },
+        768: {        // Tablet
+            slidesPerView: 3
+        },
+        1200: {       // Desktop
+            slidesPerView: 3
+        }
+    }
+});
+</script>
+
 
 
 </x-app-layout>

@@ -61,9 +61,9 @@
 <!-- HERO SECTION -->
 <section class="hero-section position-relative overflow-hidden">
     <div class="container py-5 text-center text-white">
-        <span class="badge bg-light text-success px-3 py-2 mb-3 fw-semibold">
+        <!-- <span class="badge bg-light text-success px-3 py-2 mb-3 fw-semibold">
             Princess of Hill Stations
-        </span>
+        </span> -->
 
         <h1 class="display-5 fw-bold mt-3">
             Kodaikanal
