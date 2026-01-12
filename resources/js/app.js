@@ -1,6 +1,17 @@
 import './bootstrap';
 import * as bootstrap from 'bootstrap';
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+console.log(window.$,"_____")
+
+import 'jquery-validation';
 window.bootstrap = bootstrap;
+// admin modules
+import { initProductValidation } from './admin/product-form';
+// run after everything loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initProductValidation();
+});
 
 import './loginheader';
 import './homepage';
