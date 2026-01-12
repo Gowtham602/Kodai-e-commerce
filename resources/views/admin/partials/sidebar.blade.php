@@ -33,12 +33,18 @@
             Deals
         </a>
         <a href="{{ route('admin.orders.index') }}"
-   class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
-    <span class="icon-box">
-        <i class="bi bi-receipt"></i>
-    </span>
-    Orders
-</a>
+            class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                <span class="icon-box">
+                    <i class="bi bi-receipt"></i>
+                </span>
+                Orders
+            </a>
+            <a href="{{ route('admin.categories.index') }}"
+                class="menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                    <div class="icon-box"><i class="bi bi-tags"></i></div>
+                    Categories
+                </a>
+
 
 
     </nav>

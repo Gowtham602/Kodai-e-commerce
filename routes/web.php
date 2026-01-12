@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\TodayDealController;
 use App\Http\Controllers\Admin\DashBoardController;
+use App\Http\Controllers\Admin\CategoryController;
 
 use App\Models\Order;
 
@@ -52,6 +53,12 @@ Route::get('/cart', [ProductController::class, 'show'])
     ->name('cart.index'); // IMPORTANT: rename
 
 
+//category for admin
+Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(function () {
+
+    Route::resource('categories', CategoryController::class);
+
+});
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
@@ -61,6 +68,7 @@ Route::middleware(['auth', 'admin'])
         // Route::get('/dashboard', function () {
         //     return view('admin.dashboard');
         // })->name('dashboard');
+        
          Route::get('/dashboard', [DashBoardController::class, 'dashboard'])
             ->name('dashboard');
 
