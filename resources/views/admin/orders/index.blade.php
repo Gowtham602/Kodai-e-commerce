@@ -71,7 +71,7 @@
 
     <a href="{{ route('admin.orders.invoice',$order) }}"
        class="btn btn-sm btn-outline-dark">
-        🧾 Invoice
+        <i class="bi bi-file-earmark-pdf-fill text-danger"></i> Invoice
     </a>
 </td>
 
