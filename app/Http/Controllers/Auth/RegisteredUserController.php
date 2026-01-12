@@ -16,6 +16,9 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -91,50 +94,150 @@ public function store(Request $request): JsonResponse
     ]);
 }
 //send otp
+// public function sendOtp(Request $request)
+// {
+//     $validated = $request->validate([
+//         'name'  => 'required|string|max:255',
+//         'phone' => 'required|digits:10|unique:users,phone',
+//     ]);
+
+//     $otp = rand(100000, 999999);
+
+//     session([
+//         'otp' => $otp,
+//         'otp_expires_at' => now()->addSeconds(60),
+//         'register_name' => $validated['name'],
+//         'register_phone' => $validated['phone'],
+//     ]);
+
+//     logger("OTP: ".$otp); // temp for testing
+
+//     return response()->json([
+//         'message' => 'OTP sent successfully'
+//     ]);
+// }
+
+
+
 public function sendOtp(Request $request)
 {
-    $validated = $request->validate([
+    $request->validate([
         'name'  => 'required|string|max:255',
-        'phone' => 'required|digits:10|unique:users,phone',
+        'phone' => 'required|digits:10|unique:users,phone'
+    ], [
+        'phone.unique' => 'This phone number is already registered. Please login.'
     ]);
 
     $otp = rand(100000, 999999);
+     Session::forget(['register_otp', 'otp_expires_at']);
 
-    session([
-        'otp' => $otp,
-        'otp_expires_at' => now()->addSeconds(60),
-        'register_name' => $validated['name'],
-        'register_phone' => $validated['phone'],
+    Session::put('register_otp', $otp);
+    Session::put('register_phone', $request->phone);
+    Session::put('register_name', $request->name);
+    Session::put('otp_expires_at', now()->addMinutes(2)); // ⏱ 5 mins
+
+    if (config('sms.mode') === 'log') {
+        Log::info("OTP for {$request->phone} is {$otp}");
+        return response()->json(['message' => 'OTP logged']);
+    }
+
+    Http::get('http://its.idealsms.in/pushsms.php', [
+        'username' => config('sms.username'),
+        'api_password' => config('sms.password'),
+        'sender' => config('sms.sender'),
+        'to' => $request->phone,
+        'message' => "Your OTP is {$otp}. Valid for 5 minutes. IDLSMS",
+        'priority' => config('sms.priority'),
+        'e_id' => config('sms.e_id'),
+        't_id' => config('sms.t_id'),
     ]);
 
-    logger("OTP: ".$otp); // temp for testing
-
-    return response()->json([
-        'message' => 'OTP sent successfully'
-    ]);
+    return response()->json(['message' => 'OTP sent']);
 }
 
 
 //verify otp 
+// public function verifyOtp(Request $request)
+// {
+//     $request->validate([
+//         'otp' => 'required|digits:6',
+//     ]);
+
+//     if (!session()->has('otp') || now()->greaterThan(session('otp_expires_at'))) {
+//         return response()->json(['message' => 'OTP expired'], 422);
+//     }
+
+//     if ($request->otp != session('otp')) {
+//         return response()->json(['message' => 'Invalid OTP'], 422);
+//     }
+
+//     return response()->json(['success' => true]);
+// }
 public function verifyOtp(Request $request)
 {
     $request->validate([
-        'otp' => 'required|digits:6',
+        'otp' => 'required|digits:6'
     ]);
 
-    if (!session()->has('otp') || now()->greaterThan(session('otp_expires_at'))) {
+    if (!session()->has('register_otp') || !session()->has('otp_expires_at')) {
         return response()->json(['message' => 'OTP expired'], 422);
     }
 
-    if ($request->otp != session('otp')) {
+    if (now()->greaterThan(session('otp_expires_at'))) {
+        session()->forget(['register_otp', 'otp_expires_at']);
+        return response()->json(['message' => 'OTP expired'], 422);
+    }
+
+    if ($request->otp != session('register_otp')) {
         return response()->json(['message' => 'Invalid OTP'], 422);
     }
 
-    return response()->json(['success' => true]);
+    return response()->json(['message' => 'OTP verified']);
 }
+
+
 
 // completeRegister() — CREATE USER
 
+// public function completeRegister(Request $request)
+// {
+//     $request->validate([
+//         'email' => 'required|email|unique:users,email',
+//         'password' => ['required','confirmed', Rules\Password::defaults()],
+//     ]);
+
+//     if (!session()->has('register_phone')) {
+//         return response()->json(['message' => 'Session expired'], 422);
+//     }
+
+//     $user = User::create([
+//         'name' => session('register_name'),
+//         'phone' => session('register_phone'),
+//         'email' => $request->email,
+//         'password' => Hash::make($request->password),
+//     ]);
+
+//         //  SAVE SESSION CART
+//         $sessionCart = session('cart', []);
+
+//         Auth::login($user);
+
+//         //  RESTORE SESSION CART
+//         session(['cart' => $sessionCart]);
+
+//         //  MERGE CART
+//         $this->mergeSessionCartToDb();
+
+//         session()->forget([
+//             'otp','otp_expires_at','register_name','register_phone'
+//         ]);
+
+//         return response()->json([
+//             'success' => true,
+//             'redirect' => route('cart.index')
+//         ]);
+
+// }
 public function completeRegister(Request $request)
 {
     $request->validate([
@@ -142,7 +245,7 @@ public function completeRegister(Request $request)
         'password' => ['required','confirmed', Rules\Password::defaults()],
     ]);
 
-    if (!session()->has('register_phone')) {
+    if (!session()->has('register_phone') || !session()->has('register_name')) {
         return response()->json(['message' => 'Session expired'], 422);
     }
 
@@ -153,27 +256,24 @@ public function completeRegister(Request $request)
         'password' => Hash::make($request->password),
     ]);
 
-        //  SAVE SESSION CART
-        $sessionCart = session('cart', []);
+    $sessionCart = session('cart', []);
+    Auth::login($user);
+    session(['cart' => $sessionCart]);
 
-        Auth::login($user);
+    $this->mergeSessionCartToDb();
 
-        //  RESTORE SESSION CART
-        session(['cart' => $sessionCart]);
+    session()->forget([
+        'register_otp',
+        'register_name',
+        'register_phone'
+    ]);
 
-        //  MERGE CART
-        $this->mergeSessionCartToDb();
-
-        session()->forget([
-            'otp','otp_expires_at','register_name','register_phone'
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'redirect' => route('cart.index')
-        ]);
-
+    return response()->json([
+        'success' => true,
+        'redirect' => route('cart.index')
+    ]);
 }
+
 
 
 private function mergeSessionCartToDb(){

@@ -241,12 +241,13 @@ function showErrors(errors){
 
 //otp counting 
 
-let otpSeconds = 60;
+let otpSeconds = 300; // 5 minutes
+
 let otpInterval = null;
 
 // START TIMER
 function startOtpTimer() {
-    otpSeconds = 30;
+    otpSeconds = 120;
     document.getElementById('resendOtpBtn').disabled = true;
     updateOtpTimer();
 
