@@ -56,12 +56,13 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.products.update', $product) }}"
-                          method="POST"
-                          enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-
+                    <!-- <form action="{{ route('admin.products.update', $product) }}" -->
+                  <form id="productEditForm"
+      action="{{ route('admin.products.update', $product) }}"
+      method="POST"
+      enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
                         <div class="row g-3">
 
                             {{-- Category --}}
@@ -135,4 +136,5 @@
 
     </div>
 </div>
+
 </x-admin-layout>

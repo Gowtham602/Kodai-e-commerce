@@ -22,9 +22,12 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-
+                    <!-- <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data"> -->
+                  <form id="productCreateForm"
+      action="{{ route('admin.products.store') }}"
+      method="POST"
+      enctype="multipart/form-data">
+    @csrf
                         <div class="row">
 
                             {{-- Category --}}
@@ -75,7 +78,7 @@
                                 <label class="form-label fw-semibold">
                                     Product Image
                                 </label>
-                                <input type="file" name="image" class="form-control">
+                                <input type="file" name="image" class="form-control" accept="image/png,image/jpeg,image/webp">
                                 <small class="text-muted">
                                     JPG, PNG, WEBP (Max 2MB)
                                 </small>

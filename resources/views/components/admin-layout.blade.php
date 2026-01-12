@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
 
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['resources/css/app.css'])
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,7 +41,6 @@
     </div>
 
 </div>
-
 <script>
     function toggleSidebar() {
         document.querySelector('.admin-sidebar').classList.toggle('show');
@@ -58,6 +57,9 @@ function showToast(message, type = 'success') {
     toast.show();
 }
 </script>
+<!-- Vite JS -->
+@vite(['resources/js/app.js'])
+@stack('scripts')
 
 
 </body>
