@@ -71,6 +71,8 @@ Route::middleware(['auth', 'admin'])
         
          Route::get('/dashboard', [DashBoardController::class, 'dashboard'])
             ->name('dashboard');
+            Route::get('/user-list', [DashBoardController::class, 'userList'])
+            ->name('users.index');
 
         Route::resource('products', AdminProductController::class);
 

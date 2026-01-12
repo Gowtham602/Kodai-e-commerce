@@ -104,10 +104,13 @@
             </div>
         </a>
 
-        <div class="stat-card purple">
+       
+          <a href="{{ route('admin.users.index') }}">
+            <div class="stat-card purple">
             <h6>Users</h6>
             <h2>{{ $usersCount }}</h2>
         </div>
+        </a>
 
     </div>
 

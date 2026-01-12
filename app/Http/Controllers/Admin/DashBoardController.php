@@ -28,6 +28,12 @@ public function dashboard()
     ]);
 }
 
+ public function userList()
+    {
+        $users = User::latest()->paginate(10);
+        return view('admin.users.index', compact('users'));
+    }
+
        
  
 

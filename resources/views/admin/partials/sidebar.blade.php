@@ -44,6 +44,12 @@
                     <div class="icon-box"><i class="bi bi-tags"></i></div>
                     Categories
                 </a>
+                <a href="{{ route('admin.users.index') }}"
+            class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <div class="icon-box"><i class="bi bi-people"></i></div>
+                Users
+            </a>
+
 
 
 
