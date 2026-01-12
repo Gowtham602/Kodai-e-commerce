@@ -1,9 +1,17 @@
 <aside class="admin-sidebar">
 
     <div class="admin-brand">
-        <div class="brand-icon">▲</div>
+    <div class="brand-left">
+        <!-- <div class="brand-icon">▲</div> -->
         <div class="brand-text">Kodai Admin</div>
+
+        <!-- Close button -->
+        <button class="sidebar-close" aria-label="Close sidebar">
+            &times;
+        </button>
     </div>
+</div>
+
 
     <nav class="admin-menu">
 
@@ -36,3 +44,10 @@
     </nav>
 
 </aside>
+<script>
+    document.querySelector('.sidebar-close')
+        ?.addEventListener('click', () => {
+            document.querySelector('.admin-sidebar')
+                .classList.remove('show');
+        });
+</script>

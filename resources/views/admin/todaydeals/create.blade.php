@@ -1,4 +1,7 @@
 <x-admin-layout>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 <div class="container py-4">
     <div class="row justify-content-center">
