@@ -11,7 +11,7 @@
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
                 <!-- Header -->
-                <div class="bg-success text-white px-4 py-3">
+                <div class="bg-warning text-white px-4 py-3">
                     <h5 class="mb-0 fw-semibold">
                         🔥 Create Today Deal
                     </h5>
@@ -90,7 +90,7 @@
 
                         <!-- Submit -->
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-success btn-lg rounded-pill">
+                            <button type="submit" class="btn btn-warning btn-lg rounded-pill">
                                 Save Today Deal
                             </button>
                         </div>

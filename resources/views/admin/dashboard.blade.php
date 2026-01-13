@@ -128,7 +128,7 @@
                 <div class="card-body">
                     <h5>Manage Products</h5>
                     <a href="{{ route('admin.products.index') }}"
-                       class="btn btn-success btn-sm">
+                       class="btn btn-warning btn-sm">
                         Open Products
                     </a>
                 </div>

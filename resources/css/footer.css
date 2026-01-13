@@ -15,7 +15,7 @@
     display: inline-block;
     margin-top: 10px;
     font-size: 0.85rem;
-    color: #9be7c4;
+    color: #f59e0b;
 }
 
 .footer-title {
@@ -28,7 +28,7 @@
     content: "";
     width: 35px;
     height: 2px;
-    background: #28a745;
+    background-color: #f59e0b;
     display: block;
     margin-top: 6px;
 }
@@ -64,7 +64,7 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    background: #28a745;
+    background-color: #f59e0b;
     color: #fff;
     font-size: 0.75rem;
     padding: 4px 10px;

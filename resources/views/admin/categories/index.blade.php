@@ -5,7 +5,7 @@
 <h4 class="mb-4">Categories</h4>
 
 <a href="{{ route('admin.categories.create') }}"
-   class="btn btn-success mb-3">+ Add Category</a>
+   class="btn btn-warning mb-3">+ Add Category</a>
 
 <table class="table table-bordered align-middle">
     <thead>
@@ -24,7 +24,7 @@
             </td>
             <td>{{ $category->name }}</td>
             <td>
-                <span class="badge {{ $category->is_active ? 'bg-success' : 'bg-secondary' }}">
+                <span class="badge {{ $category->is_active ? 'bg-warning' : 'bg-secondary' }}">
                     {{ $category->is_active ? 'Active' : 'Inactive' }}
                 </span>
             </td>

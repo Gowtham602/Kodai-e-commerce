@@ -1,7 +1,8 @@
 <x-admin-layout>
+
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
 
     <div class="admin-products">
 
@@ -106,7 +107,7 @@
         <!-- PAGINATION (works on all devices) -->
         <div class="mt-4 d-flex justify-content-center">
             {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
-    </div>
+        </div>
 
 
 
@@ -120,9 +121,10 @@
             align-items: center;
             padding: 22px;
             border-radius: 18px;
-            background: linear-gradient(135deg, #198754, #20c997);
-            color: #fff;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
         }
+
 
         /*  MOBILE FIX */
         @media (max-width: 576px) {
@@ -157,7 +159,7 @@
 
         .add-btn {
             background: #fff;
-            color: #198754;
+            color: #d97706;
             padding: 10px 18px;
             border-radius: 999px;
             font-weight: 600;
@@ -193,10 +195,13 @@
 
             /* Active page highlight */
             .pagination .active .page-link {
-                background-color: #198754 !important;
-                border-color: #198754 !important;
-                color: #fff !important;
+                background-color: #f59e0b !important;
+                /* honey yellow */
+                border-color: #f59e0b !important;
+                color: #7c2d12 !important;
+                /* dark readable text */
             }
+
 
             /* Prev / Next full width */
             .pagination .page-item:first-child .page-link,
@@ -244,7 +249,7 @@
 
         .price {
             font-weight: 800;
-            color: #198754;
+            color: #d97706;
             margin: 10px 0;
         }
 
@@ -306,10 +311,13 @@
             font-weight: 600;
         }
 
+        /* Active page highlight */
         .pagination .active .page-link {
-            background-color: #198754 !important;
-            border-color: #198754 !important;
-            color: #fff !important;
+            background-color: #f59e0b !important;
+            /* honey yellow */
+            border-color: #f59e0b !important;
+            color: #7c2d12 !important;
+            /* dark readable text */
         }
     </style>
 </x-admin-layout>

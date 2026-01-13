@@ -4,7 +4,7 @@
         <div class="product-img-wrapper">
             <img src="{{ asset('storage/'.$product->image) }}"
                 alt="{{ $product->name }}">
-            <span class="badge bg-success product-badge">Fresh</span>
+            <span class="badge bg-warning product-badge">Fresh</span>
         </div>
 
         <div class="card-body d-flex flex-column p-2">
@@ -28,7 +28,7 @@
             </div>
 
 
-            <button class="btn btn-success add-to-cart mb-2 mt-auto w-100"
+            <button class="btn btn-warning add-to-cart mb-2 mt-auto w-100"
                 data-id="{{ $product->id }}"
                 data-name="{{ $product->name }}"
                 data-price="{{ $product->price }}"

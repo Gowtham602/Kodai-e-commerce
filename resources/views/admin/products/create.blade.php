@@ -5,7 +5,7 @@
         <div class="col-lg-8 col-md-10">
 
             <div class="card shadow-sm border-0">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-warning text-white">
                     <h4 class="mb-0">
                         <i class="fas fa-plus-circle me-2"></i>
                         Add New Product
@@ -90,7 +90,7 @@
                             <button type="reset" class="btn btn-outline-secondary">
                                 Reset
                             </button>
-                            <button type="submit" class="btn btn-success px-4">
+                            <button type="submit" class="btn btn-warning px-4">
                                 <i class="fas fa-save me-1"></i>
                                 Save Product
                             </button>

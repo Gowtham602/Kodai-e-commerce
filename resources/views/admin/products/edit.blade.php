@@ -51,7 +51,7 @@
         {{-- FORM --}}
         <div class="col-lg-8">
             <div class="card shadow-sm">
-                <div class="card-header bg-success text-white fw-semibold">
+                <div class="card-header bg-warning text-white fw-semibold">
                     Product Information
                 </div>
 
@@ -123,7 +123,7 @@
                                 Cancel
                             </a>
 
-                            <button class="btn btn-success px-4">
+                            <button class="btn btn-warning px-4">
                                 <i class="fas fa-save me-1"></i>
                                 Update Product
                             </button>

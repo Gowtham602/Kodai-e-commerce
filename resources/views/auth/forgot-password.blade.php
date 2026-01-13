@@ -64,13 +64,13 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <button class="btn btn-success w-100 btn-brand">
+            <button class="btn btn-warning w-100 btn-brand">
                 Send Reset Link
             </button>
         </form>
 
         <div class="text-center mt-4">
-            <a href="{{ url('/') }}" class="text-success fw-semibold small">
+            <a href="{{ url('/') }}" class="text-warning fw-semibold small">
                 ← Back to Home
             </a>
         </div>

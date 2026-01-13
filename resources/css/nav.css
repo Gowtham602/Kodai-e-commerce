@@ -12,7 +12,12 @@
     width: 100%;
     z-index: 1000;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(90deg, #166534, #16a34a);
+    background: linear-gradient(
+    90deg,
+    #b45309,   /* deep burnt amber */
+    #f59e0b   /* fire yellow */
+);
+
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
@@ -102,7 +107,7 @@
 
 .dropdown .dropbtn {
     background: #fff;
-    color: #166534;
+    color: #533502;
     padding: 8px 16px;
     border-radius: 25px;
     border: none;

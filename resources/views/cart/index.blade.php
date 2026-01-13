@@ -172,7 +172,7 @@
             width: 46px;
             height: 46px;
             border-radius: 14px;
-            background: linear-gradient(135deg, #16a34a, #0f7a43);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: #ffffff;
             display: flex;
             align-items: center;
@@ -198,8 +198,9 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #16a34a;
-            color: white;
+            background: #f59e0b;
+            /* honey yellow */
+            color: #7c2d12;
             padding: 10px 18px;
             border-radius: 999px;
             font-size: 14px;
@@ -210,7 +211,7 @@
         }
 
         .back-btn:hover {
-            background: #15803d;
+            background: #d97706; 
             transform: translateY(-1px);
             color: white;
         }
@@ -236,7 +237,7 @@
 
     <div class="container py-3">
 
-        <div class="bag-header">
+        <div class="bag-header mt-4">
             <div class="bag-left">
                 <div class="bag-icon">
                     <i class="bi bi-bag-check-fill"></i>
@@ -384,7 +385,7 @@
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Delivery Charges</span>
-                            <span class="text-success">Free</span>
+                            <span class="text-warning">Free</span>
                         </div>
 
                         <hr>

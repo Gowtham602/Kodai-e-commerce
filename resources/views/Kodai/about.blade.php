@@ -2,7 +2,7 @@
 <style>
     /* HERO */
 .hero-section {
-    background: linear-gradient(135deg, #0c3422, #ddf1cf);
+    background: linear-gradient(135deg, #fde68a, #fff7cc);
     position: relative;
 }
 
@@ -12,7 +12,7 @@
     left: 50%;
     width: 300px;
     height: 300px;
-    background: rgba(255,255,255,0.15);
+    background: rgba(245, 158, 11, 0.25);
     filter: blur(100px);
     transform: translateX(-50%);
 }
@@ -61,21 +61,21 @@
 <!-- HERO SECTION -->
 <section class="hero-section position-relative overflow-hidden">
     <div class="container py-5 text-center text-white">
-        <!-- <span class="badge bg-light text-success px-3 py-2 mb-3 fw-semibold">
+        <!-- <span class="badge bg-light text-warning px-3 py-2 mb-3 fw-semibold">
             Princess of Hill Stations
         </span> -->
 
-        <h1 class="display-5 fw-bold mt-3">
+        <h1 class="display-5 fw-bold mt-3 text-dark">
             Kodaikanal
         </h1>
 
-        <p class="lead opacity-75 mt-3">
+        <p class="lead opacity-75 mt-3 text-dark">
             Experience the freshness, flavor, and serenity of Kodai
         </p>
 
         <a href="{{ route('products.index') }}"
-           class="btn btn-success btn-lg rounded-pill px-5 mt-4 shadow">
-            Shop Kodai Chocolates
+           class="btn btn-warning btn-lg rounded-pill px-5 mt-4 shadow">
+            Shop Kodai Choco
     </a>
     </div>
 
@@ -88,12 +88,12 @@
     <div class="row align-items-center g-5">
                 <!-- TEXT -->
         <div class="col-lg-7">
-            <h2 class="fw-bold text-success mb-3">
-                About Kodai Chocolates
+            <h2 class="fw-bold text-warning mb-3">
+                About Kodai Choco
             </h2>
 
             <p class="text-muted">
-                <strong>Kodai Chocolates</strong> brings the authentic taste and
+                <strong>Kodai Choco</strong> brings the authentic taste and
                 freshness of Kodaikanal directly to your doorstep.
             </p>
 
@@ -109,7 +109,7 @@
             </p>
 
             <a href="{{ route('products.index') }}"
-               class="btn btn-outline-success rounded-pill px-4 mt-3">
+               class="btn btn-outline-warning rounded-pill px-4 mt-3">
                 Explore Products →
             </a>
         </div>
@@ -130,7 +130,7 @@
 <section class="bg-light py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h3 class="fw-bold">Why Kodai Chocolates?</h3>
+            <h3 class="fw-bold">Why Kodai Choco?</h3>
             <p class="text-muted mb-0">
                 Quality, freshness, and authenticity — always
             </p>

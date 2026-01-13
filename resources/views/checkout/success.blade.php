@@ -138,7 +138,7 @@
         </div>
 
         <div class="success-sub">
-            Thank you for shopping with <strong>Kodai Chocolates</strong>
+            Thank you for shopping with <strong>Kodai Choco</strong>
         </div>
 
         {{-- ORDER DETAILS --}}
@@ -162,7 +162,7 @@
         </div>
 
         {{-- ACTION --}}
-        <a href="{{ route('home') }}" class="btn btn-success w-100 success-btn">
+        <a href="{{ route('home') }}" class="btn btn-warning w-100 success-btn">
             CONTINUE SHOPPING
         </a>
 

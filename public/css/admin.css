@@ -29,7 +29,11 @@ body {
     width: 240px;
     height: 100dvh;
     padding: 20px 16px;
-    background: linear-gradient(180deg, #064e3b, #065f46, #022c22);
+     background: linear-gradient(
+    90deg,
+    #b45309,   /* deep burnt amber */
+    #f59e0b   /* fire yellow */
+);
     color: #ecfdf5;
 
     position: fixed;
@@ -46,7 +50,6 @@ body {
     position: absolute;
     inset: auto 0 0 0;
     height: 80px;
-    background: linear-gradient(transparent, #022c22);
 }
 
 /* =====================
@@ -126,17 +129,18 @@ body {
 }
 
 .menu-item:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(245, 158, 11, 0.18);  /* honey tint hover */
     transform: translateX(4px);
 }
+
 
 .menu-item.active {
     box-shadow: inset 4px 0 0 #facc15;
 }
 
 .menu-item.active .icon-box {
-    background: #facc15;
-    color: #064e3b;
+    background: #fde68a;   /* light honey */
+    color: #7c2d12;        /* dark honey text */
 }
 
 /* =====================
@@ -174,7 +178,7 @@ body {
     background: none;
     border: none;
     font-size: 26px;
-    color: #065f46;
+    color: #a16207;          /* honey icon */
     cursor: pointer;
 }
 
@@ -186,15 +190,15 @@ body {
 
 .user-name {
     font-weight: 600;
-    color: #065f46;
+    color: #7c2d12;          /* dark honey text */
 }
 
 .logout-btn {
-    background: #dcfce7;
+    background: #fde68a;     /* light honey bg */
     border: none;
     padding: 6px 12px;
     border-radius: 10px;
-    color: #065f46;
+    color: #7c2d12;          /* readable dark text */
     font-weight: 600;
     cursor: pointer;
 }

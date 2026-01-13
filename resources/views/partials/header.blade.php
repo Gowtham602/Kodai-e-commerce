@@ -6,8 +6,12 @@
         <div class="container">
 
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="logo">
-                <i class="fas fa-mountain"></i> Kodai Chocolates
+            <a href="{{ route('home') }}" class="logo d-flex align-items-center">
+                <i class="fas fa-mountain me-2"></i>
+                <div>
+                    <div class="main-title">Kodai Choco</div>
+                    <div class="sub-title" style="font-size: 0.8rem; line-height: 1;">from PV Choco</div>
+                </div>
             </a>
 
             <!-- Mobile toggle -->
@@ -64,4 +68,4 @@
         </div>
         {{-- //mobile --}}
     </nav>
-    </div>
+</div>

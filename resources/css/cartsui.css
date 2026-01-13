@@ -55,7 +55,7 @@
 
 .product-price {
     font-weight: 700;
-    color: #198754;
+    color: #7c2d12;
 }
 
 /* RATING */
@@ -73,7 +73,7 @@
 }
 
 .add-to-cart:hover {
-    background: #146c43;
+   background: #d97706; 
 }
 
 
@@ -181,15 +181,24 @@
          display: none;
     }
 }
-
-/* //pagination */
+/* Pagination */
 .pagination .page-link {
     border-radius: 50px;
     margin: 0 4px;
-    color: #198754;
+    color: #a16207;              /* dark honey text */
+    border: 1px solid #fbbf24;   /* soft honey border */
+    background-color: #ffffff;
 }
 
+/* Hover */
+.pagination .page-link:hover {
+    background-color: #fde68a;  /* light honey hover */
+    color: #92400e;
+}
+
+/* Active page */
 .pagination .active .page-link {
-    background-color: #198754;
-    border-color: #198754;
+    background-color: #f59e0b;  /* honey yellow */
+    border-color: #f59e0b;
+    color: #7c2d12;              /* dark readable text */
 }
