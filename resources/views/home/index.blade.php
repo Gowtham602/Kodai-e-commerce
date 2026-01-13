@@ -237,6 +237,73 @@
     </div>
 </section>
 
+<!-- ================= WHY CHOOSE US ================= -->
+<section class="container my-5 why-choose-us">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold">
+            Why Choose <span class="text-success">Kodai Chocolates</span>
+        </h3>
+        <p class="text-muted mb-0">
+            What makes us special
+        </p>
+    </div>
+
+    <!-- Swiper wrapper -->
+    <div class="swiper choose-swiper">
+        <div class="swiper-wrapper">
+
+            <!-- Item 1 -->
+            <div class="swiper-slide">
+                <div class="choose-card text-center">
+                    <div class="choose-icon">🍫</div>
+                    <h6 class="fw-bold mt-3">Handmade Quality</h6>
+                    <p class="text-muted small">
+                        Crafted in small batches with traditional techniques.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="swiper-slide">
+                <div class="choose-card text-center">
+                    <div class="choose-icon">🌿</div>
+                    <h6 class="fw-bold mt-3">Natural Ingredients</h6>
+                    <p class="text-muted small">
+                        Premium cocoa, fresh nuts & fruits only.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="swiper-slide">
+                <div class="choose-card text-center">
+                    <div class="choose-icon">🚚</div>
+                    <h6 class="fw-bold mt-3">Fast Delivery</h6>
+                    <p class="text-muted small">
+                        Delivered fresh to your doorstep.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="swiper-slide">
+                <div class="choose-card text-center">
+                    <div class="choose-icon">⭐</div>
+                    <h6 class="fw-bold mt-3">Customer Trust</h6>
+                    <p class="text-muted small">
+                        Loved by thousands of happy customers.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- pagination (mobile only) -->
+        <div class="swiper-pagination choose-pagination mt-3"></div>
+    </div>
+</section>
+
+
 
     
    <section class=" container mb-5">
@@ -396,6 +463,101 @@
     </div>
 </section>
 
+<!-- ================= FAQ SECTION ================= -->
+<section class="container my-5 faq-section">
+    <div class="row align-items-center g-5">
+
+        <!-- LEFT IMAGE (hidden on mobile) -->
+        <div class="col-lg-5 d-none d-lg-block">
+            <img
+                src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=80"
+                class="img-fluid rounded-4 shadow-lg"
+                alt="Kodai Chocolates FAQ">
+        </div>
+
+        <!-- RIGHT FAQ -->
+        <div class="col-12 col-lg-7">
+            <h3 class="fw-bold mb-4">
+                Frequently Asked <span class="text-success">Questions</span>
+            </h3>
+
+            <div class="accordion" id="faqAccordion">
+
+                <!-- Q1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" data-bs-toggle="collapse"
+                                data-bs-target="#faq1">
+                            Are Kodai Chocolates handmade?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show"
+                         data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, all our chocolates are handmade in small batches
+                            using traditional methods.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#faq2">
+                            Do you use preservatives?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse"
+                         data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            No, we use natural ingredients without harmful preservatives.
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#faq5">
+                            Are your chocolates suitable for kids?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse"
+                         data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Absolutely! Our chocolates are kid-friendly and safe.
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#faq7">
+                            What payment methods do you accept?
+                        </button>
+                    </h2>
+                    <div id="faq7" class="accordion-collapse collapse"
+                         data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We accept UPI, cards, net banking, and cash on delivery.
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
 
     <!-- ================= JS ================= -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -488,6 +650,29 @@ new Swiper('.testimonial-swiper', {
 });
 </script>
 
+<script>
+new Swiper('.choose-swiper', {
+    loop: true,
+    spaceBetween: 16,
+    autoplay: {
+        delay: 2800,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: '.choose-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        0: {          // Mobile
+            slidesPerView: 1
+        },
+        768: {        // Tablet & above
+            slidesPerView: 4,
+            allowTouchMove: false
+        }
+    }
+});
+</script>
 
 
 </x-app-layout>
