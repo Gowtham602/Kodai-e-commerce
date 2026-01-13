@@ -10,7 +10,7 @@
                 <i class="fas fa-mountain me-2"></i>
                 <div>
                     <div class="main-title">Kodai Choco</div>
-                    <div class="sub-title" style="font-size: 0.8rem; line-height: 1;">from PV Choco</div>
+                    <div class="sub-title" style="font-size: 0.9rem; line-height: 1;"> PV Chocolates</div>
                 </div>
             </a>
 
