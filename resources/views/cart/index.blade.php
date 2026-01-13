@@ -151,9 +151,108 @@
                 padding: 10px;
             }
         }
+
+        .bag-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        /* Left side */
+        .bag-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .bag-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #16a34a, #0f7a43);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.35);
+        }
+
+        .bag-title h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0;
+            color: #111827;
+        }
+
+        .bag-title span {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #16a34a;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+            transition: all .2s ease;
+        }
+
+        .back-btn:hover {
+            background: #15803d;
+            transform: translateY(-1px);
+            color: white;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .bag-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .bag-title h1 {
+                font-size: 20px;
+            }
+
+            .back-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 
     <div class="container py-3">
+
+        <div class="bag-header">
+            <div class="bag-left">
+                <div class="bag-icon">
+                    <i class="bi bi-bag-check-fill"></i>
+                </div>
+
+                <div class="bag-title">
+                    <h1>Your Bag</h1>
+                    <span>Review your selected items</span>
+                </div>
+            </div>
+
+            <a href="{{ route('products.index') }}" class="back-btn">
+                <i class="bi bi-arrow-left"></i> Back to shop
+            </a>
+        </div>
+
         <div class="row g-3">
             @php
             if ($useDb) {
