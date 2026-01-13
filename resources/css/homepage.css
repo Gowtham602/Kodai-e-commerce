@@ -348,7 +348,98 @@
     .about-section .btn {
         margin-top: 12px;
     }
+
+    .whatsapp-banner{
+    padding: 15px 10px;
+}
+}
+
+/* ================= WHY CHOOSE US ================= */
+.choose-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    height: 100%;
+}
+
+.choose-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Desktop / Tablet → grid look */
+@media (min-width: 768px) {
+    .choose-swiper .swiper-wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        transform: none !important;
+    }
+
+    .choose-swiper .swiper-slide {
+        width: auto !important;
+    }
+
+    .choose-pagination {
+        display: none;
+    }
+}
+
+/* Mobile polish */
+@media (max-width: 576px) {
+    .choose-card {
+        padding: 20px 16px;
+    }
+
+    .choose-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 24px;
+    }
 }
 
 
+/* ================= FAQ ================= */
+.faq-section .accordion-item {
+    border-radius: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #e5e7eb;
+}
 
+/* Active accordion style */
+.faq-section .accordion-button:not(.collapsed) {
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+.faq-section .accordion-button:not(.collapsed) {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* ================= FAQ FIX ================= */
+
+/* Allow accordion content to overflow properly */
+.faq-section .accordion-collapse {
+    overflow: visible !important;
+}
+
+/* Fix Bootstrap height animation bug */
+.faq-section .collapsing {
+    height: auto !important;
+}
+
+/* Remove overflow clipping */
+.faq-section .accordion-item {
+    overflow: visible !important;
+}
