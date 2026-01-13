@@ -169,7 +169,7 @@
     position: relative;
 }
 .marquee-scroll {
-    overflow-x: auto;
+    overflow: hidden;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -231,11 +231,6 @@
     100% {
         transform: translateX(-50%);
     }
-}
-/* Desktop animation */
-@keyframes scroll-marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
 }
 
 /* MOBILE BEHAVIOR */
@@ -383,6 +378,7 @@
         grid-template-columns: repeat(4, 1fr);
         gap: 24px;
         transform: none !important;
+        width: 100% !important; 
     }
 
     .choose-swiper .swiper-slide {
@@ -408,38 +404,3 @@
 }
 
 
-/* ================= FAQ ================= */
-.faq-section .accordion-item {
-    border-radius: 14px;
-    margin-bottom: 12px;
-    border: 1px solid #e5e7eb;
-}
-
-/* Active accordion style */
-.faq-section .accordion-button:not(.collapsed) {
-    background: #dcfce7;
-    color: #166534;
-}
-
-
-.faq-section .accordion-button:not(.collapsed) {
-    background: #dcfce7;
-    color: #166534;
-}
-
-/* ================= FAQ FIX ================= */
-
-/* Allow accordion content to overflow properly */
-.faq-section .accordion-collapse {
-    overflow: visible !important;
-}
-
-/* Fix Bootstrap height animation bug */
-.faq-section .collapsing {
-    height: auto !important;
-}
-
-/* Remove overflow clipping */
-.faq-section .accordion-item {
-    overflow: visible !important;
-}
