@@ -91,10 +91,17 @@
         </a>
 
 
-        <div class="stat-card yellow">
+        <!-- <div class="stat-card yellow">
             <h6>Today Orders</h6>
             <h2>{{ $todayOrders }}</h2>
-        </div>
+        </div> -->
+        <a href="{{ route('admin.orders.today') }}">
+            <div class="stat-card yellow">
+                <h6> Today Orders</h6>
+                <h2>{{ $todayOrders }}</h2>
+            </div>
+        </a>
+
 
 
         <a href="{{ route('admin.products.index') }}">
@@ -141,5 +148,54 @@
         </div>
 
     </div> -->
+<div class="card shadow-sm rounded-4 mt-4">
+    <div class="card-body">
+        <h5 class="fw-bold mb-3">Orders (Last 7 Days)</h5>
+        <canvas id="ordersChart" height="120"></canvas>
+    </div>
+</div>
+<script>
+let ordersChart;
+
+async function loadOrdersChart() {
+    const res = await fetch("{{ route('admin.chart.orders') }}");
+    const data = await res.json();
+
+    const ctx = document.getElementById('ordersChart');
+
+    if (ordersChart) {
+        ordersChart.data.labels = data.labels;
+        ordersChart.data.datasets[0].data = data.values;
+        ordersChart.update();
+        return;
+    }
+
+    ordersChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: 'Orders',
+                data: data.values,
+                borderWidth: 3,
+                fill: false,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+// Load initially
+loadOrdersChart();
+
+// Refresh every 10 seconds (REAL-TIME feel)
+setInterval(loadOrdersChart, 10000);
+</script>
 
 </x-admin-layout>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 

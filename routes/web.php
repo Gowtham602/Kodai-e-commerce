@@ -88,6 +88,11 @@ Route::middleware(['auth', 'admin'])
 
         Route::get('/admin/orders/{order}/invoice',  [AdminOrderController::class, 'invoice'])
             ->name('orders.invoice');
+        //today order 
+        Route::get('/admin/orders/today', [AdminOrderController::class, 'todayOrders'])
+            ->name('orders.today');
+        Route::get('/admin/orders/today/json',[AdminOrderController::class, 'todayOrdersJson'])
+            ->name('admin.orders.today.json');
 
 });
 
@@ -123,6 +128,11 @@ Route::get('/test-log', function () {
     logger('LOG SYSTEM WORKING');
     return 'Log test success';
 });
+
+
+//dashboard for admin graph
+Route::get('/admin/chart/orders', [DashBoardController::class, 'chartData'])
+    ->name('admin.chart.orders');
 
 
 Route::get(

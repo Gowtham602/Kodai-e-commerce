@@ -87,7 +87,7 @@ body{background:var(--bg);}
                 <h6 class="fw-bold mb-3">Shipping Details</h6>
 
                 <div class="d-flex gap-3 mb-3">
-                    <label><input type="radio" name="order_for" value="self" checked> For You</label>
+                    <!-- <label><input type="radio" name="order_for" value="self" checked> For You</label> -->
                     <!-- <label><input type="radio" name="order_for" value="other"> Other</label> -->
                 </div>
 
@@ -98,7 +98,7 @@ body{background:var(--bg);}
                     <div class="col-md-6"><input id="phone" name="phone" class="form-control" placeholder="Phone"></div>
                     <div class="col-12"><input id="email" name="email" class="form-control" placeholder="Email"></div>
                     <div class="col-12"><textarea id="address" name="address" class="form-control" placeholder="Address"></textarea></div>
-                    <div class="col-md-6"><input id="state" name="state" class="form-control" placeholder="State"></div>
+                    <div class="col-md-6"><input id="state" name="state" class="form-control" placeholder="District"></div>
                     <div class="col-md-6"><input id="pincode" type="number" name="pincode" class="form-control" placeholder="Pincode"></div>
                     <div class="col-12"><input id="near_place" name="near_place" class="form-control" placeholder="Landmark"></div>
                 </div>
