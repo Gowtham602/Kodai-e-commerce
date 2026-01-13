@@ -18,7 +18,7 @@
         <td style="background:#16a34a;color:#ffffff;padding:22px;text-align:center;">
             <h2 style="margin:0;font-size:22px;">✅ Order Placed Successfully</h2>
             <p style="margin:6px 0 0;font-size:14px;">
-                Thank you for shopping with <strong>Kodai Chocolates</strong>
+                Thank you for shopping with <strong>Kodai Choco</strong>
             </p>
         </td>
     </tr>
@@ -60,7 +60,7 @@
     <!-- FOOTER -->
     <tr>
         <td style="padding:16px;text-align:center;font-size:12px;color:#6b7280;">
-            With ❤️ from <strong>Kodai Chocolates</strong><br>
+            With ❤️ from <strong>Kodai Choco</strong><br>
             Premium chocolates inspired by Kodaikanal
         </td>
     </tr>

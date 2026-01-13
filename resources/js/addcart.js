@@ -226,7 +226,7 @@ function toggleEmptyCart(res) {
         // disable place order
         $('.place-order-btn').prop('disabled', true)
             .text('Cart is empty')
-            .removeClass('btn-success')
+            .removeClass('btn-warning')
             .addClass('btn-secondary');
 
     } else {

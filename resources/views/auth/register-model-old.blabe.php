@@ -4,7 +4,7 @@
 
             <!-- HEADER -->
             <div class="modal-header border-0 text-white"
-                style="background: linear-gradient(135deg, #198754, #20c997);">
+                style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
                 <h5 class="modal-title fw-semibold">Create Your Account ✨</h5>
                 <button type="button"
                     class="btn-close btn-close-white"
@@ -15,7 +15,7 @@
             <div class="modal-body p-4">
 
                 <p class="text-muted small mb-4">
-                    Join <strong>Kodai Chocolates</strong> and enjoy exclusive deals
+                    Join <strong>Kodai Choco</strong> and enjoy exclusive deals
                 </p>
 
                 {{-- Validation Errors --}}
@@ -101,14 +101,14 @@
                     <!-- //send otp -->
                     <button type="button"
                         id="sendOtpBtn"
-                        class="btn btn-success w-100 py-2 fw-semibold rounded-pill"
+                        class="btn btn-warning w-100 py-2 fw-semibold rounded-pill"
                         disabled>
                         Send OTP
                     </button>
                     <!-- verify the opt  -->
                     <button type="button"
                         id="verifyOtpBtn"
-                        class="btn btn-success w-100 py-2 fw-semibold rounded-pill d-none mt-2">
+                        class="btn btn-warning w-100 py-2 fw-semibold rounded-pill d-none mt-2">
                         Verify OTP
                     </button>
 
@@ -126,7 +126,7 @@
                     <!-- Action -->
                     <button type="button"
                         id="createAccountBtn"
-                        class="btn btn-success w-100 py-2 fw-semibold rounded-pill d-none">
+                        class="btn btn-warning w-100 py-2 fw-semibold rounded-pill d-none">
                         Create Account
                     </button>
 
@@ -136,7 +136,7 @@
                 <div class="text-center mt-4">
                     <span class="small text-muted">Already have an account?</span>
                     <a href="javascript:void(0)"
-                        class="fw-semibold text-success text-decoration-none"
+                        class="fw-semibold text-warning text-decoration-none"
                         data-bs-dismiss="modal"
                         data-bs-toggle="modal"
                         data-bs-target="#loginModal">

@@ -21,7 +21,7 @@
     border-radius: 6px;
     transition: 0.2s;
 }
-.test { color: green; }
+.test { color:#7c2d12;; }
 
 /* ================== DESKTOP STICKY FILTER ================== */
 @media (min-width: 577px) {
@@ -53,7 +53,12 @@
     box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
 .sort-label {
-    background: linear-gradient(135deg, #198754, #2ecc71);
+    background: linear-gradient(
+    135deg,
+    #fbbf24,
+    #fde68a
+);
+
     color: #fff;
     font-size: 12px;
     font-weight: 600;
@@ -78,24 +83,24 @@
     border: none;
     padding: 8px 14px;
     font-weight: 500;
-    color: #198754;
-    background: #f1f3f5;
+    color: #92400e;          /* dark honey text */
+    background: #fff7cc;     /* soft honey bg */
     transition: all 0.2s ease;
 }
 
 .pagination .page-item .page-link:hover {
-    background: #198754;
-    color: #fff;
+    background: #f59e0b;     /* honey yellow */
+    color: #7c2d12;          /* dark readable text */
 }
 
 .pagination .page-item.active .page-link {
-    background: linear-gradient(135deg, #198754, #2ecc71);
-    color: #fff;
-    box-shadow: 0 6px 16px rgba(25,135,84,0.35);
+    background: #f59e0b;     /* solid honey (no gradient) */
+    color: #7c2d12;
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
 }
 
 .pagination .page-item.disabled .page-link {
-    background: #e9ecef;
+    background: #f1f3f5;     /* unchanged neutral */
     color: #adb5bd;
 }
 
@@ -148,7 +153,7 @@
             <div class="card-body">
 
                 <h5 class="fw-bold mb-4 border-bottom pb-2">
-                    <i class="bi bi-funnel me-2 text-success"></i> Filters
+                    <i class="bi bi-funnel me-2 text-warning"></i> Filters
                 </h5>
 
                 <h6 class="fw-bold mb-3 test">Categories</h6>
@@ -174,7 +179,7 @@
     <div class="col-lg-9 col-md-8">
 
         {{-- MOBILE FILTER BUTTON --}}
-        <button class="btn btn-success w-100 mb-3 d-sm-none"
+        <button class="btn btn-warning w-100 mb-3 d-sm-none"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#mobileFilter">
             <i class="bi bi-funnel me-2"></i> Filters
@@ -228,7 +233,7 @@
 <div class="offcanvas offcanvas-end d-sm-none" tabindex="-1" id="mobileFilter">
     <div class="offcanvas-header border-bottom">
         <h5 class="fw-bold mb-0">
-            <i class="bi bi-funnel me-2 text-success"></i> Filters
+            <i class="bi bi-funnel me-2 text-warning"></i> Filters
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>

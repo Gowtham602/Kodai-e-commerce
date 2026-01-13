@@ -103,7 +103,7 @@ body{background:var(--bg);}
                     <div class="col-12"><input id="near_place" name="near_place" class="form-control" placeholder="Landmark"></div>
                 </div>
 
-                <button type="button" id="to-payment" class="btn btn-success mt-4 w-100">
+                <button type="button" id="to-payment" class="btn btn-warning mt-4 w-100">
                     Continue to Payment →
                 </button>
             </div>
@@ -124,7 +124,7 @@ body{background:var(--bg);}
 
                 <div class="d-flex gap-3 mt-4">
                     <button type="button" class="btn btn-outline-secondary w-50" onclick="goToStep(1)">← Back</button>
-                    <button type="button" id="to-summary" class="btn btn-success w-50">Continue →</button>
+                    <button type="button" id="to-summary" class="btn btn-warning w-50">Continue →</button>
                 </div>
             </div>
 
@@ -156,7 +156,7 @@ body{background:var(--bg);}
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <span>Delivery</span>
-                    <span class="text-success">Free</span>
+                    <span class="text-warning">Free</span>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between fw-bold fs-5">
@@ -164,11 +164,11 @@ body{background:var(--bg);}
                     <span>₹{{ $cart->subtotal }}</span>
                 </div>
 
-                <!-- <button id="placeOrderBtn" class="btn btn-success w-100 fw-bold py-3 mt-3 d-none">
+                <!-- <button id="placeOrderBtn" class="btn btn-warning w-100 fw-bold py-3 mt-3 d-none">
                     PLACE ORDER
                 </button> -->
                 <button type="submit" id="placeOrderBtn"
-                    class="btn btn-success w-100 fw-bold py-3 mt-3 d-none">
+                    class="btn btn-warning w-100 fw-bold py-3 mt-3 d-none">
                     PLACE ORDER
                 </button>
 

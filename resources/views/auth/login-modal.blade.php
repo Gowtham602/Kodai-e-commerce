@@ -4,7 +4,7 @@
 
             <!-- HEADER -->
             <div class="modal-header border-0 text-white"
-                 style="background: linear-gradient(135deg, #198754, #20c997);">
+                 style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
                 <h5 class="modal-title fw-semibold">Welcome Back 👋</h5>
                 <button type="button" class="btn-close btn-close-white"
                         data-bs-dismiss="modal"></button>
@@ -14,7 +14,7 @@
             <div class="modal-body p-4">
 
                 <p class="text-muted small mb-4">
-                    Login to continue shopping at <strong>Kodai Chocolates</strong>
+                    Login to continue shopping at <strong>Kodai Choco</strong>
                 </p>
 
                 <form method="POST" action="{{ route('login') }}">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="text-end mb-3">
                         <a href="{{ route('password.request') }}"
-                        class="small fw-semibold text-success text-decoration-none">
+                        class="small fw-semibold text-warning text-decoration-none">
                             Forgot your password?
                         </a>
                     </div>
@@ -63,7 +63,7 @@
 
                     <!-- Action -->
                     <button type="submit"
-                            class="btn btn-success w-100 py-2 fw-semibold rounded-pill">
+                            class="btn btn-warning w-100 py-2 fw-semibold rounded-pill">
                         Login Securely
                     </button>
                 </form>
@@ -75,7 +75,7 @@
                         Don’t have an account?
                     </span>
                     <a href="javascript:void(0)"
-                       class="fw-semibold text-success text-decoration-none"
+                       class="fw-semibold text-warning text-decoration-none"
                        data-bs-dismiss="modal"
                        data-bs-toggle="modal"
                        data-bs-target="#registerModal">

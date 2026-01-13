@@ -31,7 +31,7 @@
 </style>
 <h3 class="mb-4">Order  <b> {{ $order->customer_name }} </b>Details</h3>
 <a href="{{ route('admin.orders.index') }}"
-   class="btn btn-outline-success btn-sm mb-4">
+   class="btn btn-outline-warning btn-sm mb-4">
     ← Back
 </a>
 
@@ -135,7 +135,7 @@
                                     ₹{{ number_format($item->price,2) }}
                                 </td>
 
-                                <td class="text-end fw-bold text-success">
+                                <td class="text-end fw-bold text-warning">
                                     ₹{{ number_format($item->total,2) }}
                                 </td>
                             </tr>

@@ -41,7 +41,7 @@
             </div> -->
 
             <!-- Submit -->
-            <button class="btn btn-success rounded-pill px-4" id="saveBtn">
+            <button class="btn btn-warning rounded-pill px-4" id="saveBtn">
                 Save Category
             </button>
 

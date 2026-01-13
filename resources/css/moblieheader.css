@@ -5,7 +5,12 @@
     left: 0;
     right: 0;
     height: 56px;
-    background: linear-gradient(135deg, #198754, #2ecc71);
+    background: linear-gradient(90deg,
+            #b45309,
+            /* deep burnt amber */
+            #f59e0b
+            /* fire yellow */
+        );
     z-index: 9999;
 }
 
@@ -48,8 +53,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid rgba(0,0,0,0.08);
-    box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.1);
     z-index: 9999;
 }
 
@@ -66,7 +71,7 @@
 }
 
 .mobile-bottom-nav a.active {
-    color: #198754;
+    color: #f59e0b;
     font-weight: 600;
 }
 
@@ -91,4 +96,3 @@
     width: 100%;
     z-index: 1050;
 } */
-

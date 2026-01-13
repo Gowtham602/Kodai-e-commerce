@@ -12,7 +12,13 @@
 }
 
 .sticky-cart-inner {
-    background: linear-gradient(135deg, #1fa463, #0f7a43);
+    background: linear-gradient(
+    135deg,
+    #d97706,
+    #fbbf24
+);
+
+
     color: #fff;
     border-radius: 18px;
     padding: 14px 16px;
@@ -40,7 +46,7 @@
 
 .sticky-cart-btn {
     background: #ffffff;
-    color: #0f7a43;
+    color: #7c2d12; 
     padding: 7px 16px;
     border-radius: 999px;
     font-weight: 700;

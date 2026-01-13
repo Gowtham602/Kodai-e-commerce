@@ -33,10 +33,26 @@
     font-weight: 700;
 }
 
-.status-placed { background:#dcfce7; color:#166534; }
-.status-shipped { background:#e0f2fe; color:#075985; }
-.status-delivered { background:#ede9fe; color:#5b21b6; }
-.status-cancelled { background:#fee2e2; color:#7f1d1d; }
+.status-placed {
+    background: #fff7cc;   /* soft honey */
+    color: #92400e;        /* dark honey text */
+}
+
+.status-shipped {
+    background: #fde68a;   /* light amber */
+    color: #7c2d12;        /* strong readable text */
+}
+
+.status-delivered {
+    background: #fbbf24;   /* honey yellow */
+    color: #7c2d12;        /* dark contrast */
+}
+
+.status-cancelled {
+    background: #f1f3f5;   /* neutral grey (kept calm) */
+    color: #7f1d1d;        /* muted red for warning */
+}
+
 
 /* ===== PRODUCT ===== */
 .product-row {
@@ -111,7 +127,7 @@
             </span>
         </div>
 
-        <a href="{{ route('orders.index') }}" class="btn btn-outline-success btn-sm mb-4">
+        <a href="{{ route('orders.index') }}" class="btn btn-outline-warning btn-sm mb-4">
             ← Back to Orders
         </a>
 
@@ -167,7 +183,7 @@
 
                     <div class="summary-row">
                         <span>Delivery</span>
-                        <span class="text-success">Free</span>
+                        <span class="text-warning">Free</span>
                     </div>
 
                     <hr>

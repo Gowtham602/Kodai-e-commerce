@@ -14,7 +14,7 @@
 
       <!-- HEADER -->
       <div class="modal-header text-white"
-           style="background:linear-gradient(135deg,#198754,#20c997)">
+           style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
         <h5 class="modal-title fw-semibold">Create Your Account ✨</h5>
         <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
@@ -23,7 +23,7 @@
       <div class="modal-body p-4">
 
         <p class="text-muted small mb-3">
-          Join <strong>Kodai Chocolates</strong> and enjoy exclusive deals
+          Join <strong>Kodai Choco</strong> and enjoy exclusive deals
         </p>
 
         <div id="registerErrors" class="alert alert-danger d-none"></div>
@@ -33,7 +33,7 @@
 
           <!-- STEP INDICATOR -->
           <div class="text-center mb-3">
-            <span id="stepBadge" class="badge bg-success">Step 1 of 3</span>
+            <span id="stepBadge" class="badge bg-warning">Step 1 of 3</span>
           </div>
 
           <!-- STEP 1 : BASIC -->
@@ -51,7 +51,7 @@
             </div>
 
             <button type="button" id="sendOtpBtn"
-                    class="btn btn-success w-100 rounded-pill" disabled>
+                    class="btn btn-warning w-100 rounded-pill" disabled>
               Send OTP
             </button>
           </div>
@@ -72,14 +72,14 @@
 
                 <button type="button"
                         id="resendOtpBtn"
-                        class="btn btn-link btn-sm text-success p-0"
+                        class="btn btn-link btn-sm text-warning p-0"
                         disabled>
                     Resend OTP
                 </button>
             </div>
 
             <button type="button" id="verifyOtpBtn"
-                    class="btn btn-success w-100 rounded-pill">
+                    class="btn btn-warning w-100 rounded-pill">
               Verify OTP
             </button>
             <!-- OTP INFO -->
@@ -109,7 +109,7 @@
             </div>
 
             <button type="button" id="createAccountBtn"
-                    class="btn btn-success w-100 rounded-pill">
+                    class="btn btn-warning w-100 rounded-pill">
               Create Account
             </button>
           </div>
@@ -118,7 +118,7 @@
 
         <div class="text-center mt-4">
           <span class="small text-muted">Already have an account?</span>
-          <a href="#" class="fw-semibold text-success"
+          <a href="#" class="fw-semibold text-warning"
              data-bs-dismiss="modal"
              data-bs-toggle="modal"
              data-bs-target="#loginModal">

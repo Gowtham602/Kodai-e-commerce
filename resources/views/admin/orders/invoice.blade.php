@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h2>Kodai Chocolates</h2>
+<h2>Kodai Choco</h2>
 <p><b>Invoice:</b> {{ $order->order_number }}</p>
 <p><b>Date:</b> {{ $order->created_at->format('d M Y') }}</p>
 

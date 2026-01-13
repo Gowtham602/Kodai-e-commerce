@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kodai Chocolates</title>
+    <title>Kodai Choco</title>
 
     <link rel="icon" href="/favicon.ico">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -88,7 +88,7 @@
 ========================= --}}
 @if(session('success'))
 <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:9999;">
-    <div id="successToast" class="toast text-bg-success border-0">
+    <div id="successToast" class="toast text-bg-warning border-0">
         <div class="d-flex">
             <div class="toast-body">
                 {{ session('success') }}
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 ========================= --}}
 @if (session('status'))
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="resetToast" class="toast align-items-center text-bg-success border-0 show">
+    <div id="resetToast" class="toast align-items-center text-bg-warning border-0 show">
         <div class="d-flex">
             <div class="toast-body">
                 {{ session('status') }}

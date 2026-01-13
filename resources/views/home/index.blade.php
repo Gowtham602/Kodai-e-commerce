@@ -21,12 +21,12 @@
                     <div class="position-relative h-100 d-flex align-items-center justify-content-center text-center text-white">
                         <div>
                             <h1 class="fw-bold mb-3">
-                                Welcome to <span class="text-success">Kodai Chocolates</span>
+                                Welcome to <span class="text-warning1">Kodai Choco</span>
                             </h1>
                             <p class="lead mb-4">
                                 Authentic taste from the hills of Kodaikanal
                             </p>
-                            <a href="{{ route('products.index') }}" class="btn btn-success rounded-pill px-4 me-2">Shop Now</a>
+                            <a href="{{ route('products.index') }}" class="btn  btn-warning rounded-pill px-4 me-2">Shop Now</a>
                             <a href="{{ route('about') }}" class="btn btn-outline-light rounded-pill px-4">Learn More</a>
                         </div>
                     </div>
@@ -210,18 +210,18 @@
         <!-- TEXT -->
         <div class="col-lg-6">
             <h2 class="fw-bold mb-3">
-                About <span class="text-success">Kodai Chocolates</span>
+                About <span class="text-warning">Kodai Choco</span>
             </h2>
 
             <p class="text-muted text-justify">
-                Nestled in the misty hills of Kodaikanal, Kodai Chocolates brings you
+                Nestled in the misty hills of Kodaikanal, Kodai Choco brings you
                 authentic, handmade chocolates crafted with love and tradition.
                 Every bite reflects the purity of the hills and the richness of
                 premium ingredients.
             </p>
 
             <a href="{{ route('about') }}"
-               class="btn btn-success rounded-pill px-4 mt-2">
+               class="btn btn-warning rounded-pill px-4 mt-2">
                 Know More
             </a>
         </div>
@@ -241,7 +241,7 @@
 <section class="container my-5 why-choose-us">
     <div class="text-center mb-4">
         <h3 class="fw-bold">
-            Why Choose <span class="text-success">Kodai Chocolates</span>
+            Why Choose <span class="text-warning">Kodai Choco</span>
         </h3>
         <p class="text-muted mb-0">
             What makes us special
@@ -319,7 +319,7 @@
             </p>
           </div>
           <button
-            class="btn btn-light text-success fw-bold px-4 py-2 mt-3 mt-md-0 rounded-pill shadow-sm"
+            class="btn btn-light text-warning fw-bold px-4 py-2 mt-3 mt-md-0 rounded-pill shadow-sm"
           >
             CHAT NOW
           </button>
@@ -332,7 +332,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h4 class="fw-bold  mb-1">Today’s Deals</h4>
-                <small class="fw-bold text-success ">Limited time offers</small>
+                <small class="fw-bold text-warning ">Limited time offers</small>
             </div>
             <span class="badge bg-danger text-white rounded-pill px-3 py-2">Flash Sale</span>
         </div>
@@ -361,7 +361,7 @@
                                 ⏳ Loading...
                             </div> 
 
-                            <button class="btn btn-success rounded-pill w-100 mt-2">
+                            <button class="btn btn-warning rounded-pill w-100 mt-2">
                                 Buy Now
                             </button>
                         </div>
@@ -428,7 +428,7 @@
                 <div class="testimonial-card">
                     <p class="testimonial-text">
                         “Fast delivery and amazing quality.
-                        Kodai Chocolates never disappoint!”
+                        Kodai Choco never disappoint!”
                     </p>
                     <div class="testimonial-user">
                         <img src="https://randomuser.me/api/portraits/women/68.jpg">

@@ -43,10 +43,26 @@
     font-weight: 700;
 }
 
-.status-placed { background:#dcfce7; color:#166534; }
-.status-shipped { background:#e0f2fe; color:#075985; }
-.status-delivered { background:#ede9fe; color:#5b21b6; }
-.status-cancelled { background:#fee2e2; color:#7f1d1d; }
+.status-placed {
+    background: #fff7cc;   /* soft honey */
+    color: #92400e;        /* dark honey text */
+}
+
+.status-shipped {
+    background: #fde68a;   /* light amber */
+    color: #7c2d12;        /* strong readable text */
+}
+
+.status-delivered {
+    background: #fbbf24;   /* honey yellow */
+    color: #7c2d12;        /* dark contrast */
+}
+
+.status-cancelled {
+    background: #f1f3f5;   /* neutral grey (kept calm) */
+    color: #7f1d1d;        /* muted red for warning */
+}
+
 
 /* ===== ITEMS ===== */
 .order-items {
@@ -64,7 +80,7 @@
 
 /* ===== BUTTON ===== */
 .view-btn {
-    background: linear-gradient(135deg, #198754, #0f5132);
+    background: linear-gradient(135deg, #f59e0b, #d97706);
     border-radius: 999px;
     padding: 10px 22px;
     font-size: 14px;
@@ -143,7 +159,7 @@
                 <div class="col-12 text-center py-5">
                     <h5 class="fw-bold">No orders yet</h5>
                     <p class="text-muted">You haven’t placed any orders.</p>
-                    <a href="{{ route('home') }}" class="btn btn-success rounded-pill px-4">
+                    <a href="{{ route('home') }}" class="btn btn-warning rounded-pill px-4">
                         Start Shopping
                     </a>
                 </div>

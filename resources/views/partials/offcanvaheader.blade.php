@@ -23,9 +23,10 @@
 
 .menu-item:hover,
 .menu-item.active {
-    background: #e6f4ea;
-    color: #198754;
+    background: #fff7cc;   /* soft honey background */
+    color: #7c2d12;        /* dark honey text */
 }
+
 
 /* Divider */
 .menu-divider {
@@ -77,8 +78,8 @@
     
     <!-- HEADER -->
     <div class="offcanvas-header border-bottom">
-        <h5 class="fw-bold text-success mb-0">
-            <i class="fas fa-leaf me-2"></i> Kodai Chocolates
+        <h5 class="fw-bold text-warning mb-0">
+            <i class="fas fa-leaf me-2"></i> Kodai Choco
         </h5>
         <button class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
@@ -129,14 +130,14 @@
         @else
             <!-- AUTH BUTTONS -->
             <div class="auth-buttons">
-                <button class="btn btn-success w-100 rounded-pill mb-2"
+                <button class="btn btn-warning w-100 rounded-pill mb-2"
                         data-bs-dismiss="offcanvas"
                         data-bs-toggle="modal"
                         data-bs-target="#loginModal">
                     <i class="fas fa-sign-in-alt me-2"></i> Login
                 </button>
 
-                <button class="btn btn-outline-success w-100 rounded-pill"
+                <button class="btn btn-outline-warning w-100 rounded-pill"
                         data-bs-dismiss="offcanvas"
                         data-bs-toggle="modal"
                         data-bs-target="#registerModal">
