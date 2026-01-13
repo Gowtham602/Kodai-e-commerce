@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -58,4 +59,26 @@ class OrderController extends Controller
 
         return $pdf->download('invoice-'.$order->order_number.'.pdf');
     }
+
+     /* =========================
+       TODAY ORDER 
+    ========================== */
+    public function todayOrders()
+    {
+        $orders = Order::with('user')
+            ->whereDate('created_at', Carbon::today())
+            ->latest()
+            ->get();
+
+        return view('admin.orders.today', compact('orders'));
+    } 
+    public function todayOrdersJson()
+    {
+        return Order::with('user')
+            ->whereDate('created_at', now())
+            ->latest()
+            ->take(20)
+            ->get();
+    }
+
 }

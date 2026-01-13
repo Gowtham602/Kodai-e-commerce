@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
+ use Carbon\Carbon;
 
 class DashBoardController extends Controller
 {
@@ -35,7 +35,23 @@ public function dashboard()
     }
 
        
- 
+
+
+//dashboard chart 
+public function chartData()
+{
+    $data = Order::selectRaw('DATE(created_at) as date, COUNT(*) as total')
+        ->where('created_at', '>=', now()->subDays(7))
+        ->groupBy('date')
+        ->orderBy('date')
+        ->get();
+
+    return response()->json([
+        'labels' => $data->pluck('date'),
+        'values' => $data->pluck('total'),
+    ]);
+}
+
 
 
 

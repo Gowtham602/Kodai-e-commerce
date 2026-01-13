@@ -32,13 +32,21 @@
             <div class="icon-box"><i class="bi bi-lightning-charge"></i></div>
             Deals
         </a>
-        <a href="{{ route('admin.orders.index') }}"
+             <a href="{{ route('admin.orders.index') }}"
             class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                 <span class="icon-box">
                     <i class="bi bi-receipt"></i>
                 </span>
                 Orders
             </a>
+            <a href="{{ route('admin.orders.today') }}"
+   class="menu-item {{ request()->routeIs('admin.orders.today') ? 'active' : '' }}">
+    <span class="icon-box">
+        <i class="bi bi-calendar-check"></i>
+    </span>
+    Today Orders
+</a>
+
             <a href="{{ route('admin.categories.index') }}"
                 class="menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                     <div class="icon-box"><i class="bi bi-tags"></i></div>
