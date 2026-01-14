@@ -72,7 +72,7 @@ function productCard(product) {
                 </h5>
             </div>
 
-                <button class="btn btn-sucsess add-to-cart mb-2 mt-auto w-100 "
+                <button class="btn btn-warning add-to-cart mb-2 mt-auto w-100 "
                     data-id="${product.id}"
                     data-name="${product.name}"
                     data-price="${product.price}"
