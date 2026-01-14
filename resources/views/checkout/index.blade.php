@@ -12,30 +12,38 @@ body{background:var(--bg);}
     display:flex;
     gap:12px;
     margin-bottom:24px;
+    margin-top: 20px;
 }
-.checkout-steps .step{
-    flex:1;
-    padding:14px;
-    border-radius:14px;
-    text-align:center;
-    background:#e5e7eb;
-    color:#6b7280;
-    font-weight:600;
+.checkout-steps .step {
+    flex: 1;
+    padding: 14px;
+    border-radius: 14px;
+    text-align: center;
+    background: #fff7cc;      /* soft honey bg */
+    color: #92400e;           /* dark honey text */
+    font-weight: 600;
 }
-.checkout-steps .step span{
-    display:inline-flex;
-    width:34px;height:34px;
-    align-items:center;justify-content:center;
-    border-radius:50%;
-    background:#d1d5db;
-    margin-bottom:6px;
+
+.checkout-steps .step span {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fde68a;      /* light honey circle */
+    margin-bottom: 6px;
+    color: #7c2d12;           /* readable dark text */
+    margin-right: 10px;
 }
-.checkout-steps .step.active{
-    background:#dcfce7;
-    color:#166534;
+
+.checkout-steps .step.active {
+    background: #f59e0b;      /* main honey */
+    color: #7c2d12;
 }
+
 .checkout-steps .step.active span{
-    background:var(--brand);
+    background: #d97706;
     color:#fff;
 }
 

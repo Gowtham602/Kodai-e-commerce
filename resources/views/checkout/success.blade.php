@@ -2,8 +2,8 @@
 
 <style>
 :root {
-    --brand: #16a34a;
-    --brand-dark: #0f5132;
+    --brand: #f59e0b;
+    --brand-dark: #d97706;
     --bg-soft: #f9fafb;
     --text-dark: #111827;
     --text-muted: #6b7280;
@@ -35,15 +35,16 @@
     width: 88px;
     height: 88px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--brand), #22c55e);
+    background: linear-gradient(135deg, #f59e0b, #d97706);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 18px;
-    color: #fff;
+    color: #ffffff;
     font-size: 42px;
-    box-shadow: 0 14px 32px rgba(34,197,94,0.45);
+    box-shadow: 0 14px 32px rgba(245, 158, 11, 0.45);
 }
+
 
 /* TEXT */
 .success-title {
@@ -86,14 +87,15 @@
 
 /* BUTTON */
 .success-btn {
-    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    background: linear-gradient(135deg, #f59e0b, #d97706);
     border-radius: 16px;
     padding: 14px;
     font-size: 15px;
     font-weight: 800;
-    box-shadow: 0 14px 30px rgba(25,135,84,0.45);
+    box-shadow: 0 14px 30px rgba(245, 158, 11, 0.45);
     transition: all .2s ease;
 }
+
 
 .success-btn:hover {
     transform: translateY(-2px);

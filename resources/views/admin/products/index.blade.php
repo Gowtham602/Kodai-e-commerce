@@ -19,7 +19,7 @@
         </div>
 
         @if(session('success'))
-        <div class="alert alert-success rounded-3">
+        <div class="alert alert-warning rounded-3">
             {{ session('success') }}
         </div>
         @endif

@@ -111,7 +111,7 @@
    CTA BUTTON
 ===================== */
         .place-order-btn {
-            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             border-radius: 14px;
             font-size: 15px;
             font-weight: 800;
