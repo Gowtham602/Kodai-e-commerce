@@ -3,7 +3,7 @@
     <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden">
 
         <!-- ACCENT STRIP -->
-        <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-emerald-500 to-emerald-300"></div>
+        <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-amber-500 to-amber-300"></div>
 
         <div class="p-6 sm:p-10">
 
@@ -45,7 +45,7 @@
                             id="name"
                             name="name"
                             type="text"
-                            class="block w-full rounded-xl border-gray-200 focus:ring-emerald-500 focus:border-emerald-500"
+                            class="block w-full rounded-xl border-gray-200 focus:ring-amber-500 focus:border-amber-500"
                             :value="old('name', $user->name)"
                             required
                             autocomplete="name"
@@ -60,7 +60,7 @@
                             id="email"
                             name="email"
                             type="email"
-                            class="block w-full rounded-xl border-gray-200 focus:ring-emerald-500 focus:border-emerald-500"
+                            class="block w-full rounded-xl border-gray-200 focus:ring-amber-500 focus:border-amber-500"
                             :value="old('email', $user->email)"
                             required
                         />
@@ -93,7 +93,7 @@
                     <button
                         type="submit"
                         class="inline-flex items-center justify-center px-6 py-3 rounded-xl
-                        bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition w-full sm:w-auto">
+                        bg-amber-600 text-white font-semibold hover:bg-amber-700 transition w-full sm:w-auto">
                         Save Changes
                     </button>
 
@@ -103,7 +103,7 @@
                             x-show="show"
                             x-transition
                             x-init="setTimeout(() => show = false, 2000)"
-                            class="text-sm text-emerald-600 font-medium">
+                            class="text-sm text-amber-600 font-medium">
                             ✔ Profile updated successfully
                         </p>
                     @endif
