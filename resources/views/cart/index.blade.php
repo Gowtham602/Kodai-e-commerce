@@ -178,7 +178,7 @@
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.35);
+            box-shadow: 0 10px 24px rgba(245, 158, 11, 0.35);
         }
 
         .bag-title h1 {
@@ -206,7 +206,7 @@
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+            box-shadow: 0 10px 24px rgba(245, 158, 11, 0.35);
             transition: all .2s ease;
         }
 
