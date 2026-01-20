@@ -5,13 +5,9 @@
 
         <div class="container">
 
-            <!-- Logo -->
             <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-                <i class="fas fa-mountain me-2"></i>
-                <div>
-                    <div class="main-title">Kodai Choco</div>
-                    <div class="sub-title" style="font-size: 0.9rem; line-height: 1;"> PV Chocolates</div>
-                </div>
+                <img src="{{ asset('assets/logo/kodai_choco_dark_brown1.svg') }}" alt="Kodai Choco" style="height: 40px; width:auto;" class="me-1">
+                
             </a>
 
             <!-- Mobile toggle -->

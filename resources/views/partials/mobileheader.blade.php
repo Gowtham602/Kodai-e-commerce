@@ -1,10 +1,11 @@
 <!-- MOBILE TOP HEADER -->
-<header class="mobile-top-bar d-md-none">
+<header class="mobile-top-bar  d-md-none">
     <div class="container d-flex align-items-center justify-content-between">
 
         <!-- Logo -->
-        <a href="{{ route('home') }}" class="mobile-logo">
-            Kodai <span>Chocolates</span>
+        <a href="{{ route('home') }}" class="logo d-flex align-items-center">
+                <img src="{{ asset('assets/logo/kodai_choco_dark_brown1.svg') }}" alt="Kodai Choco" style="height: 43px; width:auto;" class="me-0">
+                
         </a>
 
         <!-- Right icons -->
