@@ -119,41 +119,95 @@ public function store(Request $request): JsonResponse
 
 
 
+// public function sendOtp(Request $request)
+// {
+//     $request->validate([
+//         'name'  => 'required|string|max:255',
+//         'phone' => 'required|digits:10|unique:users,phone'
+//     ], [
+//         'phone.unique' => 'This phone number is already registered. Please login.'
+//     ]);
+
+//     $otp = rand(100000, 999999);
+//      Session::forget(['register_otp', 'otp_expires_at']);
+
+//     Session::put('register_otp', $otp);
+//     Session::put('register_phone', $request->phone);
+//     Session::put('register_name', $request->name);
+//     Session::put('otp_expires_at', now()->addMinutes(2)); // ⏱ 2 mins
+
+//     if (config('sms.mode') === 'log') {
+//         Log::info("OTP for {$request->phone} is {$otp}");
+//         return response()->json(['message' => 'OTP logged']);
+//     }
+
+//    $response= Http::get('http://its.idealsms.in/pushsms.php', [
+//         'username' => config('sms.username'),
+//         'api_password' => config('sms.password'),
+//         'sender' => config('sms.sender'),
+//         'to' => $request->phone,
+//         'message' => "Your OTP is {$otp}. Valid for 5 minutes. IDLSMS",
+//         'priority' => config('sms.priority'),
+//         'e_id' => config('sms.e_id'),
+//         't_id' => config('sms.t_id'),
+//     ]);
+//     Log::info('SMS RESPONSE', [
+//         'status' => $response->status(),
+//         'body'   => $response->body(),
+//     ]);
+
+//     return response()->json(['message' => 'OTP sent']);
+// }
 public function sendOtp(Request $request)
 {
+    // dd($request);
     $request->validate([
         'name'  => 'required|string|max:255',
         'phone' => 'required|digits:10|unique:users,phone'
-    ], [
+    ],[
         'phone.unique' => 'This phone number is already registered. Please login.'
     ]);
+    
 
     $otp = rand(100000, 999999);
-     Session::forget(['register_otp', 'otp_expires_at']);
 
-    Session::put('register_otp', $otp);
-    Session::put('register_phone', $request->phone);
-    Session::put('register_name', $request->name);
-    Session::put('otp_expires_at', now()->addMinutes(2)); // ⏱ 5 mins
+    session([
+        'register_otp'   => $otp,
+        'register_phone' => $request->phone,
+        'register_name'  => $request->name,
+        'otp_expires_at' => now()->addMinutes(2),
+    ]);
 
     if (config('sms.mode') === 'log') {
         Log::info("OTP for {$request->phone} is {$otp}");
         return response()->json(['message' => 'OTP logged']);
     }
 
-    Http::get('http://its.idealsms.in/pushsms.php', [
-        'username' => config('sms.username'),
-        'api_password' => config('sms.password'),
-        'sender' => config('sms.sender'),
-        'to' => $request->phone,
-        'message' => "Your OTP is {$otp}. Valid for 5 minutes. IDLSMS",
-        'priority' => config('sms.priority'),
-        'e_id' => config('sms.e_id'),
-        't_id' => config('sms.t_id'),
+    //  EXACT DLT TEMPLATE
+    $message = "{$otp} Please use this OTP {$otp} for your registration.IDLSMS";
+
+    $response = Http::asForm()->post(
+        'http://its.idealsms.in/pushsms.php',
+        [
+            'username'     => config('sms.username'),
+            'api_password' => config('sms.password'),
+            'sender'       => config('sms.sender'),
+            'to'           => $request->phone,
+            'message'      => $message,
+            'priority'     => config('sms.priority'),
+            'e_id'         => config('sms.e_id'),
+            't_id'         => config('sms.t_id'),
+        ]
+    );
+
+    Log::info('SMS RESPONSE', [
+        'status' => $response->status(),
+        'body'   => $response->body(),
     ]);
 
     return response()->json(['message' => 'OTP sent']);
 }
+
 
 
 //verify otp 
